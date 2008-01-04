@@ -1,0 +1,71 @@
+<html>
+<head>
+<title> SimpleModal Tests Quirksmode </title>
+
+<meta name='author' content='Eric Martin' />
+<meta name='copyright' content='2007 - Eric Martin' />
+<meta name='description' content='SimpleModal is a lightweight jQuery plugin that provides a simple interface to create a modal dialog.' />
+<meta name='keywords' content='simplemodal jquery plugin modal dialog css javascript dom' />
+
+<script src='js/jquery.js' type='text/javascript'></script>
+<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
+<script src='js/simplemodal.js' type='text/javascript'></script>
+<style type='text/css'>
+	@import "css/simplemodal.css";
+</style>
+
+<!--[if IE]>
+<style type='text/css'>
+	ul{margin: 0;}
+</style>
+<![endif]-->
+<!--[if lt IE 7]>
+<style type='text/css'>
+	@import "css/simplemodal-ie.css";
+</style>
+<![endif]-->
+
+</head>
+<body>
+<div id='container'>
+	<div id='header'><h1>SimpleModal Tests</h1></div>
+	<div id='content'>
+	<ul>
+		<li><a href='#' id='test1'>Chained Function - default options</a> 
+		<pre><code>$('#modalContentTest').modal();</code></pre></li>
+		<li><a href='#' id='test12'>IE SELECT bleed test</a>
+		<p>Make sure the select options do not bleed through the modal dialog.</p>
+		<div style='text-align: center;'>
+		<form action='#'>
+		<select>
+			<option>option1</option>
+			<option>option2</option>
+			<option>option3</option>
+			<option>option4</option>
+			<option>option5</option>
+		</select>
+		</form>
+		</div>
+	</li>
+	</ul>
+	</div>
+	<div style='height: 200px;'>&nbsp;</div>
+</div>
+<div id='modalContentTest' style='display: none'>
+	<form action='#'>
+	<textarea rows='5' cols='30'></textarea><br/>
+	<select>
+		<option>option1</option>
+		<option>option2</option>
+		<option>option3</option>
+		<option>option4</option>
+		<option>option5</option>
+	</select><br/>
+	<input type='text'/><br/>
+	<input type='button' value='button' class='animate'/><br/>
+	<input type='button' value='close' class='modalClose'/><br/>
+	</form>
+</div>
+<div style='height: 50px;'>&nbsp;</div>
+</body>
+</html>
