@@ -9,7 +9,7 @@
  */
 
 /* fix png display in IE < 7 */
-a.modalCloseImg{background:none; width:22px; height:26px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src='img/x.png',sizingMethod='scale');}
+a.modalCloseImg{background:none; width:22px; height:26px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/x.png',sizingMethod='crop');}
 
 /* fix fixed container position in IE < 7 */
 #modalContainer {top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
