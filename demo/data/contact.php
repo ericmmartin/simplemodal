@@ -72,7 +72,7 @@ function sendEmail($name, $email, $message) {
 
 	// Filter and validate email
 	$email = filter($email);
-	if (!validEmail($email)) {
+	if (!validateEmail($email)) {
 		$subject .= " - invalid email";
 		$message .= "\n\nBad email: $email";
 		$email = $to;
