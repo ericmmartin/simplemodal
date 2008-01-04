@@ -1,5 +1,24 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.1 ==
+ * Date: Jan 3, 2008
+ * Changed dialog.content to dialog.data
+ * Changed remove() function to close()
+   - Added a parameter to close() for external calls
+ * Removed iframeId option
+ * Removed cloneContent option
+   - Completely changed the way SimpleModal handles the data (see below)
+ * Added overlayCss and containerCss options to allow styling through SimpleModal
+ * Added persist option to allow data to be "saved" across modal dialog calls
+ * Changed the handling of data. SimpleModal will now keep track of whether the 
+   data came from the DOM and if it did, when the dialog is closed, it will re-insert it.
+   If persist is true, SimpleModal will re-insert the data in the state it was in when
+   closed, otherwise, it will re-insert a cloned value of the data.
+ * Added more CSS attributes to the overlay, container and iframe.
+   - There were a number of CSS attributes that were necessary for the modal dialog
+     to display correctly, so I moved them from the CSS, into SimpleModal.
+
+
 == 1.0.1 ==
  * Date: Oct 23, 2007
  * Removed containerTop function
