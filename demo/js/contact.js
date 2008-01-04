@@ -44,6 +44,18 @@ var contact = {
 						'font-size': '.9em'
 					});
 				}
+				// fix png's for IE 6
+				if ($.browser.msie && $.browser.version < 7) {
+					$('#contactModalContainer .send, #contactModalContainer .cancel').each(function () {
+						if ($(this).css('backgroundImage').match(/^url[("']+(.*\.png)[)"']+$/i)) {
+							var src = RegExp.$1;
+							$(this).css({
+								backgroundImage: 'none',
+								filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' +  src + '", sizingMethod="crop")'
+							});
+						}
+					});
+				}
 			});
 		});
 	},
