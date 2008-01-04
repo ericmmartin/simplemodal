@@ -264,17 +264,19 @@
 		 */
 		fixIE: function () {
 			var wHeight = $(window).height() + 'px';
+			var wWidth = $(window).width() + 'px';
 
 			// position hacks
-			this.dialog.overlay.css({position: 'absolute', height: wHeight});
+			this.dialog.overlay.css({position: 'absolute', height: wHeight, width: wWidth});
 			this.dialog.container.css({position: 'absolute'});
 
 			// add an iframe to prevent select options from bleeding through
-			this.dialog.iframe = $('<iframe src="javascript:false;"></iframe>')
+			this.dialog.iframe = $('<iframe src="javascript:false;">')
 				.css($.extend(this.opts.iframeCss, {
 					opacity: 0, 
-					position: 'absolute', 
+					position: 'absolute',
 					height: wHeight,
+					width: wWidth,
 					zIndex: 1000,
 					width: '100%',
 					top: 0,
