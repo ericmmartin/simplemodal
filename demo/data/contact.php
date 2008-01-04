@@ -50,7 +50,7 @@ if (empty($action)) {
 			<br/>
 		</form>
 	</div>
-	<div class='bottom'><a href='http://www.ericmmartin.com/projects/smcf/'>Powered by SimpleModal Contact Form</a></div>
+	<div class='bottom'><a href='http://www.ericmmartin.com/projects/simplemodal/'>Powered by SimpleModal</a></div>
 </div>";
 }
 else if ($action == 'send') {
