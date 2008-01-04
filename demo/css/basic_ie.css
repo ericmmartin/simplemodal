@@ -1,0 +1,17 @@
+/*
+ * SimpleModal Basic Modal Dialog
+ * http://www.ericmmartin.com/projects/simplemodal/
+ * http://code.google.com/p/simplemodal/
+ *
+ * Copyright (c) 2007 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Revision: $Id$
+ *
+ */
+
+/* IE 6 hacks*/
+#modalContainer {top:expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
+#modalContainer a.modalCloseImg {background:none; width:22px; height:26px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src='img/basic/x.png',sizingMethod='scale');}

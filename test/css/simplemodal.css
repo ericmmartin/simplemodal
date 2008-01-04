@@ -1,0 +1,26 @@
+/**
+ * SimpleModal Test
+ * http://code.google.com/p/simplemodal/
+ *
+ * Copyright (c) 2007 Eric Martin - http://ericmmartin.com
+ *
+ * Revision: $Id$
+ *
+ */
+body {font-family:Verdana; padding:0; margin:0; background-color:#eee; height:100%; width:100%;}
+#container {width:800px; margin:0 auto; margin-top:20px; background-color:#fff; border:1px solid #aaa; }
+#header {padding:4px;}
+#header {background:#eee url(../img/header.gif); border-bottom:1px solid #aaa; text-align:center; color:#444;}
+#content {margin:0 auto; width:100%; padding-top:8px;}
+#content div.form {margin:0 auto; width:50%;}
+.test {padding:8px; overflow:auto;}
+ul {padding-left:18px;}
+li a {font-size:.9em;}
+pre {overflow:auto; padding:1em; width:90%; background:#f9f9f9; border:1px solid #ddd; border-left:3px solid #ccc; font-size:.9em; }
+a, a:active, a:link, a:visited {text-decoration:underline; color:#333; padding:2px;}
+a:hover {text-decoration:none; color:#336699;}
+
+/* SimpleModal Styles */
+#modalOverlay {background-color:#000; cursor:wait;}
+#modalContainer {height:400px; width:600px; left:50%; top:15%; margin-left:-300px; background-color:#fff; border:3px solid #ccc;}
+a.modalCloseImg {background:url(../img/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-14px; left:588px; cursor:pointer;}

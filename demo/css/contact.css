@@ -1,0 +1,45 @@
+/*
+ * SimpleModal Contact Form
+ * http://www.ericmmartin.com/projects/simplemodal/
+ * http://code.google.com/p/simplemodal/
+ *
+ * Copyright (c) 2007 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Revision: $Id$
+ *
+ */
+ 
+/* Overlay */
+#contactModalOverlay {background-color:#000; cursor:wait;}
+
+/* Container */
+#contactModalContainer {height:290px; width:420px; left:50%; top:15%; margin-left:-210px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left;}
+#contactModalContainer .content {background-color:#333; color:#ddd; height:260px;}
+#contactModalContainer h1 {color:#d76300; margin:0; padding:0 0 6px 12px; font-size:1.2em; text-align:left;}
+#contactModalContainer .loading {position:absolute; background:url(../img/contact/loading.gif) no-repeat; z-index:8000; height:55px; width:54px; margin:-14px 0 0 170px; padding:0;}
+#contactModalContainer .message {text-align:center;}
+#contactModalContainer .error {width:92%; font-size:.8em; background:#000; border:2px solid #ccc; font-size:0.8em; font-weight:bold; margin:0 auto; padding:2px;}
+#contactModalContainer br {clear:both;}
+#contactModalContainer form {padding:0; margin:0;}
+#contactModalContainer label {clear:left; display:block; width:100px; float:left; text-align:right; padding-right:4px; font-weight:bold;}
+#contactModalContainer input#name,
+#contactModalContainer input#email,
+#contactModalContainer textarea {font-family:'Trebuchet MS', Verdana, Arial; float:left; padding:2px; margin:2px; background:#eee; border:1px solid #fff; width:250px;}
+#contactModalContainer textarea {height:84px;}
+#contactModalContainer div.top {height:13px; background:url(../img/contact/form_top.gif) no-repeat; padding:0; margin:0;}
+#contactModalContainer div.bottom {height:13px; background:url(../img/contact/form_bottom.gif) no-repeat; font-size:.7em; text-align:center;}
+#contactModalContainer div.bottom a,
+#contactModalContainer div.bottom a:link,
+#contactModalContainer div.bottom a:active,
+#contactModalContainer div.bottom a:visited {position:relative; top:-4px; text-decoration:none; color:#666;}
+#contactModalContainer div.bottom a:hover {color:#888;}
+#contactModalContainer .send,
+#contactModalContainer .cancel {margin:4px 0 0 4px; cursor:pointer;}
+#contactModalContainer a.modalCloseX,
+#contactModalContainer a.modalCloseX:link,
+#contactModalContainer a.modalCloseX:active,
+#contactModalContainer a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; left:400px; color:#999;}
+#contactModalContainer a.modalCloseX:hover {color:#9bb3b3;}

@@ -1,0 +1,14 @@
+==== SimpleModal ChangeLog ====
+
+== 1.0.1 ==
+ * Date: Oct 23, 2007
+ * Removed containerTop function
+   - Positioning is now handled through CSS
+ * Added a demo page (http://www.ericmmartin.com/simplemodal/)
+   - Added contact form demo
+   - Added download feature for demos
+
+
+== 1.0 ==
+ * Date: Oct 19, 2007
+ * Initial Release

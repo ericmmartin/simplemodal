@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> SimpleModal Tests </title>
+
+<meta name='author' content='Eric Martin' />
+<meta name='copyright' content='2007 - Eric Martin' />
+<meta name='description' content='SimpleModal is a lightweight jQuery plugin that provides a simple interface to create a modal dialog.' />
+<meta name='keywords' content='simplemodal jquery plugin modal dialog css javascript dom' />
+
+<script src='js/jquery.js' type='text/javascript'></script>
+<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
+<script src='js/simplemodal.js' type='text/javascript'></script>
+<style type='text/css'>
+	@import "css/simplemodal.css";
+</style>
+
+<!--[if IE]>
+<style type='text/css'>
+	ul{margin: 0;}
+</style>
+<![endif]-->
+<!--[if lt IE 7]>
+<style type='text/css'>
+	@import "css/simplemodal-ie.css";
+</style>
+<![endif]-->
+
+</head>
+<body>
+<div id='container'>
+	<div id='header'><h1>SimpleModal Tests</h1></div>
+	<div id='content'>
+	<ul>
+		<li><a href='#' id='test1'>Chained Function - default options</a> <pre><code>$('#modalContentTest').modal();</code></pre></li>
+		<li><a href='#' id='test2'>Modal Function w/ jQuery DOM attached element - default options</a> <pre><code>$.modal($('#modalContentTest'));</code></pre></li>
+		<li><a href='#' id='test3'>Chained Function w/ jQuery DOM unattached element - default options</a> <pre><code>$('&lt;div&gt;&lt;h1&gt;New DOM Element&lt;/h1&gt;&lt;/div&gt;').modal();</code></pre></li>
+		<li><a href='#' id='test4'>Modal Function w/ DOM element - default options</a> <pre><code>$.modal(document.getElementById('modalContentTest'));</code></pre></li>
+		<li><a href='#' id='test5'>Modal Function w/ HTML - default options</a> <pre><code>$.modal("&lt;div class='test'&gt;\
+		&lt;h1&gt;Sample Content&lt;/h1&gt;\
+		&lt;p&gt;This can be complex HTML containing &lt;a href='#'&gt;links&lt;/a&gt;,\
+		&lt;input type='text' value='input boxes' size='8'/&gt;, etc...&lt;/p&gt;\
+	 &lt;/div&gt;");</code></pre></li>
+		<li><a href='#' id='test6'>Modal Function w/ string - default options</a> <pre><code>$.modal("Sample Content - just a plain 'ol string");</code></pre></li>
+		<li><a href='#' id='test7'>Modal Function w/ string/HTML - close: false</a> <pre><code>$.modal("&lt;div class='test'&gt;\
+		&lt;h1&gt;Sample Content&lt;/h1&gt;\
+		&lt;p&gt;This example uses a custom close.&lt;/p&gt;\
+		&lt;p&gt;&lt;a href='#' class='modalClose'&gt;Close&lt;/a&gt;&lt;/p&gt;\
+	 &lt;/div&gt;", {close: false});</code></pre></li>
+		<li><a href='#' id='test8'>Chained Function w/ DOM element - persist: true</a> <pre><code>$('#modalContentPersistTest').modal({persist: true});</code></pre></li>
+		<li><a href='#' id='test9'>onOpen callback function - onOpen: function</a> <pre><code>$('#modalContentTest').modal({onOpen: modalOpen});</code></pre>
+	<pre><code>/**
+ * When the open event is called, this function will be used to 'open'
+ * the overlay, container and data portions of the modal dialog.
+ *
+ * onOpen callbacks need to handle 'opening' the overlay, container
+ * and data.
+ */
+function modalOpen (dialog) {
+	dialog.overlay.fadeIn('slow', function () {
+		dialog.container.fadeIn('slow', function () {
+			dialog.data.hide().slideDown('slow');	 
+		});
+	});
+}</code></pre></li>
+		<li><a href='#' id='test10'>onClose callback function - onClose: function</a> <pre><code>$('#modalContentTest').modal({onClose: modalClose});</code></pre>
+	<pre><code>/**
+ * When the close event is called, this function will be used to 'close'
+ * the overlay, container and data portions of the modal dialog.
+ *
+ * The SimpleModal close function will still perform some actions that
+ * don't need to be handled here.
+ *
+ * onClose callbacks need to handle 'closing' the overlay, container
+ * and data.
+ */
+function modalClose (dialog) {
+	dialog.data.fadeOut('slow', function () {
+		dialog.container.hide('slow', function () {
+			dialog.overlay.slideUp('slow', function () {
+				$.modal.remove();
+			});
+		});
+	});
+}</code></pre></li>
+		<li><a href='#' id='test11'>onShow callback function - onShow: function</a> <pre><code>$('#modalContentTest').modal({onShow: modalShow});</code></pre>
+	<pre><code>/**
+ * After the dialog is show, this callback will bind some effects
+ * to the data when the 'button' button is clicked.
+ *
+ * This callback is completely user based; SimpleModal does not have
+ * a matching function.
+ */
+function modalShow (dialog) {
+	$('input.animate').one('click', function () {
+		dialog.data.slideUp('slow', function () {
+			dialog.data.slideDown('slow');
+		});
+	});
+}</code></pre></li>
+	<li><a href='#' id='test12'>IE SELECT bleed test</a>
+		<p>Make sure the select options do not bleed through the modal dialog.</p>
+		<div style='text-align: center;'>
+		<form action='#'>
+		<select>
+			<option>option1</option>
+			<option>option2</option>
+			<option>option3</option>
+			<option>option4</option>
+			<option>option5</option>
+		</select>
+		</form>
+		</div>
+	</li>
+	</ul>
+	</div>
+	<div style='height: 200px;'>&nbsp;</div>
+</div>
+<div id='modalContentTest' style='display: none'>
+	<form action='#'>
+	<textarea rows='5' cols='30'></textarea><br/>
+	<select>
+		<option>option1</option>
+		<option>option2</option>
+		<option>option3</option>
+		<option>option4</option>
+		<option>option5</option>
+	</select><br/>
+	<input type='text'/><br/>
+	<input type='button' value='button' class='animate'/><br/>
+	<input type='button' value='close' class='modalClose'/><br/>
+	</form>
+</div>
+<div id='modalContentPersistTest' style='display: none'>
+	<p>Enter values in the textarea and text field, then close the dialog. When you re-run the test, the data will still be there.</p>
+	<form action='#'>
+	<textarea rows='5' cols='30'></textarea><br/>
+	<br/>
+	<input type='text'/><br/>
+	<input type='button' value='close' class='modalClose'/><br/>
+	</form>
+</div>
+<div style='height: 50px;'>&nbsp;</div>
+</body>
+</html>
