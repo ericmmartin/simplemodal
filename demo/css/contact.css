@@ -37,7 +37,9 @@
 #contactModalContainer div.bottom a:visited {position:relative; top:-4px; text-decoration:none; color:#666;}
 #contactModalContainer div.bottom a:hover {color:#888;}
 #contactModalContainer .send,
-#contactModalContainer .cancel {margin:4px 0 0 4px; cursor:pointer;}
+#contactModalContainer .cancel {margin:4px 0 0 4px; cursor:pointer; height:24px; border:0;}
+#contactModalContainer .send {width:50px; background:url(../img/contact/send.png) no-repeat;}
+#contactModalContainer .cancel {width:65px; background:url(../img/contact/cancel.png) no-repeat;}
 #contactModalContainer a.modalCloseX,
 #contactModalContainer a.modalCloseX:link,
 #contactModalContainer a.modalCloseX:active,
