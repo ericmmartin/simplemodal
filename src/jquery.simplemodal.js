@@ -178,7 +178,7 @@
 				}
 				return false;
 			}
-			this.dialog.data = data;
+			this.dialog.data = data.addClass('modalData');
 			data = null;
 
 			// create the modal overlay, container and, if necessary, iframe
@@ -321,6 +321,10 @@
 		 *     onClose callback will be ignored
 		 */
 		close: function (external) {
+			if (!this.dialog.data) {
+				return false;
+			}
+
 			if ($.isFunction(this.opts.onClose) && !external) {
 				// execute the onClose callback
 				this.opts.onClose.apply(this, [this.dialog]);
