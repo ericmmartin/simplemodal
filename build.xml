@@ -7,7 +7,7 @@
     <!-- SETUP -->
 
     <property description="Source Folder" name="SRC_DIR" value="src"  />
-    <property description="Files for parsing etc." name="BUILD_DIR" value="build" />
+    <property description="Files for parsing etc." name="BUILD_DIR" value="../build" />
     <property description="Rhino JS Engine" name="JAR" value="${BUILD_DIR}/js.jar" />
 
     <property description="Folder for full, min and packed target" name="DIST_DIR" value="./dist" />
