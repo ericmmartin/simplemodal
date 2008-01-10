@@ -51,7 +51,7 @@ var contact = {
 							var src = RegExp.$1;
 							$(this).css({
 								backgroundImage: 'none',
-								filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' +  src + '", sizingMethod="crop")'
+								filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' +  src + '", sizingMethod="scale")'
 							});
 						}
 					});

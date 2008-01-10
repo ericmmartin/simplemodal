@@ -14,4 +14,4 @@
 
 /* IE 6 hacks*/
 #modalContainer {top:expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
-#modalContainer a.modalCloseImg {background:none; width:22px; height:26px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/basic/x.png',sizingMethod='crop');}
+#modalContainer a.modalCloseImg {background:none; width:22px; height:26px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/basic/x.png',sizingMethod='scale');}
