@@ -8,8 +8,7 @@
  * Revision: $Id$
  *
  */
-function eric() {}
-$(function(){
+$(document).ready(function () {
 	$('a#test1').click(function (e) {
 		e.preventDefault();
 		$('#modalContentTest').modal();
