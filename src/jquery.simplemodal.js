@@ -263,8 +263,8 @@
 		 * Fix issues in IE 6
 		 */
 		fixIE: function () {
-			var wHeight = $(window).height() + 'px';
-			var wWidth = $(window).width() + 'px';
+			var wHeight = $(document.body).height() + 'px';
+			var wWidth = $(document.body).width() + 'px';
 
 			// position hacks
 			this.dialog.overlay.css({position: 'absolute', height: wHeight, width: wWidth});
@@ -321,6 +321,7 @@
 		 *     onClose callback will be ignored
 		 */
 		close: function (external) {
+			// prevent close when dialog does not exist
 			if (!this.dialog.data) {
 				return false;
 			}
