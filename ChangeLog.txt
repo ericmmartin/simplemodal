@@ -1,5 +1,15 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.1.1 ==
+ * Date: Jan 15, 2008
+ * Fixed overlay height and width detection in IE6
+ * Added a modalData class attribute to dialog.data
+ * Added check for dialog object in close()
+   - Prevents JS errors if called when dialog is already closed
+ * Updated tests and demos to jQuery 1.2.2 and SimpleModal 1.1.1
+ * Updated test and demo css
+
+
 == 1.1 ==
  * Date: Jan 3, 2008
  * Changed dialog.content to dialog.data
@@ -17,6 +27,7 @@
  * Added more CSS attributes to the overlay, container and iframe.
    - There were a number of CSS attributes that were necessary for the modal dialog
      to display correctly, so I moved them from the CSS, into SimpleModal.
+ * Added a test page (http://www.ericmmartin.com/simplemodal-test/)
 
 
 == 1.0.1 ==
