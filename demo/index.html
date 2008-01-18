@@ -32,6 +32,14 @@
 <link type='text/css' href='css/contact_ie.css' rel='stylesheet' media='screen' />
 <![endif]-->
 
+<!-- Confirm -->
+<script src='js/confirm.js' type='text/javascript'></script>
+<link type='text/css' href='css/confirm.css' rel='stylesheet' media='screen' />
+<!-- IE 6 hacks -->
+<!--[if lt IE 7]>
+<link type='text/css' href='css/confirm_ie.css' rel='stylesheet' media='screen' />
+<![endif]-->
+
 </head>
 <body>
 <div id='notice'>&raquo; Back to <a href='/projects/simplemodal'>SimpleModal Home</a></div>
@@ -39,7 +47,7 @@
 	<div id='header'><h1>SimpleModal Demos</h1></div>
 	<div id='content'>
 		<div id='basicModal'><h2>Basic Modal Dialog</h2>
-			<p>A basic modal dialog with minimal styling and without any additional settings. There are a few CSS attributes set internally by SimpleModal, however, SimpleModal relies mostly on the developer for the look and feel.</p>
+			<p>A basic modal dialog with minimal styling and without any additional settings. There are a few CSS attributes set internally by SimpleModal, however, SimpleModal relies mostly on external CSS for the look and feel.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='basic' value='Demo' class='demo'/><input type='button' name='download' value='Download' class='demo'/>
 				<input type='hidden' name='demo' value='basic'/>
@@ -62,6 +70,22 @@
 				<input type='button' name='contact' value='Demo' class='demo'/><input type='button' name='download' value='Download' class='demo'/>
 				<input type='hidden' name='demo' value='contact'/>
 			</form>
+		</div>
+		<br/>
+		<hr/>
+		<div id='confirmDialog'><h2>Confirm Override</h2>
+			<p>A modal dialog override of the JavaScript confirm function. Demonstrates the use of <code>onShow</code> as well as how to display a modal dialog confirmation instead of the default JavaScript confirm dialog.</p>
+			<form action='download/' method='post'>
+				<input type='button' name='confirm' value='Demo' class='demo'/><input type='button' name='download' value='Download' class='demo'/>
+				<input type='hidden' name='demo' value='confirm'/>
+			</form>
+		</div>
+		<div id='confirm' style='display:none'>
+			<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
+			<div class='header'><span>Confirm</span></div>
+			<p class='message'></p>
+			<div class='buttons'>
+			<div class='no modalClose'>No</div><div class='yes'>Yes</div>
 		</div>
 	<br/>
 	</div>
