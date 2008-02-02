@@ -102,7 +102,7 @@
 	 * overlayCss: (Object:{}) The CSS styling for the overlay div
 	 * containerId: (String:'modalContainer') The DOM element id for the container div
 	 * containerCss: (Object:{}) The CSS styling for the container div
-	 * close: (Boolean:true) Show the default window close icon? Uses CSS class modalCloseImg
+	 * close: (Boolean:true) Show the default window close icon? Uses CSS class simplemodal-x
 	 * closeTitle: (String:'Close') The title value of the default close link. Depends on close
 	 * closeClass: (String:'modalClose') The CSS class used to bind to the close event
 	 * persist: (Boolean:false) Persist the data across modal calls? Only used for existing
@@ -113,14 +113,16 @@
 	 * onClose: (Function:null) The callback function used in place of SimpleModal's close
 	 */
 	$.modal.defaults = {
-		overlay: 50,
-		overlayId: 'modalOverlay',
+		zIndex: 4000,
+		opacity: 50,
+		overlayId: '',
 		overlayCss: {},
-		containerId: 'modalContainer',
+		containerId: '',
 		containerCss: {},
+		dataCss: {},
 		close: true,
-		closeTitle: 'Close',
-		closeClass: 'modalClose',
+		closeHtml: '<a href="#" title="Close" />',
+		closeCss: {},
 		persist: false,
 		onOpen: null,
 		onShow: null,
@@ -140,17 +142,26 @@
 		 * back to the callback (onOpen, onShow, onClose) functions
 		 */
 		dialog: {},
+		dialogs: [],
 		/*
 		 * Initialize the modal dialog
 		 */
 		init: function (data, options) {
-			// don't allow multiple calls
-			if (this.dialog.data) {
-				return false;
-			}
-
 			// merge defaults and user options
 			this.opts = $.extend({}, $.modal.defaults, options);
+
+			// need to see if dialog(s) already exist
+			// need a way to manage multiple dialogs
+			// everything below would have to relate 
+			//     to the current dialog...
+			if (this.dialog.data) {
+				//return false;
+			}
+						
+			// create element id's if necessary
+			
+			// keep track of the z-index
+			this.zIndex = this.opts.zIndex;
 
 			// determine how to handle the data based on its type
 			if (typeof data == 'object') {
@@ -178,7 +189,7 @@
 				}
 				return false;
 			}
-			this.dialog.data = data.addClass('modalData');
+			this.dialog.data = data.addClass('simplemodal-data');
 			data = null;
 
 			// create the modal overlay, container and, if necessary, iframe
@@ -200,42 +211,45 @@
 		 */
 		create: function () {
 			// create the overlay
-			this.dialog.overlay = $('<div>')
+			this.dialog.overlay = $('<div/>')
 				.attr('id', this.opts.overlayId)
-				.addClass('modalOverlay')
+				.addClass('simplemodal-overlay')
 				.css($.extend(this.opts.overlayCss, {
-					opacity: this.opts.overlay / 100,
+					opacity: this.opts.opacity / 100,
 					height: '100%',
 					width: '100%',
 					position: 'fixed',
 					left: 0,
 					top: 0,
-					zIndex: 3000
+					zIndex: this.zIndex++
 				}))
 				.hide()
 				.appendTo('body');
 
 			// create the container
-			this.dialog.container = $('<div>')
+			this.dialog.container = $('<div/>')
 				.attr('id', this.opts.containerId)
-				.addClass('modalContainer')
+				.addClass('simplemodal-container')
 				.css($.extend(this.opts.containerCss, {
 					position: 'fixed', 
-					zIndex: 3100
+					zIndex: this.zIndex++
 				}))
 				.append(this.opts.close 
-					? '<a class="modalCloseImg ' 
-						+ this.opts.closeClass 
-						+ '" title="' 
-						+ this.opts.closeTitle + '"></a>'
+					? $(this.opts.closeHtml)
+						.addClass('simplemodal-close simplemodal-x')
+						.css($.extend(this.opts.closeCss, {
+							zIndex: this.zIndex++
+						}))
 					: '')
 				.hide()
 				.appendTo('body');
-
-			// fix issues with IE and create an iframe
-			if ($.browser.msie && ($.browser.version < 7)) {
-				this.fixIE();
-			}
+				
+				/*
+				'<a class="modalCloseImg ' 
+						+ this.opts.closeClass 
+						+ '" title="' 
+						+ this.opts.closeTitle + '"></a>'
+				*/
 
 			// hide the data and add it to the container
 			this.dialog.container.append(this.dialog.data.hide());
@@ -247,7 +261,7 @@
 			var modal = this;
 
 			// bind the close event to any element with the closeClass class
-			$('.' + this.opts.closeClass).click(function (e) {
+			$('.simplemodal-close').click(function (e) {
 				e.preventDefault();
 				modal.close();
 			});
@@ -277,7 +291,7 @@
 					position: 'absolute',
 					height: wHeight,
 					width: wWidth,
-					zIndex: 1000,
+					zIndex: this.opts.zIndex - 1,
 					width: '100%',
 					top: 0,
 					left: 0

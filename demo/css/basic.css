@@ -13,9 +13,9 @@
  */
 
 /* Overlay */
-#modalOverlay {background-color:#000; cursor:wait;}
+#basicModalOverlay {background-color:#000; cursor:wait;}
 
 /* Container */
-#modalContainer {height:400px; width:600px; left:50%; top:15%; margin-left:-300px; background-color:#fff; border:3px solid #ccc;}
-#modalContainer a.modalCloseImg {background:url(../img/basic/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-18px; cursor:pointer;}
-#modalContainer #basicModalContent {padding:8px;}
+#basicModalContainer {height:400px; width:600px; left:50%; top:15%; margin-left:-300px; background-color:#fff; border:3px solid #ccc;}
+#basicModalContainer a.simplemodal-x {background:url(../img/basic/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-18px; cursor:pointer;}
+#basicModalContainer #basicModalContent {padding:8px;}
