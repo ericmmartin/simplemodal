@@ -40,8 +40,8 @@
 #contactModalContainer .cancel {margin:4px 0 0 4px; cursor:pointer; height:24px; border:0;}
 #contactModalContainer .send {width:50px; background:url(../img/contact/send.png) no-repeat;}
 #contactModalContainer .cancel {width:65px; background:url(../img/contact/cancel.png) no-repeat;}
-#contactModalContainer a.simplemodal-x,
-#contactModalContainer a.simplemodal-x:link,
-#contactModalContainer a.simplemodal-x:active,
-#contactModalContainer a.simplemodal-x:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; left:400px; color:#999;}
-#contactModalContainer a.simplemodal-x:hover {color:#9bb3b3;}
+#contactModalContainer a.modalCloseX,
+#contactModalContainer a.modalCloseX:link,
+#contactModalContainer a.modalCloseX:active,
+#contactModalContainer a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; left:400px; color:#999;}
+#contactModalContainer a.modalCloseX:hover {color:#9bb3b3;}

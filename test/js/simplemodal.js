@@ -42,7 +42,7 @@ $(document).ready(function () {
 		$.modal("<div class='test'>\
 					<h1>Sample Content</h1>\
 					<p>This example uses a custom close.</p>\
-					<p><a href='#' class='simplemodal-close'>Close</a></p>\
+					<p><a href='#' class='modalClose'>Close</a></p>\
 				</div>", {close:false});
 	});
 	$('a#test8').click(function (e) {

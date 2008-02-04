@@ -15,9 +15,6 @@
 $(document).ready(function () {
 	$('#basicModal input:eq(0)').click(function (e) {
 		e.preventDefault();
-		$('#basicModalContent').modal({
-			overlayId: 'basicModalOverlay',
-			containerId: 'basicModalContainer',
-		});
+		$('#basicModalContent').modal();
 	});
 });

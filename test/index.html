@@ -45,7 +45,7 @@
 		<li><a href='#' id='test7'>Modal Function w/ string/HTML - close: false</a> <pre><code>$.modal("&lt;div class='test'&gt;\
 		&lt;h1&gt;Sample Content&lt;/h1&gt;\
 		&lt;p&gt;This example uses a custom close.&lt;/p&gt;\
-		&lt;p&gt;&lt;a href='#' class='simplemodal-close'&gt;Close&lt;/a&gt;&lt;/p&gt;\
+		&lt;p&gt;&lt;a href='#' class='modalClose'&gt;Close&lt;/a&gt;&lt;/p&gt;\
 	 &lt;/div&gt;", {close: false});</code></pre></li>
 		<li><a href='#' id='test8'>Chained Function w/ DOM element - persist: true</a> <pre><code>$('#modalContentPersistTest').modal({persist: true});</code></pre></li>
 		<li><a href='#' id='test9'>onOpen callback function - onOpen: function</a> <pre><code>$('#modalContentTest').modal({onOpen: modalOpen});</code></pre>
@@ -140,7 +140,7 @@ function modalShow (dialog) {
 	</select><br/>
 	<input type='text'/><br/>
 	<input type='button' value='button' class='animate'/><br/>
-	<input type='button' value='close' class='simplemodal-close'/><br/>
+	<input type='button' value='close' class='modalClose'/><br/>
 	</form>
 </div>
 <div id='modalContentPersistTest' style='display: none'>
@@ -149,7 +149,7 @@ function modalShow (dialog) {
 	<textarea rows='5' cols='30'></textarea><br/>
 	<br/>
 	<input type='text'/><br/>
-	<input type='button' value='close' class='simplemodal-close'/><br/>
+	<input type='button' value='close' class='modalClose'/><br/>
 	</form>
 </div>
 <div style='height: 50px;'>&nbsp;</div>
