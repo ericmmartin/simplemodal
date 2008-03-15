@@ -31,26 +31,26 @@ if (empty($action)) {
 	// Send back the contact form HTML
 	echo "<div style='display:none'>
 	<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
-	<div class='top'></div>
-	<div class='content'>
-		<h1 class='title'>Send us a message:</h1>
-		<div class='loading' style='display:none'></div>
-		<div class='message' style='display:none'></div>
-		<form action='#'>
-			<label for='name'>Name:</label>
-			<input type='text' id='name' name='name' tabindex='1001' />
-			<label for='email'>Email:</label>
-			<input type='text' id='email' name='email' tabindex='1002' />
-			<label for='message'>Message:</label>
-			<textarea id='message' name='message' cols='40' rows='4' tabindex='1003'></textarea>
+	<div class='contact-top'></div>
+	<div class='contact-content'>
+		<h1 class='contact-title'>Send us a message:</h1>
+		<div class='contact-loading' style='display:none'></div>
+		<div class='contact-message' style='display:none'></div>
+		<form action='#' style='display:none'>
+			<label for='name'>*Name:</label>
+			<input type='text' id='contact-name' class='contact-input' name='name' tabindex='1001' />
+			<label for='email'>*Email:</label>
+			<input type='text' id='contact-email' class='contact-input' name='email' tabindex='1002' />
+			<label for='message'>*Message:</label>
+			<textarea id='contact-message' class='contact-input' name='message' cols='40' rows='4' tabindex='1003'></textarea>
 			<br/>
 			<label>&nbsp;</label>
-			<button type='submit' class='send' tabindex='1004'></button>
-			<button type='submit' class='cancel modalClose' tabindex='1005'></button>
+			<button type='submit' class='contact-send contact-button' tabindex='1004'>Send</button>
+			<button type='submit' class='contact-cancel contact-button modalClose' tabindex='1005'>Cancel</button>
 			<br/>
 		</form>
 	</div>
-	<div class='bottom'><a href='http://www.ericmmartin.com/projects/simplemodal/'>Powered by SimpleModal</a></div>
+	<div class='contact-bottom'><a href='http://www.ericmmartin.com/projects/simplemodal/'>Powered by SimpleModal</a></div>
 </div>";
 }
 else if ($action == 'send') {

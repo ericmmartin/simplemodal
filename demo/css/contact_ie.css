@@ -13,6 +13,6 @@
  */
 
 /* IE 6 hacks*/
-#contactModalContainer {top:expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
-#contactModalContainer div.top {background:url(../img/contact/form_top_ie.gif) no-repeat;}
-#contactModalContainer form {padding:0; margin:0;}
+#contact-container {top:expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
+#contact-container .contact-top {background:url(../img/contact/form_top_ie.gif) no-repeat;}
+#contact-container form {padding:0; margin:0;}

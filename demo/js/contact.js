@@ -13,74 +13,100 @@
  */
 
 $(document).ready(function () {
-	$('#contactForm input:eq(0)').click(function (e) {
+	$('#contactLink, #contactForm input:eq(0)').click(function (e) {
 		e.preventDefault();
 		// load the contact form using ajax
 		$.get("data/contact.php", function(data){
 			// create a modal dialog with the data
 			$(data).modal({
 				close: false,
-				overlayId: 'contactModalOverlay',
-				containerId: 'contactModalContainer',
+				overlayId: 'contact-overlay',
+				containerId: 'contact-container',
 				onOpen: contact.open,
 				onShow: contact.show,
 				onClose: contact.close
 			});
 		});
 	});
+
+	// preload images
+	var img = ['cancel.png','form_bottom.gif','form_top.gif','form_top_ie.gif','loading.gif','send.png'];
+	$(img).each(function () {
+		var i = new Image();
+		i.src = 'img/contact/' + this;
+	});
 });
 
 var contact = {
 	message: null,
 	open: function (dialog) {
+		// add padding to the buttons in firefox/mozilla
+		if ($.browser.mozilla) {
+			$('#contact-container .contact-button').css({
+				'padding-bottom': '2px'
+			});
+		}
+		// input field font size
+		if ($.browser.safari) {
+			$('#contact-container .contact-input').css({
+				'font-size': '.9em'
+			});
+		}
+
+		var title = $('#contact-container .contact-title').html();
+		$('#contact-container .contact-title').html('Loading...');
 		dialog.overlay.fadeIn(200, function () {
 			dialog.container.fadeIn(200, function () {
 				dialog.data.fadeIn(200, function () {
-					$('#contactModalContainer #name').focus();
+					$('#contact-container .contact-content').animate({
+						height: 260
+					}, function () {
+						$('#contact-container .contact-title').html(title);
+						$('#contact-container form').fadeIn(200, function () {
+							$('#contact-container #contact-name').focus();
+
+							// fix png's for IE 6
+							if ($.browser.msie && $.browser.version < 7) {
+								$('#contact-container .contact-button').each(function () {
+									if ($(this).css('backgroundImage').match(/^url[("']+(.*\.png)[)"']+$/i)) {
+										var src = RegExp.$1;
+										$(this).css({
+											backgroundImage: 'none',
+											filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' +  src + '", sizingMethod="crop")'
+										});
+									}
+								});
+							}
+						});
+					});
 				});
-				// input field font size
-				if ($.browser.safari) {
-					$('#contactModalContainer #name, #contactModalContainer #email, #contactModalContainer #message').css({
-						'font-size': '.9em'
-					});
-				}
-				// fix png's for IE 6
-				if ($.browser.msie && $.browser.version < 7) {
-					$('#contactModalContainer .send, #contactModalContainer .cancel').each(function () {
-						if ($(this).css('backgroundImage').match(/^url[("']+(.*\.png)[)"']+$/i)) {
-							var src = RegExp.$1;
-							$(this).css({
-								backgroundImage: 'none',
-								filter: 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' +  src + '", sizingMethod="scale")'
-							});
-						}
-					});
-				}
 			});
 		});
 	},
 	show: function (dialog) {
-		$('#contactModalContainer .send').click(function (e) {
+		$('#contact-container .contact-send').click(function (e) {
 			e.preventDefault();
 			// validate form
 			if (contact.validate()) {
-				$('#contactModalContainer .message').fadeOut(function () {
-					$('#contactModalContainer .message').removeClass('error').empty();
+				$('#contact-container .contact-message').fadeOut(function () {
+					$('#contact-container .contact-message').removeClass('contact-error').empty();
 				});
-				$('#contactModalContainer .title').html('Sending...');
-				$('#contactModalContainer form').fadeOut(200);
-				$('#contactModalContainer .content').animate({
+				$('#contact-container .contact-title').html('Sending...');
+				$('#contact-container form').fadeOut(200);
+				$('#contact-container .contact-content').animate({
 					height: '80px'
 				}, function () {
-					$('#contactModalContainer .loading').fadeIn(200, function () {
+					$('#contact-container .contact-loading').fadeIn(200, function () {
 						$.ajax({
 							url: 'data/contact.php',
-							data: $('#contactModalContainer form').serialize() + '&action=send',
+							data: $('#contact-container form').serialize() + '&action=send',
+							type: 'post',
+							cache: false,
 							dataType: 'html',
 							complete: function (xhr) {
-								$('#contactModalContainer .loading').fadeOut(200, function () {
-									$('#contactModalContainer .title').html('Thank you!');
-									$('#contactModalContainer .message').html(xhr.responseText).fadeIn(200);
+								$('#contact-container .contact-loading').fadeOut(200, function () {
+									$('#contact-container .contact-title').html('Thank you!');
+									$('#contact-container .contact-message').html(xhr.responseText).fadeIn(200);
 								});
 							},
 							error: contact.error
@@ -89,15 +115,16 @@ var contact = {
 				});
 			}
 			else {
-				if ($('#contactModalContainer .message:visible').length > 0) {
-					$('#contactModalContainer .message div').fadeOut(200, function () {
-						$('#contactModalContainer .message div').empty();
+				if ($('#contact-container .contact-message:visible').length > 0) {
+					var msg = $('#contact-container .contact-message div');
+					msg.fadeOut(200, function () {
+						msg.empty();
 						contact.showError();
-						$('#contactModalContainer .message div').fadeIn(200);
+						msg.fadeIn(200);
 					});
 				}
 				else {
-					$('#contactModalContainer .message').animate({
+					$('#contact-container .contact-message').animate({
 						height: '30px'
 					}, contact.showError);
 				}
@@ -106,10 +133,17 @@ var contact = {
 		});
 	},
 	close: function (dialog) {
-		dialog.data.fadeOut(200, function () {
-			dialog.container.fadeOut(200, function () {
-				dialog.overlay.fadeOut(200, function () {
-					$.modal.close();
+		$('#contact-container .contact-message').fadeOut();
+		$('#contact-container .contact-title').html('Goodbye...');
+		$('#contact-container form').fadeOut(200);
+		$('#contact-container .contact-content').animate({
+			height: 40
+		}, function () {
+			dialog.data.fadeOut(200, function () {
+				dialog.container.fadeOut(200, function () {
+					dialog.overlay.fadeOut(200, function () {
+						$.modal.close();
+					});
 				});
 			});
 		});
@@ -119,11 +153,11 @@ var contact = {
 	},
 	validate: function () {
 		contact.message = '';
-		if (!$('#contactModalContainer #name').val()) {
+		if (!$('#contact-container #contact-name').val()) {
 			contact.message += 'Name is required. ';
 		}
 
-		var email = $('#contactModalContainer #email').val();
+		var email = $('#contact-container #contact-email').val();
 		if (!email) {
 			contact.message += 'Email is required. ';
 		}
@@ -133,7 +167,7 @@ var contact = {
 			}
 		}
 
-		if (!$('#contactModalContainer #message').val()) {
+		if (!$('#contact-container #contact-message').val()) {
 			contact.message += 'Message is required.';
 		}
 
@@ -184,8 +218,8 @@ var contact = {
 		return true;
 	},
 	showError: function () {
-		$('#contactModalContainer .message')
-			.html($('<div class="error">').append(contact.message))
+		$('#contact-container .contact-message')
+			.html($('<div class="contact-error">').append(contact.message))
 			.fadeIn(200);
 	}
 };
