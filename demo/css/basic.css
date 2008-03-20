@@ -12,6 +12,8 @@
  *
  */
 
+body {padding:0; margin:0; height:100%; width:100%;}
+
 /* Overlay */
 #modalOverlay {background-color:#000; cursor:wait;}
 
