@@ -18,7 +18,7 @@ $files = array(
 		'css_zip' => $demo . '/css/' . $demo . '.css',
 		'css_ie' => $dir . '/css/' . $demo . '_ie.css',
 		'css_ie_zip' => $demo . '/css/' . $demo . '_ie.css',
-		'data' => $dir . '/data/' . $demo . '.php',
+		'data' => $dir . '/data/' . $demo . '-dist.php',
 		'data_zip' => $demo . '/data/' . $demo . '.php',
 		'img_match' => $dir . '/img/' . $demo . '/{*.gif,*.jpg,*.png}'
 	);
