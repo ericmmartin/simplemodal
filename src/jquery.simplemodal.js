@@ -4,7 +4,7 @@
  * http://plugins.jquery.com/project/SimpleModal
  * http://code.google.com/p/simplemodal/
  *
- * Copyright (c) 2007 Eric Martin - http://ericmmartin.com
+ * Copyright (c) 2008 Eric Martin - http://ericmmartin.com
  *
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
@@ -67,6 +67,10 @@
  * @version @VERSION
  */
 (function ($) {
+	var ie6 = $.browser.msie && parseInt($.browser.version) == 6 && !window['XMLHttpRequest'],
+		ieQuirks = $.browser.msie && !$.boxModel,
+		wProps = [];
+
 	/*
 	 * Stand-alone function to create a modal dialog.
 	 * 
@@ -121,6 +125,7 @@
 		close: true,
 		closeTitle: 'Close',
 		closeClass: 'modalClose',
+		position: null,
 		persist: false,
 		onOpen: null,
 		onShow: null,
@@ -169,7 +174,7 @@
 			}
 			else if (typeof data == 'string' || typeof data == 'number') {
 				// just insert the data as innerHTML
-				data = $('<div>').html(data);
+				data = $('<div/>').html(data);
 			}
 			else {
 				// unsupported data type!
@@ -199,27 +204,45 @@
 		 * Create and add the modal overlay and container to the page
 		 */
 		create: function () {
+			// get the window properties
+			wProps = this.getDimensions();
+
+			// add an iframe to prevent select options from bleeding through
+			this.dialog.iframe = $('<iframe src="javascript:false;"/>')
+				.css($.extend(this.opts.iframeCss, {
+					display: 'none',
+					opacity: 0, 
+					position: 'fixed',
+					height: wProps[0],
+					width: wProps[1],
+					zIndex: 1000,
+					top: 0,
+					left: 0
+				}))
+				.appendTo('body');
+
 			// create the overlay
-			this.dialog.overlay = $('<div>')
+			this.dialog.overlay = $('<div/>')
 				.attr('id', this.opts.overlayId)
 				.addClass('modalOverlay')
 				.css($.extend(this.opts.overlayCss, {
+					display: 'none',
 					opacity: this.opts.overlay / 100,
-					height: '100%',
-					width: '100%',
+					height: wProps[0],
+					width: wProps[1],
 					position: 'fixed',
 					left: 0,
 					top: 0,
 					zIndex: 3000
 				}))
-				.hide()
 				.appendTo('body');
 
 			// create the container
-			this.dialog.container = $('<div>')
+			this.dialog.container = $('<div/>')
 				.attr('id', this.opts.containerId)
 				.addClass('modalContainer')
 				.css($.extend(this.opts.containerCss, {
+					display: 'none',
 					position: 'fixed', 
 					zIndex: 3100
 				}))
@@ -229,11 +252,12 @@
 						+ '" title="' 
 						+ this.opts.closeTitle + '"></a>'
 					: '')
-				.hide()
 				.appendTo('body');
 
+			this.setPosition();
+
 			// fix issues with IE and create an iframe
-			if ($.browser.msie && ($.browser.version < 7)) {
+			if (ie6 || ieQuirks) {
 				this.fixIE();
 			}
 
@@ -263,27 +287,39 @@
 		 * Fix issues in IE 6
 		 */
 		fixIE: function () {
-			var wHeight = $(document.body).height() + 'px';
-			var wWidth = $(document.body).width() + 'px';
+			// simulate fixed position - adapted from BlockUI
+			$.each([this.dialog.iframe, this.dialog.overlay, this.dialog.container], function (i, el) {
+				var s = el[0].style;
+				s.position = 'absolute';
+				if (i < 2) {
+					s.setExpression('height','document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + "px"');
+					s.setExpression('width','jQuery.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
+				}
+				else {
+					s.setExpression('top','(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+				}
+			});
+		},
+		getDimensions: function () {
+			var el = $(window);
 
-			// position hacks
-			this.dialog.overlay.css({position: 'absolute', height: wHeight, width: wWidth});
-			this.dialog.container.css({position: 'absolute'});
+			// fix a jQuery/Opera bug with determining the window height
+			var h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery <= '1.2.6' ?
+				document.documentElement['clientHeight'] : 
+				el.height();
 
-			// add an iframe to prevent select options from bleeding through
-			this.dialog.iframe = $('<iframe src="javascript:false;">')
-				.css($.extend(this.opts.iframeCss, {
-					opacity: 0, 
-					position: 'absolute',
-					height: wHeight,
-					width: wWidth,
-					zIndex: 1000,
-					width: '100%',
-					top: 0,
-					left: 0
-				}))
-				.hide()
-				.appendTo('body');
+			return [h, el.width()];
+		},
+		setPosition: function () {
+			var top = 0, left = 0;
+			if (this.opts.position && this.opts.position.constructor == Array) {
+				top += this.opts.position[1];
+				left += this.opts.position[0];
+			} else {
+				top += (wProps[0]/2) - (this.dialog.container.height()/2);
+				left += (wProps[1]/2) - (this.dialog.container.width()/2);
+			}
+			this.dialog.container.css({left: left, top: top});
 		},
 		/*
 		 * Open the modal dialog elements
@@ -353,9 +389,7 @@
 				// remove the remaining elements
 				this.dialog.container.remove();
 				this.dialog.overlay.remove();
-				if (this.dialog.iframe) {
-					this.dialog.iframe.remove();
-				}
+				this.dialog.iframe.remove();
 
 				// reset the dialog object
 				this.dialog = {};
