@@ -30,7 +30,7 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 if (empty($action)) {
 	// Send back the contact form HTML
 	echo "<div style='display:none'>
-	<a href='#' title='Close' class='modalCloseX modalClose'>x</a>
+	<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
 	<div class='contact-top'></div>
 	<div class='contact-content'>
 		<h1 class='contact-title'>Send us a message:</h1>
@@ -46,7 +46,7 @@ if (empty($action)) {
 			<br/>
 			<label>&nbsp;</label>
 			<button type='submit' class='contact-send contact-button' tabindex='1004'>Send</button>
-			<button type='submit' class='contact-cancel contact-button modalClose' tabindex='1005'>Cancel</button>
+			<button type='submit' class='contact-cancel contact-button simplemodal-close' tabindex='1005'>Cancel</button>
 			<br/>
 		</form>
 	</div>

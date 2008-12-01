@@ -1,5 +1,28 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.1.2 ==
+ * Date: Dec 1, 2008
+ * Added new internal variables (ie6, ieQuirks and w)
+ * Added better IE6 detection (preventing false positives with IE7)
+ * Fixed $.modal.close() function to correctly utilize an onClose callback
+   without causing a infinite recursion crash
+ * Added new options (iframe, dataCss, zIndex, closeHTML and position)
+ * Renamed overlay option to opacity
+ * Removed closeTitle option
+ * Renamed default class and id names (from modalXxx to simplemodal-xxx)
+ * Added better z-index handling
+ * Fixed element creation to be XHTML compliant
+ * Added window dimension detection
+ * Added iframe to every modal dialog (to prevent object bleed-through)
+   (can be disabled by the {iframe:false} option
+ * Fixed Safari issue (directly setting display:'none' as opposed to using .hide())
+ * Changed width/height setting for overlay and iframe
+ * Fixed IE7 quirks mode positioning issue
+ * Added IE6 expression for elements - eliminating the need for an external stylesheet
+ * Added dynamic centering of container as well as a position option
+ * Added namespacing on events
+ * Added window resize listener to resize dialog elements
+
 == 1.1.1 ==
  * Date: Jan 15, 2008
  * Fixed overlay height and width detection in IE6

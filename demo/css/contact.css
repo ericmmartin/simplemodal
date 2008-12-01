@@ -18,7 +18,7 @@ body {padding:0; margin:0; height:100%; width:100%;}
 #contact-overlay {background-color:#000; cursor:wait;}
 
 /* Container */
-#contact-container {width:420px; left:50%; top:15%; margin-left:-210px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left;}
+#contact-container {width:420px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left;}
 #contact-container .contact-content {background-color:#333; color:#ddd; height:40px;}
 #contact-container h1 {color:#d76300; margin:0; padding:0 0 6px 12px; font-size:1.2em; text-align:left;}
 #contact-container .contact-loading {position:absolute; background:url(../img/contact/loading.gif) no-repeat; z-index:8000; height:55px; width:54px; margin:-14px 0 0 170px; padding:0;}

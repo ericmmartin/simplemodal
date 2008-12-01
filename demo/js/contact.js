@@ -20,6 +20,7 @@ $(document).ready(function () {
 			// create a modal dialog with the data
 			$(data).modal({
 				close: false,
+				position: [0,"15%"],
 				overlayId: 'contact-overlay',
 				containerId: 'contact-container',
 				onOpen: contact.open,

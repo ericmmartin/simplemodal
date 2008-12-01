@@ -10,7 +10,6 @@
  * and GPL (GPL-LICENSE.txt) licenses.
  *
  * Revision: $Id$
- *
  */
 
 /**
@@ -69,7 +68,7 @@
 (function ($) {
 	var ie6 = $.browser.msie && parseInt($.browser.version) == 6 && !window['XMLHttpRequest'],
 		ieQuirks = $.browser.msie && !$.boxModel,
-		wProps = [];
+		w = [];
 
 	/*
 	 * Stand-alone function to create a modal dialog.
@@ -85,8 +84,7 @@
 	 * Stand-alone close function to close the modal dialog
 	 */
 	$.modal.close = function () {
-		// call close with the external parameter set to true
-		$.modal.impl.close(true);
+		$.modal.impl.close();
 	};
 
 	/*
@@ -101,30 +99,39 @@
 	/*
 	 * SimpleModal default options
 	 * 
-	 * overlay: (Number:50) The overlay div opacity value, from 0 - 100
-	 * overlayId: (String:'modalOverlay') The DOM element id for the overlay div
+	 * iframe: (Boolean:true) Use an IFRAME with every modal dialog, not just IE6. Useful for
+	 *          blocking page content using OBJECT and EMBED tags.
+	 * opacity: (Number:50) The opacity value for the overlay div, from 0 - 100
+	 * overlayId: (String:'simplemodal-overlay') The DOM element id for the overlay div
 	 * overlayCss: (Object:{}) The CSS styling for the overlay div
-	 * containerId: (String:'modalContainer') The DOM element id for the container div
+	 * containerId: (String:'simplemodal-container') The DOM element id for the container div
 	 * containerCss: (Object:{}) The CSS styling for the container div
-	 * close: (Boolean:true) Show the default window close icon? Uses CSS class modalCloseImg
-	 * closeTitle: (String:'Close') The title value of the default close link. Depends on close
-	 * closeClass: (String:'modalClose') The CSS class used to bind to the close event
+	 * dataCss: (Object:{}) The CSS styling for the data div
+	 * zIndex: (Number: 1000) Starting z-index value
+	 * close: (Boolean:true) Show closeHTML?
+	 * closeHTML: (String:'<a class="modalCloseImg" title="Close"></a>') The title value of the 
+	              default close link. Depends on close.
+	 * closeClass: (String:'simplemodal-close') The CSS class used to bind to the close event
+	 * position: (Array:null) Position of container [left, top]. can be number of pixels or percentage
 	 * persist: (Boolean:false) Persist the data across modal calls? Only used for existing
 	            DOM elements. If true, the data will be maintained across modal calls, if false,
-				the data will be reverted to its original state.
+				   the data will be reverted to its original state.
 	 * onOpen: (Function:null) The callback function used in place of SimpleModal's open
 	 * onShow: (Function:null) The callback function used after the modal dialog has opened
 	 * onClose: (Function:null) The callback function used in place of SimpleModal's close
 	 */
 	$.modal.defaults = {
-		overlay: 50,
-		overlayId: 'modalOverlay',
+		iframe: true,
+		opacity: 50,
+		overlayId: 'simplemodal-overlay',
 		overlayCss: {},
-		containerId: 'modalContainer',
+		containerId: 'simplemodal-container',
 		containerCss: {},
+		dataCss: {},
+		zIndex: 1000,
 		close: true,
-		closeTitle: 'Close',
-		closeClass: 'modalClose',
+		closeHTML: '<a class="modalCloseImg" title="Close"></a>',
+		closeClass: 'simplemodal-close',
 		position: null,
 		persist: false,
 		onOpen: null,
@@ -157,6 +164,12 @@
 			// merge defaults and user options
 			this.opts = $.extend({}, $.modal.defaults, options);
 
+			// keep track of z-index
+			this.zIndex = this.opts.zIndex;
+
+			// set the onClose callback flag
+			this.occb = false;
+
 			// determine how to handle the data based on its type
 			if (typeof data == 'object') {
 				// convert DOM object to a jQuery object
@@ -168,7 +181,7 @@
 
 					// persist changes? if not, make a clone of the element
 					if (!this.opts.persist) {
-						this.dialog.original = data.clone(true);
+						this.dialog.orig = data.clone(true);
 					}
 				}
 			}
@@ -178,12 +191,10 @@
 			}
 			else {
 				// unsupported data type!
-				if (console) {
-					console.log('SimpleModal Error: Unsupported data type: ' + typeof data);
-				}
+				alert('SimpleModal Error: Unsupported data type: ' + typeof data);
 				return false;
 			}
-			this.dialog.data = data.addClass('modalData');
+			this.dialog.data = data.addClass('simplemodal-data').css(this.opts.dataCss);
 			data = null;
 
 			// create the modal overlay, container and, if necessary, iframe
@@ -205,52 +216,51 @@
 		 */
 		create: function () {
 			// get the window properties
-			wProps = this.getDimensions();
+			w = this.getDimensions();
 
 			// add an iframe to prevent select options from bleeding through
-			this.dialog.iframe = $('<iframe src="javascript:false;"/>')
-				.css($.extend(this.opts.iframeCss, {
-					display: 'none',
-					opacity: 0, 
-					position: 'fixed',
-					height: wProps[0],
-					width: wProps[1],
-					zIndex: 1000,
-					top: 0,
-					left: 0
-				}))
-				.appendTo('body');
+			if (this.opts.iframe || ie6) {
+				this.dialog.iframe = $('<iframe src="javascript:false;"/>')
+					.css($.extend(this.opts.iframeCss, {
+						display: 'none',
+						opacity: 0, 
+						position: 'fixed',
+						height: w[0],
+						width: w[1],
+						zIndex: this.opts.zIndex,
+						top: 0,
+						left: 0
+					}))
+					.appendTo('body');
+			}
 
 			// create the overlay
 			this.dialog.overlay = $('<div/>')
 				.attr('id', this.opts.overlayId)
-				.addClass('modalOverlay')
+				.addClass('simplemodal-overlay')
 				.css($.extend(this.opts.overlayCss, {
 					display: 'none',
-					opacity: this.opts.overlay / 100,
-					height: wProps[0],
-					width: wProps[1],
+					opacity: this.opts.opacity / 100,
+					height: w[0],
+					width: w[1],
 					position: 'fixed',
 					left: 0,
 					top: 0,
-					zIndex: 3000
+					zIndex: this.opts.zIndex + 1
 				}))
 				.appendTo('body');
 
 			// create the container
 			this.dialog.container = $('<div/>')
 				.attr('id', this.opts.containerId)
-				.addClass('modalContainer')
+				.addClass('simplemodal-container')
 				.css($.extend(this.opts.containerCss, {
 					display: 'none',
 					position: 'fixed', 
-					zIndex: 3100
+					zIndex: this.opts.zIndex + 2
 				}))
 				.append(this.opts.close 
-					? '<a class="modalCloseImg ' 
-						+ this.opts.closeClass 
-						+ '" title="' 
-						+ this.opts.closeTitle + '"></a>'
+					? $(this.opts.closeHTML).addClass(this.opts.closeClass)
 					: '')
 				.appendTo('body');
 
@@ -268,20 +278,35 @@
 		 * Bind events
 		 */
 		bindEvents: function () {
-			var modal = this;
+			var self = this;
 
 			// bind the close event to any element with the closeClass class
-			$('.' + this.opts.closeClass).click(function (e) {
+			$('.' + this.opts.closeClass).bind('click.simplemodal', function (e) {
 				e.preventDefault();
-				modal.close();
+				self.close();
+			});
+
+			// update window size
+			$(window).bind('resize.simplemodal', function () {
+				// redetermine the window width/height
+				w = self.getDimensions();
+
+				// reposition the dialog
+				self.setPosition();
+
+				// update the iframe & overlay
+				if (!ie6) {
+					self.dialog.iframe.css({height: w[0], width: w[1]});
+					self.dialog.overlay.css({height: w[0], width: w[1]});
+				}
 			});
 		},
 		/*
 		 * Unbind events
 		 */
 		unbindEvents: function () {
-			// remove the close event
-			$('.' + this.opts.closeClass).unbind('click');
+			$('.' + this.opts.closeClass).unbind('click.simplemodal');
+			$(window).unbind('resize.simplemodal');
 		},
 		/*
 		 * Fix issues in IE 6
@@ -311,20 +336,24 @@
 			return [h, el.width()];
 		},
 		setPosition: function () {
-			var top = 0, left = 0;
+			var top = 0, 
+				left = 0,
+				hCenter = (w[0]/2) - (this.dialog.container.height()/2),
+				vCenter = (w[1]/2) - (this.dialog.container.width()/2);
+
 			if (this.opts.position && this.opts.position.constructor == Array) {
-				top += this.opts.position[1];
-				left += this.opts.position[0];
+				top += this.opts.position[1] || hCenter;
+				left += this.opts.position[0] || vCenter;
 			} else {
-				top += (wProps[0]/2) - (this.dialog.container.height()/2);
-				left += (wProps[1]/2) - (this.dialog.container.width()/2);
+				top += hCenter;
+				left += vCenter;
 			}
 			this.dialog.container.css({left: left, top: top});
 		},
 		/*
 		 * Open the modal dialog elements
 		 * - Note: If you use the onOpen callback, you must "show" the 
-		 *         overlay and container elements manually 
+		 *	        overlay and container elements manually 
 		 *         (the iframe will be handled by SimpleModal)
 		 */
 		open: function () {
@@ -356,13 +385,16 @@
 		 *     function was internal or external. If it was external, the
 		 *     onClose callback will be ignored
 		 */
-		close: function (external) {
+		close: function () {
 			// prevent close when dialog does not exist
 			if (!this.dialog.data) {
 				return false;
 			}
 
-			if ($.isFunction(this.opts.onClose) && !external) {
+			if ($.isFunction(this.opts.onClose) && !this.occb) {
+				// set the onClose callback flag
+				this.occb = true;
+
 				// execute the onClose callback
 				this.opts.onClose.apply(this, [this.dialog]);
 			}
@@ -378,7 +410,7 @@
 						// remove the current and insert the original, 
 						// unmodified data back into the DOM
 						this.dialog.data.remove();
-						this.dialog.original.appendTo(this.dialog.parentNode);
+						this.dialog.orig.appendTo(this.dialog.parentNode);
 					}
 				}
 				else {
@@ -389,7 +421,9 @@
 				// remove the remaining elements
 				this.dialog.container.remove();
 				this.dialog.overlay.remove();
-				this.dialog.iframe.remove();
+				if (this.dialog.iframe) {
+					this.dialog.iframe.remove();
+				}
 
 				// reset the dialog object
 				this.dialog = {};
