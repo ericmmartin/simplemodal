@@ -13,7 +13,7 @@
  */
 
 $(document).ready(function () {
-	$('#confirmDialog input:eq(0)').click(function (e) {
+	$('#confirmDialog input.confirm, #confirmDialog a.confirm').click(function (e) {
 		e.preventDefault();
 
 		// example of calling the confirm function

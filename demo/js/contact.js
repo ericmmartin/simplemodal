@@ -13,7 +13,7 @@
  */
 
 $(document).ready(function () {
-	$('#contactLink, #contactForm input:eq(0)').click(function (e) {
+	$('#contactForm input.contact, #contactForm a.contact').click(function (e) {
 		e.preventDefault();
 		// load the contact form using ajax
 		$.get("data/contact.php", function(data){
@@ -31,7 +31,7 @@ $(document).ready(function () {
 	});
 
 	// preload images
-	var img = ['cancel.png','form_bottom.gif','form_top.gif','form_top_ie.gif','loading.gif','send.png'];
+	var img = ['cancel.png', 'form_bottom.gif', 'form_top.gif', 'loading.gif', 'send.png'];
 	$(img).each(function () {
 		var i = new Image();
 		i.src = 'img/contact/' + this;
@@ -54,17 +54,31 @@ var contact = {
 			});
 		}
 
+		// dynamically determine height
+		var h = 280;
+		if ($('#contact-subject').length) {
+			h += 26;
+		}
+		if ($('#contact-cc').length) {
+			h += 22;
+		}
+
 		var title = $('#contact-container .contact-title').html();
 		$('#contact-container .contact-title').html('Loading...');
 		dialog.overlay.fadeIn(200, function () {
 			dialog.container.fadeIn(200, function () {
 				dialog.data.fadeIn(200, function () {
 					$('#contact-container .contact-content').animate({
-						height: 260
+						height: h
 					}, function () {
 						$('#contact-container .contact-title').html(title);
 						$('#contact-container form').fadeIn(200, function () {
 							$('#contact-container #contact-name').focus();
+
+							$('#contact-container .contact-cc').click(function () {
+								var cc = $('#contact-container #contact-cc');
+								cc.is(':checked') ? cc.attr('checked', '') : cc.attr('checked', 'checked');
+							});
 
 							// fix png's for IE 6
 							if ($.browser.msie && $.browser.version < 7) {

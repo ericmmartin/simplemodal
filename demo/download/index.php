@@ -1,82 +1,91 @@
 <?php
 
-$demo = isset($_REQUEST['demo']) ? $_REQUEST['demo'] : '';
+$demo = isset($_POST['demo']) ? $_POST['demo'] : '';
+$valid = array("basic", "contact", "confirm");
 
-$dir = dirname(dirname(__FILE__));
-$dir = str_replace('\\', '/', $dir);
+// don't allow hackers in
+if (in_array($demo, $valid)) {
 
-$files = array(
-		'index' => $dir . '/download/index/' . $demo . '.html',
-		'index_zip' => $demo . '/index.html',
-		'js' => $dir . '/js/' . $demo . '.js',
-		'js_zip' => $demo . '/js/' . $demo . '.js',
-		'jquery_js' => $dir . '/js/jquery.js',
-		'jquery_js_zip' => $demo . '/js/jquery.js',
-		'simplemodal_js' => $dir . '/js/jquery.simplemodal.js',
-		'simplemodal_js_zip' => $demo . '/js/jquery.simplemodal.js',
-		'css' => $dir . '/css/' . $demo . '.css',
-		'css_zip' => $demo . '/css/' . $demo . '.css',
-		'css_ie' => $dir . '/css/' . $demo . '_ie.css',
-		'css_ie_zip' => $demo . '/css/' . $demo . '_ie.css',
-		'data' => $dir . '/data/' . $demo . '-dist.php',
-		'data_zip' => $demo . '/data/' . $demo . '.php',
-		'img_match' => $dir . '/img/' . $demo . '/{*.gif,*.jpg,*.png}'
-	);
+	$dir = dirname(dirname(__FILE__));
+	$dir = str_replace('\\', '/', $dir);
 
-/* Create the zip file */
-$now = time();
-$zip = new ZipArchive();
-$res = $zip->open($now . $demo . '.zip', ZipArchive::CREATE);
-if ($res === TRUE) {
-	if (file_exists($files['index'])) {
-		$zip->addFile($files['index'], $files['index_zip']);
-	}
-	if (file_exists($files['js'])) {
-		$zip->addFile($files['js'], $files['js_zip']);
-	}
-	if (file_exists($files['jquery_js'])) {
-		$zip->addFile($files['jquery_js'], $files['jquery_js_zip']);
-	}
-	if (file_exists($files['simplemodal_js'])) {
-		$zip->addFile($files['simplemodal_js'], $files['simplemodal_js_zip']);
-	}
-	if (file_exists($files['css'])) {
-		$zip->addFile($files['css'], $files['css_zip']);
-	}
-	if (file_exists($files['css_ie'])) {
-		$zip->addFile($files['css_ie'], $files['css_ie_zip']);
-	}
-	if (file_exists($files['data'])) {
-		$zip->addFile($files['data'], $files['data_zip']);
+	$files = array(
+			'index' => $dir . '/download/index/' . $demo . '.html',
+			'index_zip' => $demo . '/index.html',
+			'js' => $dir . '/js/' . $demo . '.js',
+			'js_zip' => $demo . '/js/' . $demo . '.js',
+			'jquery_js' => $dir . '/js/jquery.js',
+			'jquery_js_zip' => $demo . '/js/jquery.js',
+			'simplemodal_js' => $dir . '/js/jquery.simplemodal.js',
+			'simplemodal_js_zip' => $demo . '/js/jquery.simplemodal.js',
+			'css' => $dir . '/css/' . $demo . '.css',
+			'css_zip' => $demo . '/css/' . $demo . '.css',
+			'css_ie' => $dir . '/css/' . $demo . '_ie.css',
+			'css_ie_zip' => $demo . '/css/' . $demo . '_ie.css',
+			'data' => $dir . '/data/' . $demo . '-dist.php',
+			'data_zip' => $demo . '/data/' . $demo . '.php',
+			'img_match' => $dir . '/img/' . $demo . '/{*.gif,*.jpg,*.png}'
+		);
+
+	/* Create the zip file */
+	$now = time();
+	$zip = new ZipArchive();
+	$res = $zip->open($now . $demo . '.zip', ZipArchive::CREATE);
+	if ($res === TRUE) {
+		if (file_exists($files['index'])) {
+			$zip->addFile($files['index'], $files['index_zip']);
+		}
+		if (file_exists($files['js'])) {
+			$zip->addFile($files['js'], $files['js_zip']);
+		}
+		if (file_exists($files['jquery_js'])) {
+			$zip->addFile($files['jquery_js'], $files['jquery_js_zip']);
+		}
+		if (file_exists($files['simplemodal_js'])) {
+			$zip->addFile($files['simplemodal_js'], $files['simplemodal_js_zip']);
+		}
+		if (file_exists($files['css'])) {
+			$zip->addFile($files['css'], $files['css_zip']);
+		}
+		if (file_exists($files['css_ie'])) {
+			$zip->addFile($files['css_ie'], $files['css_ie_zip']);
+		}
+		if (file_exists($files['data'])) {
+			$zip->addFile($files['data'], $files['data_zip']);
+		}
+
+		$images = glob($files['img_match'], GLOB_BRACE);
+
+		foreach ($images as $image) {
+			$img = str_replace($dir.'/', '', $image);
+			$zip->addFile($image, "$demo/$img");
+		}
+		$zip->close();
 	}
 
-	$images = glob($files['img_match'], GLOB_BRACE);
-
-	foreach ($images as $image) {
-		$img = str_replace($dir.'/', '', $image);
-		$zip->addFile($image, "$demo/$img");
+	/* Open for download */
+	$file = dirname(__FILE__) . '/' . $now . $demo . '.zip';
+	$fp = fopen($file, 'r');
+	if (!$fp) {
+		 exit("cannot open\n");
 	}
-	$zip->close();
+	while (!feof($fp)) {
+		 $contents .= fread($fp, 2);
+	}
+	fclose($fp);
+
+	/* Delete file */
+	unlink($file);
+
+	/* Send to browser */
+	Header("Content-type: application/octet-stream");
+	Header ("Content-disposition: attachment; filename=SimpleModal-$demo.zip");
+	echo $contents;
+
 }
-
-/* Open for download */
-$file = dirname(__FILE__) . '/' . $now . $demo . '.zip';
-$fp = fopen($file, 'r');
-if (!$fp) {
-    exit("cannot open\n");
+else {
+	echo "DENIED";
 }
-while (!feof($fp)) {
-    $contents .= fread($fp, 2);
-}
-fclose($fp);
-
-/* Delete file */
-unlink($file);
-
-/* Send to browser */
-Header("Content-type: application/octet-stream");
-Header ("Content-disposition: attachment; filename=SimpleModal-$demo.zip");
-echo $contents;
 
 exit;
 

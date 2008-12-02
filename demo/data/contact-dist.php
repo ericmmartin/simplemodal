@@ -31,7 +31,7 @@ $extra = array(
 $action = isset($_POST["action"]) ? $_POST["action"] : "";
 if (empty($action)) {
 	// Send back the contact form HTML
-	echo "<div style='display:none'>
+	$output = "<div style='display:none'>
 	<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
 	<div class='contact-top'></div>
 	<div class='contact-content'>
@@ -39,22 +39,41 @@ if (empty($action)) {
 		<div class='contact-loading' style='display:none'></div>
 		<div class='contact-message' style='display:none'></div>
 		<form action='#' style='display:none'>
-			<label for='name'>*Name:</label>
+			<label for='contact-name'>*Name:</label>
 			<input type='text' id='contact-name' class='contact-input' name='name' tabindex='1001' />
-			<label for='email'>*Email:</label>
-			<input type='text' id='contact-email' class='contact-input' name='email' tabindex='1002' />
-			<label for='message'>*Message:</label>
-			<textarea id='contact-message' class='contact-input' name='message' cols='40' rows='4' tabindex='1003'></textarea>
-			<br/>
+			<label for='contact-email'>*Email:</label>
+			<input type='text' id='contact-email' class='contact-input' name='email' tabindex='1002' />";
+
+	if ($extra["form_subject"]) {
+		$output .= "
+			<label for='contact-subject'>Subject:</label>
+			<input type='text' id='contact-subject' class='contact-input' name='subject' value='' tabindex='1003' />";
+	}
+
+	$output .= "
+			<label for='contact-message'>*Message:</label>
+			<textarea id='contact-message' class='contact-input' name='message' cols='40' rows='4' tabindex='1004'></textarea>
+			<br/>";
+
+	if ($extra["form_cc"]) {
+		$output .= "
 			<label>&nbsp;</label>
-			<button type='submit' class='contact-send contact-button' tabindex='1004'>Send</button>
-			<button type='submit' class='contact-cancel contact-button simplemodal-close' tabindex='1005'>Cancel</button>
+			<input type='checkbox' id='contact-cc' name='cc' value='1' tabindex='1005' /> <span class='contact-cc'>Send me a copy</span>
+			<br/>";
+	}
+
+	$output .= "
+			<label>&nbsp;</label>
+			<button type='submit' class='contact-send contact-button' tabindex='1006'>Send</button>
+			<button type='submit' class='contact-cancel contact-button simplemodal-close' tabindex='1007'>Cancel</button>
 			<br/>
 			<input type='hidden' name='token' value='" . smcf_token($to) . "'/>
 		</form>
 	</div>
 	<div class='contact-bottom'><a href='http://www.ericmmartin.com/projects/simplemodal/'>Powered by SimpleModal</a></div>
 </div>";
+
+	echo $output;
 }
 else if ($action == "send") {
 	// Send the email
@@ -80,18 +99,18 @@ function smcf_token($s) {
 }
 
 // Validate and send email
-function smcf_send($name, $email, $message) {
-	global $to, $subject, $extra;
+function smcf_send($name, $email, $subject, $message, $cc) {
+	global $to, $extra;
 
-	// Filter name
+	// Filter and validate fields
 	$name = smcf_filter($name);
-
-	// Filter and validate email
+	$subject = smcf_filter($subject);
 	$email = smcf_filter($email);
 	if (!smcf_validate_email($email)) {
 		$subject .= " - invalid email";
 		$message .= "\n\nBad email: $email";
 		$email = $to;
+		$cc = 0; // do not CC "sender"
 	}
 
 	// Add additional info to the message
@@ -108,12 +127,27 @@ function smcf_send($name, $email, $message) {
 	$body = wordwrap($body, 70);
 
 	// Build header
-	$header = "From: $email\n";
-	$header .= "X-Mailer: PHP/SimpleModalContactForm";
+	$headers = "From: $email\n";
+	if ($cc == 1) {
+		$headers .= "Cc: $email\n";
+	}
+	$headers .= "X-Mailer: PHP/SimpleModalContactForm";
+
+	// UTF-8
+	if (function_exists('mb_encode_mimeheader')) {
+		$subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
+	}
+	else {
+		// you need to enable mb_encode_mimeheader or risk 
+		// getting emails that are not UTF-8 encoded
+	}
+	$headers .= "MIME-Version: 1.0\n";
+	$headers .= "Content-type: text/plain; charset=utf-8\n";
+	$headers .= "Content-Transfer-Encoding: quoted-printable\n";
 
 	// Send email
-	@mail($to, $subject, $body, $header) or 
-		die("Unfortunately, your message could not be delivered.");
+	@mail($to, $subject, $body, $headers) or 
+		die("Unfortunately, a server issue prevented delivery of your message.");
 }
 
 // Remove any un-safe values to prevent email injection
@@ -123,7 +157,6 @@ function smcf_filter($value) {
 	return $value;
 }
 
-// Validate email address format in case client-side validation "fails"
 // Validate email address format in case client-side validation "fails"
 function smcf_validate_email($email) {
 	$at = strrpos($email, "@");
