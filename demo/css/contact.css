@@ -18,7 +18,7 @@ body {padding:0; margin:0; height:100%; width:100%;}
 #contact-overlay {background-color:#000; cursor:wait;}
 
 /* Container */
-#contact-container {width:420px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left;}
+#contact-container {width:500px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left;}
 #contact-container .contact-content {background-color:#333; color:#ddd; height:40px;}
 #contact-container h1 {color:#d76300; margin:0; padding:0 0 6px 12px; font-size:1.2em; text-align:left;}
 #contact-container .contact-loading {position:absolute; background:url(../img/contact/loading.gif) no-repeat; z-index:8000; height:55px; width:54px; margin:-14px 0 0 170px; padding:0;}
@@ -27,7 +27,7 @@ body {padding:0; margin:0; height:100%; width:100%;}
 #contact-container br {clear:both;}
 #contact-container form {padding:0; margin:0;}
 #contact-container label {clear:left; display:block; width:100px; float:left; text-align:right; padding-right:4px; font-weight:bold;}
-#contact-container .contact-input {font-family:'Trebuchet MS', Verdana, Arial; float:left; padding:2px; margin:2px; background:#eee; border:1px solid #fff; width:250px;}
+#contact-container .contact-input {font-family:'Trebuchet MS', Verdana, Arial; float:left; padding:2px; margin:2px; background:#eee; border:1px solid #fff; width:350px;}
 #contact-container textarea {height:84px;}
 #contact-container .contact-top {height:13px; background:url(../img/contact/form_top.gif) no-repeat; padding:0; margin:0;}
 #contact-container .contact-bottom {height:13px; background:url(../img/contact/form_bottom.gif) no-repeat; font-size:.7em; text-align:center;}
@@ -42,5 +42,5 @@ body {padding:0; margin:0; height:100%; width:100%;}
 #contact-container a.modalCloseX,
 #contact-container a.modalCloseX:link,
 #contact-container a.modalCloseX:active,
-#contact-container a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-2px; left:400px; color:#999;}
+#contact-container a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-4px; right:6px; color:#999;}
 #contact-container a.modalCloseX:hover {color:#9bb3b3;}
