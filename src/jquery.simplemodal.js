@@ -1,14 +1,8 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://www.ericmmartin.com/projects/simplemodal/
- * http://plugins.jquery.com/project/SimpleModal
- * http://code.google.com/p/simplemodal/
- *
- * Copyright (c) 2008 Eric Martin - http://ericmmartin.com
- *
- * Dual licensed under the MIT (MIT-LICENSE.txt)
- * and GPL (GPL-LICENSE.txt) licenses.
- *
+ * Copyright (c) 2008 Eric Martin
+ * Dual licensed under the MIT and GPL licenses
  * Revision: $Id$
  */
 
