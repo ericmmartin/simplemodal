@@ -27,7 +27,7 @@ $(document).ready(function () {
 function confirm(message, callback) {
 	$('#confirm').modal({
 		close:false,
-		position: [0,"20%"],
+		position: ["20%",],
 		overlayId:'confirmModalOverlay',
 		containerId:'confirmModalContainer', 
 		onShow: function (dialog) {
