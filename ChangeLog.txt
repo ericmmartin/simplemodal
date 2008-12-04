@@ -1,7 +1,7 @@
 ==== SimpleModal ChangeLog ====
 
-== 1.1.2 ==
- * Date: Dec 1, 2008
+== 1.2 ==
+ * Date: Dec 4, 2008
  * Added new internal variables (ie6, ieQuirks and w)
  * Added better IE6 detection (preventing false positives with IE7)
  * Fixed $.modal.close() function to correctly utilize an onClose callback
