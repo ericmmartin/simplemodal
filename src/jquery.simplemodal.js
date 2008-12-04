@@ -110,9 +110,9 @@
 	 * zIndex: (Number: 1000) Starting z-index value
 	 * close: (Boolean:true) Show closeHTML?
 	 * closeHTML: (String:'<a class="modalCloseImg" title="Close"></a>') The HTML for the 
-	              default close link. Depends on close.
+	              default close link. SimpleModal will automatically add the closeClass to this element.
 	 * closeClass: (String:'simplemodal-close') The CSS class used to bind to the close event
-	 * position: (Array:null) Position of container [left, top]. can be number of pixels or percentage
+	 * position: (Array:null) Position of container [top, left]. Can be number of pixels or percentage
 	 * persist: (Boolean:false) Persist the data across modal calls? Only used for existing
 	            DOM elements. If true, the data will be maintained across modal calls, if false,
 				   the data will be reverted to its original state.
@@ -342,8 +342,8 @@
 				vCenter = (w[1]/2) - (this.dialog.container.width()/2);
 
 			if (this.opts.position && this.opts.position.constructor == Array) {
-				top += this.opts.position[1] || hCenter;
-				left += this.opts.position[0] || vCenter;
+				top += this.opts.position[0] || hCenter;
+				left += this.opts.position[1] || vCenter;
 			} else {
 				top += hCenter;
 				left += vCenter;
