@@ -21,6 +21,14 @@
  * Added dynamic centering of container as well as a position option for manual positioning
  * Added namespacing on events
  * Added window resize listener to resize dialog elements
+ * Updated contact form demo
+   * Added subject and cc fields
+	* Added UTF-8 support
+	* Added token security
+	* Updated CSS
+	* Removed unnecessary files
+ * Updated test/examples page
+   * Added radio buttons and checkboxes to persist test
 
 == 1.1.1 ==
  * Date: Jan 15, 2008
