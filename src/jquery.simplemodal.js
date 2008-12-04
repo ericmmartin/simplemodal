@@ -54,7 +54,7 @@
  *
  * SimpleModal has been tested in the following browsers:
  * - IE 6, 7
- * - Firefox 2
+ * - Firefox 2, 3
  * - Opera 9
  * - Safari 3
  *
@@ -109,7 +109,7 @@
 	 * dataCss: (Object:{}) The CSS styling for the data div
 	 * zIndex: (Number: 1000) Starting z-index value
 	 * close: (Boolean:true) Show closeHTML?
-	 * closeHTML: (String:'<a class="modalCloseImg" title="Close"></a>') The title value of the 
+	 * closeHTML: (String:'<a class="modalCloseImg" title="Close"></a>') The HTML for the 
 	              default close link. Depends on close.
 	 * closeClass: (String:'simplemodal-close') The CSS class used to bind to the close event
 	 * position: (Array:null) Position of container [left, top]. can be number of pixels or percentage
