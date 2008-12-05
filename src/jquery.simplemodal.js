@@ -93,7 +93,7 @@
 	/*
 	 * SimpleModal default options
 	 * 
-	 * iframe: (Boolean:true) Use an IFRAME with every modal dialog, not just IE6. Useful for
+	 * iframe: (Boolean:false) Use an IFRAME with every modal dialog, not just IE6. Useful for
 	 *          blocking page content using OBJECT and EMBED tags.
 	 * opacity: (Number:50) The opacity value for the overlay div, from 0 - 100
 	 * overlayId: (String:'simplemodal-overlay') The DOM element id for the overlay div
@@ -115,7 +115,7 @@
 	 * onClose: (Function:null) The callback function used in place of SimpleModal's close
 	 */
 	$.modal.defaults = {
-		iframe: true,
+		iframe: false,
 		opacity: 50,
 		overlayId: 'simplemodal-overlay',
 		overlayCss: {},
@@ -290,7 +290,7 @@
 
 				// update the iframe & overlay
 				if (!ie6) {
-					self.dialog.iframe.css({height: w[0], width: w[1]});
+					self.dialog.iframe && self.dialog.iframe.css({height: w[0], width: w[1]});
 					self.dialog.overlay.css({height: w[0], width: w[1]});
 				}
 			});
@@ -303,19 +303,21 @@
 			$(window).unbind('resize.simplemodal');
 		},
 		/*
-		 * Fix issues in IE 6
+		 * Fix issues in IE6 and IE7 in quirks mode
 		 */
 		fixIE: function () {
 			// simulate fixed position - adapted from BlockUI
-			$.each([this.dialog.iframe, this.dialog.overlay, this.dialog.container], function (i, el) {
-				var s = el[0].style;
-				s.position = 'absolute';
-				if (i < 2) {
-					s.setExpression('height','document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + "px"');
-					s.setExpression('width','jQuery.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
-				}
-				else {
-					s.setExpression('top','(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+			$.each([this.dialog.iframe || null, this.dialog.overlay, this.dialog.container], function (i, el) {
+				if (el) {
+					var s = el[0].style;
+					s.position = 'absolute';
+					if (i < 2) {
+						s.setExpression('height','document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + "px"');
+						s.setExpression('width','jQuery.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
+					}
+					else {
+						s.setExpression('top','(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+					}
 				}
 			});
 		},
@@ -332,8 +334,8 @@
 		setPosition: function () {
 			var top = 0, 
 				left = 0,
-				hCenter = (w[0]/2) - (this.dialog.container.height()/2),
-				vCenter = (w[1]/2) - (this.dialog.container.width()/2);
+				hCenter = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
+				vCenter = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
 
 			if (this.opts.position && this.opts.position.constructor == Array) {
 				top += this.opts.position[0] || hCenter;
@@ -352,9 +354,7 @@
 		 */
 		open: function () {
 			// display the iframe
-			if (this.dialog.iframe) {
-				this.dialog.iframe.show();
-			}
+			this.dialog.iframe && this.dialog.iframe.show();
 
 			if ($.isFunction(this.opts.onOpen)) {
 				// execute the onOpen callback 
@@ -415,9 +415,7 @@
 				// remove the remaining elements
 				this.dialog.container.remove();
 				this.dialog.overlay.remove();
-				if (this.dialog.iframe) {
-					this.dialog.iframe.remove();
-				}
+				this.dialog.iframe && this.dialog.iframe.remove();
 
 				// reset the dialog object
 				this.dialog = {};

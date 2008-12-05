@@ -1,5 +1,11 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.2.1 ==
+ * Date: Dec 5, 2008
+ * Fixed iframe errors when iframe option set to false
+ * Changed default iframe option to false
+ * Fixed auto centering to use data width/height if container width/height is not set
+
 == 1.2 ==
  * Date: Dec 4, 2008
  * Added new internal variables (ie6, ieQuirks and w)
@@ -29,6 +35,7 @@
 	* Removed unnecessary files
  * Updated test/examples page
    * Added radio buttons and checkboxes to persist test
+
 
 == 1.1.1 ==
  * Date: Jan 15, 2008
