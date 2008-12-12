@@ -65,6 +65,18 @@ $(document).ready(function () {
 		e.preventDefault();
 		$.modal('<div class="test"><h1>IE SELECT bleed test</h1></div>');
 	});
+	$('a#test13').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({position: [20,20]});
+	});
+	$('a#test14').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({position: [20,]});
+	});
+	$('a#test15').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({position: [,20]});
+	});
 });
 
 /**
