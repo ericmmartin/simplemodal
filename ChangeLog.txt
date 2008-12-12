@@ -1,10 +1,18 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.2.2 ==
+ * Date: Dec 12, 2008
+ * Fixed IE6 positioning issues
+ * Updated jQuery version requirement to 1.2.2
+ * Added more position option tests
+
+
 == 1.2.1 ==
  * Date: Dec 5, 2008
  * Fixed iframe errors when iframe option set to false
  * Changed default iframe option to false
  * Fixed auto centering to use data width/height if container width/height is not set
+
 
 == 1.2 ==
  * Date: Dec 4, 2008

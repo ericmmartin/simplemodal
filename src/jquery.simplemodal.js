@@ -54,7 +54,7 @@
  *
  * @name SimpleModal
  * @type jQuery
- * @requires jQuery v1.1.2
+ * @requires jQuery v1.2.2
  * @cat Plugins/Windows and Overlays
  * @author Eric Martin (http://ericmmartin.com)
  * @version @VERSION
@@ -306,6 +306,8 @@
 		 * Fix issues in IE6 and IE7 in quirks mode
 		 */
 		fixIE: function () {
+			var pos = this.opts.position;
+
 			// simulate fixed position - adapted from BlockUI
 			$.each([this.dialog.iframe || null, this.dialog.overlay, this.dialog.container], function (i, el) {
 				if (el) {
@@ -316,7 +318,20 @@
 						s.setExpression('width','jQuery.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
 					}
 					else {
-						s.setExpression('top','(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+						var expr;
+						if (pos && pos.constructor == Array && pos[0]) {
+							var top = typeof pos[0] == 'number' ? pos[0].toString() : pos[0].replace(/px/, '');
+							if (top.indexOf('%') == -1) {
+								expr = top + ' + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"';
+							}
+							else {
+								expr = parseInt(top.replace(/%/, '')) + ' * ((document.documentElement.clientHeight || document.body.clientHeight) / 100) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"';
+							}
+						}
+						else {
+							expr = '(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"';
+						}
+						s.setExpression('top', expr);
 					}
 				}
 			});

@@ -77,6 +77,14 @@ $(document).ready(function () {
 		e.preventDefault();
 		$('#modalContentTest').modal({position: [,20]});
 	});
+	$('a#test16').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({position: ["40px","40px"]});
+	});
+	$('a#test17').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({position: ["25%","25%"]});
+	});
 });
 
 /**
