@@ -85,6 +85,10 @@ $(document).ready(function () {
 		e.preventDefault();
 		$('#modalContentTest').modal({position: ["25%","25%"]});
 	});
+	$('a#test18').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal();
+	});
 });
 
 /**

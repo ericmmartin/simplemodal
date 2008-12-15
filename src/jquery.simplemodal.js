@@ -93,8 +93,6 @@
 	/*
 	 * SimpleModal default options
 	 * 
-	 * iframe: (Boolean:false) Use an IFRAME with every modal dialog, not just IE6. Useful for
-	 *          blocking page content using OBJECT and EMBED tags.
 	 * opacity: (Number:50) The opacity value for the overlay div, from 0 - 100
 	 * overlayId: (String:'simplemodal-overlay') The DOM element id for the overlay div
 	 * overlayCss: (Object:{}) The CSS styling for the overlay div
@@ -115,7 +113,6 @@
 	 * onClose: (Function:null) The callback function used in place of SimpleModal's close
 	 */
 	$.modal.defaults = {
-		iframe: false,
 		opacity: 50,
 		overlayId: 'simplemodal-overlay',
 		overlayCss: {},
@@ -213,7 +210,7 @@
 			w = this.getDimensions();
 
 			// add an iframe to prevent select options from bleeding through
-			if (this.opts.iframe || ie6) {
+			if (ie6) {
 				this.dialog.iframe = $('<iframe src="javascript:false;"/>')
 					.css($.extend(this.opts.iframeCss, {
 						display: 'none',
@@ -260,7 +257,7 @@
 
 			this.setPosition();
 
-			// fix issues with IE and create an iframe
+			// fix issues with IE
 			if (ie6 || ieQuirks) {
 				this.fixIE();
 			}
@@ -287,9 +284,12 @@
 
 				// reposition the dialog
 				self.setPosition();
-
-				// update the iframe & overlay
-				if (!ie6) {
+	
+				if (ie6 || ieQuirks) {
+					self.fixIE();
+				}
+				else {
+					// update the iframe & overlay
 					self.dialog.iframe && self.dialog.iframe.css({height: w[0], width: w[1]});
 					self.dialog.overlay.css({height: w[0], width: w[1]});
 				}
@@ -306,32 +306,49 @@
 		 * Fix issues in IE6 and IE7 in quirks mode
 		 */
 		fixIE: function () {
-			var pos = this.opts.position;
+			var p = this.opts.position;
 
 			// simulate fixed position - adapted from BlockUI
 			$.each([this.dialog.iframe || null, this.dialog.overlay, this.dialog.container], function (i, el) {
 				if (el) {
-					var s = el[0].style;
+					var bch = 'document.body.clientHeight', bcw = 'document.body.clientWidth'
+						bsh = 'document.body.scrollHeight', bsl = 'document.body.scrollLeft',
+						bst = 'document.body.scrollTop', bsw = 'document.body.scrollWidth',
+						ch = 'document.documentElement.clientHeight', cw = 'document.documentElement.clientWidth',
+						sl = 'document.documentElement.scrollLeft', st = 'document.documentElement.scrollTop',
+						s = el[0].style;
+
 					s.position = 'absolute';
 					if (i < 2) {
-						s.setExpression('height','document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + "px"');
-						s.setExpression('width','jQuery.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
+						s.removeExpression('height');
+						s.removeExpression('width');
+						s.setExpression('height','' + bsh + ' > ' + bch + ' ? ' + bsh + ' : ' + bch + ' + "px"');
+						s.setExpression('width','' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw + ' + "px"');
 					}
 					else {
-						var expr;
-						if (pos && pos.constructor == Array && pos[0]) {
-							var top = typeof pos[0] == 'number' ? pos[0].toString() : pos[0].replace(/px/, '');
-							if (top.indexOf('%') == -1) {
-								expr = top + ' + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"';
+						var te, le;
+						if (p && p.constructor == Array) {
+							if (p[0]) {
+								var top = typeof p[0] == 'number' ? p[0].toString() : p[0].replace(/px/, '');
+								te = top.indexOf('%') == -1 
+									? top + ' + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"'
+									: parseInt(top.replace(/%/, '')) + ' * ((' + ch + ' || ' + bch + ') / 100) + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"';
 							}
-							else {
-								expr = parseInt(top.replace(/%/, '')) + ' * ((document.documentElement.clientHeight || document.body.clientHeight) / 100) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"';
+							if (p[1]) {
+								var left = typeof p[1] == 'number' ? p[1].toString() : p[1].replace(/px/, '');
+								le = left.indexOf('%') == -1 
+									? left + ' + (t = ' + sl + ' ? ' + sl + ' : ' + bsl + ') + "px"'
+									: parseInt(left.replace(/%/, '')) + ' * ((' + cw + ' || ' + bcw + ') / 100) + (t = ' + sl + ' ? ' + sl + ' : ' + bsl + ') + "px"';
 							}
 						}
 						else {
-							expr = '(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (t = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"';
+							te = '(' + ch + ' || ' + bch + ') / 2 - (this.offsetHeight / 2) + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"';
+							le = '(' + cw + ' || ' + bcw + ') / 2 - (this.offsetWidth / 2) + (t = ' + sl + ' ? ' + sl + ' : ' + bsl + ') + "px"';
 						}
-						s.setExpression('top', expr);
+						s.removeExpression('top');
+						s.removeExpression('left');
+						s.setExpression('top', te);
+						s.setExpression('left', le);
 					}
 				}
 			});
@@ -347,17 +364,16 @@
 			return [h, el.width()];
 		},
 		setPosition: function () {
-			var top = 0, 
-				left = 0,
+			var top, left,
 				hCenter = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
 				vCenter = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
 
 			if (this.opts.position && this.opts.position.constructor == Array) {
-				top += this.opts.position[0] || hCenter;
-				left += this.opts.position[1] || vCenter;
+				top = this.opts.position[0] || hCenter;
+				left = this.opts.position[1] || vCenter;
 			} else {
-				top += hCenter;
-				left += vCenter;
+				top = hCenter;
+				left = vCenter;
 			}
 			this.dialog.container.css({left: left, top: top});
 		},

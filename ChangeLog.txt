@@ -1,10 +1,11 @@
 ==== SimpleModal ChangeLog ====
 
 == 1.2.2 ==
- * Date: Dec 12, 2008
- * Fixed IE6 positioning issues
+ * Date: Dec 15, 2008
+ * Removed iframe option (use wmode property for object and embed elements)
+ * Fixed IE positioning issues (including horizontal scrolling)
  * Updated jQuery version requirement to 1.2.2
- * Added more position option tests
+ * Added horizontal scrolling test and more position option tests
 
 
 == 1.2.1 ==
