@@ -311,7 +311,7 @@
 			// simulate fixed position - adapted from BlockUI
 			$.each([this.dialog.iframe || null, this.dialog.overlay, this.dialog.container], function (i, el) {
 				if (el) {
-					var bch = 'document.body.clientHeight', bcw = 'document.body.clientWidth'
+					var bch = 'document.body.clientHeight', bcw = 'document.body.clientWidth',
 						bsh = 'document.body.scrollHeight', bsl = 'document.body.scrollLeft',
 						bst = 'document.body.scrollTop', bsw = 'document.body.scrollWidth',
 						ch = 'document.documentElement.clientHeight', cw = 'document.documentElement.clientWidth',
