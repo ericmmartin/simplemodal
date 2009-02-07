@@ -60,8 +60,8 @@
  * @version @VERSION
  */
 (function ($) {
-	var ie6 = $.browser.msie && parseInt($.browser.version) == 6 && !window['XMLHttpRequest'],
-		ieQuirks = $.browser.msie && !$.boxModel,
+	var ie6 = $.browser.msie && parseInt($.browser.version) == 6 && typeof window['XMLHttpRequest'] != "object",
+		ieQuirks = null,
 		w = [];
 
 	/*
@@ -151,6 +151,9 @@
 			if (this.dialog.data) {
 				return false;
 			}
+
+			// $.boxModel is undefined if checked earlier
+			ieQuirks = $.browser.msie && !$.boxModel;
 
 			// merge defaults and user options
 			this.opts = $.extend({}, $.modal.defaults, options);
