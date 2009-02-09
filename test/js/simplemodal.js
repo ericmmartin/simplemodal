@@ -3,7 +3,7 @@
  * http://www.ericmmartin.com/projects/simplemodal/
  * http://code.google.com/p/simplemodal/
  *
- * Copyright (c) 2008 Eric Martin - http://ericmmartin.com
+ * Copyright (c) 2009 Eric Martin - http://ericmmartin.com
  *
  * Revision: $Id$
  *

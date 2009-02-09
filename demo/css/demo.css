@@ -1,4 +1,4 @@
-body {font-family:Verdana; padding:0; margin:0; background-color:#eee; height:100%; width:100%;}
+body {font-family:Verdana; padding:0; margin:0; background-color:#eee;}
 br {clear:both;}
 #notice {position:relative; width:800px; margin:0 auto; font-weight:bold; font-size:.7em; color:#333; text-align:right; top:16px;}
 #container {width:800px; margin:0 auto; margin-top:20px; background-color:#fff; border:1px solid #aaa; }

@@ -1,7 +1,7 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://www.ericmmartin.com/projects/simplemodal/
- * Copyright (c) 2008 Eric Martin
+ * Copyright (c) 2009 Eric Martin
  * Dual licensed under the MIT and GPL licenses
  * Revision: $Id$
  */
@@ -331,12 +331,13 @@
 					else {
 						var te, le;
 						if (p && p.constructor == Array) {
-							if (p[0]) {
-								var top = typeof p[0] == 'number' ? p[0].toString() : p[0].replace(/px/, '');
-								te = top.indexOf('%') == -1 
-									? top + ' + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"'
-									: parseInt(top.replace(/%/, '')) + ' * ((' + ch + ' || ' + bch + ') / 100) + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"';
-							}
+							var top = p[0] 
+								? typeof p[0] == 'number' ? p[0].toString() : p[0].replace(/px/, '')
+								: el.css('top').replace(/px/, '');
+							te = top.indexOf('%') == -1 
+								? top + ' + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"'
+								: parseInt(top.replace(/%/, '')) + ' * ((' + ch + ' || ' + bch + ') / 100) + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"';
+
 							if (p[1]) {
 								var left = typeof p[1] == 'number' ? p[1].toString() : p[1].replace(/px/, '');
 								le = left.indexOf('%') == -1 
