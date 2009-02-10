@@ -12,5 +12,5 @@
  *
  */
 
-/* IE 6 hacks*/
+/* IE 6 hacks */
 #simplemodal-container a.modalCloseImg {background:none; right:-14px; width:22px; height:26px; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/basic/x.png',sizingMethod='scale');}
