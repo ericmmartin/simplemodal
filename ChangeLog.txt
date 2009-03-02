@@ -1,7 +1,7 @@
 ==== SimpleModal ChangeLog ====
 
 == 1.2.3 ==
- * Date: Feb 09, 2009
+ * Date: Mar 02, 2009
  * Fixed IE6 positioning issue (position: [,20] did not work)
  * Fixed IE issue with jQuery 1.3+ (issue with $.boxModel property)
 
