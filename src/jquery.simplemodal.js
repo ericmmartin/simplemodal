@@ -361,8 +361,8 @@
 			var el = $(window);
 
 			// fix a jQuery/Opera bug with determining the window height
-			var h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery <= '1.2.6' ?
-				document.documentElement['clientHeight'] : 
+			var h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery <= '1.2.6' ? document.documentElement['clientHeight'] :
+				$.browser.opera && $.browser.version < '9.5' && $.fn.jquery > '1.2.6' ? window.innerHeight :
 				el.height();
 
 			return [h, el.width()];
@@ -438,19 +438,19 @@
 					else {
 						// remove the current and insert the original, 
 						// unmodified data back into the DOM
-						this.dialog.data.remove();
+						this.dialog.data.hide().remove();
 						this.dialog.orig.appendTo(this.dialog.parentNode);
 					}
 				}
 				else {
 					// otherwise, remove it
-					this.dialog.data.remove();
+					this.dialog.data.hide().remove();
 				}
 
 				// remove the remaining elements
-				this.dialog.container.remove();
-				this.dialog.overlay.remove();
-				this.dialog.iframe && this.dialog.iframe.remove();
+				this.dialog.container.hide().remove();
+				this.dialog.overlay.hide().remove();
+				this.dialog.iframe && this.dialog.iframe.hide().remove();
 
 				// reset the dialog object
 				this.dialog = {};
