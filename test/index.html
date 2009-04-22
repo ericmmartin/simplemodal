@@ -8,12 +8,12 @@
 <meta name='description' content='SimpleModal is a lightweight jQuery plugin that provides a simple interface to create a modal dialog.' />
 <meta name='keywords' content='simplemodal jquery plugin modal dialog css javascript dom' />
 
+<link href="css/smoothness/smoothness.css" type="text/css" rel="stylesheet" media="screen"></link>
+<link href="css/simplemodal.css" type="text/css" rel="stylesheet" media="screen"></link>
+
 <script src='js/jquery.js' type='text/javascript'></script>
 <script src='js/jquery.simplemodal.js' type='text/javascript'></script>
 <script src='js/simplemodal.js' type='text/javascript'></script>
-<style type='text/css'>
-	@import "css/simplemodal.css";
-</style>
 
 <!--[if IE]>
 <style type='text/css'>
@@ -42,6 +42,16 @@
 		&lt;input type='text' value='input boxes' size='8'/&gt;, etc...&lt;/p&gt;\
 	 &lt;/div&gt;");</code></pre></li>
 		<li><a href='#' id='test6'>Modal Function w/ string - default options</a> <pre><code>$.modal("Sample Content - just a plain 'ol string");</code></pre></li>
+		<li><a href='#' id='test19'>Data overflow test</a> <pre><code>$('#modalContentOverflowTest').modal();</code></pre></li>
+		<li><a href='#' id='test20'>Overlay Close</a> <pre><code>$('#modalContent').modal({overlayClose:true});</code></pre></li>
+		<li><a href='#' id='test21'>Esc Close</a> <pre><code>$('#modalContent').modal({escClose:true});</code></pre></li>
+		<li><a href='#' id='test22'>Min height</a> <pre><code>$('&gt;h1&lt;Test&gt;/h1&lt;').modal({minHeight:400});</code></pre></li>
+		<li><a href='#' id='test23'>Min width</a> <pre><code>$('&gt;h1&lt;Test&gt;/h1&lt;').modal({minWidth:600});</code></pre></li>
+		<li><a href='#' id='test24'>Max height</a> <pre><code>$('#modalContentOverflowTest').modal({maxHeight:500});</code></pre></li>
+		<li><a href='#' id='test25'>Max width</a> <pre><code>$('#modalContentOverflowTest').modal({maxWidth:700});</code></pre></li>
+		<li><a href='#' id='test26'>Max height/width</a> <pre><code>$('#modalContentOverflowTest').modal({maxHeight:500, maxWidth:700});</code></pre></li>
+		<li><a href='#' id='test27'>Disable focus</a> <pre><code>$('#modalContentTest').modal({focus:false});</code></pre></li>
+		<li><a href='#' id='test28'>Disable constrain - ESC to close</a> <pre><code>$('#modalContentOverflowTest').modal({constrain:false, escClose:true});</code></pre></li>
 		<li><a href='#' id='test7'>Modal Function w/ string/HTML - close: false</a> <pre><code>$.modal("&lt;div class='test'&gt;\
 		&lt;h1&gt;Sample Content&lt;/h1&gt;\
 		&lt;p&gt;This example uses a custom close.&lt;/p&gt;\
@@ -118,7 +128,7 @@ function modalShow (dialog) {
 	<li><a href='#' id='test16'>Position test (px) - position: ["40px","40px"]</a> <pre><code>$('#modalContentTest').modal({position: ["40px","40px"]});</code></pre></li>
 	<li><a href='#' id='test17'>Position test (%) - position: ["25%","25%"]</a> <pre><code>$('#modalContentTest').modal({position: ["25%","25%"]});</code></pre></li>
 	<li><a href='#' id='test18'>Horizontal test</a> <pre><code>$('#modalContentTest').modal();</code></pre>
-	<div style='width:200%;'>Wide Content - test horizontal scrolling</div>
+	<div style='width:200%; margin-bottom:10px;'>Wide Content - for horizontal scroll testing</div>
 	</li>
 	<li>Doctypes:
 	  <ul>
@@ -162,6 +172,57 @@ function modalShow (dialog) {
 	<br/>
 	<input type='button' value='close' class='simplemodal-close'/><br/>
 	</form>
+</div>
+<div id='modalContentOverflowTest' style='display: none'>
+   <h1>Data overflow test</h1>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+   nisi ut aliquip ex ea commodo consequat.</p>
+   <p>Duis aute irure dolor in reprehenderit in voluptate velit 
+   esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+   occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+   mollit anim id est laborum.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+   nisi ut aliquip ex ea commodo consequat.</p>
+   <p>Duis aute irure dolor in reprehenderit in voluptate velit 
+   esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+   occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+   mollit anim id est laborum.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+   nisi ut aliquip ex ea commodo consequat.</p>
+   <p>Duis aute irure dolor in reprehenderit in voluptate velit 
+   esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+   occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+   mollit anim id est laborum.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+   nisi ut aliquip ex ea commodo consequat.</p>
+   <p>Duis aute irure dolor in reprehenderit in voluptate velit 
+   esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+   occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+   mollit anim id est laborum.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+   nisi ut aliquip ex ea commodo consequat.</p>
+   <p>Duis aute irure dolor in reprehenderit in voluptate velit 
+   esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+   occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+   mollit anim id est laborum.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+   nisi ut aliquip ex ea commodo consequat.</p>
+   <p>Duis aute irure dolor in reprehenderit in voluptate velit 
+   esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+   occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+   mollit anim id est laborum.</p>
 </div>
 <div style='height: 50px;'>&nbsp;</div>
 <script type="text/javascript">

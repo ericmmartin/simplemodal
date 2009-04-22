@@ -89,6 +89,46 @@ $(document).ready(function () {
 		e.preventDefault();
 		$('#modalContentTest').modal();
 	});
+   $('a#test19').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentOverflowTest').modal();
+	});
+   $('a#test20').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentTest').modal({overlayClose:true});
+	});
+   $('a#test21').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentTest').modal({escClose:true});
+	});
+   $('a#test22').click(function (e) {
+   	e.preventDefault();
+		$('<h1>Test</h1>').modal({minHeight:400});
+	});
+   $('a#test23').click(function (e) {
+   	e.preventDefault();
+		$('<h1>Test</h1>').modal({minWidth:600});
+	});
+   $('a#test24').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentOverflowTest').modal({maxHeight:500});
+	});
+   $('a#test25').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentOverflowTest').modal({maxWidth:700});
+	});
+   $('a#test26').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentOverflowTest').modal({maxHeight:500, maxWidth:700});
+	});
+   $('a#test27').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentTest').modal({focus:false});
+	});
+   $('a#test28').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentOverflowTest').modal({constrain:false, escClose:true});
+	});
 });
 
 /**
