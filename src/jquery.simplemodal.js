@@ -472,7 +472,7 @@
 
 			this.dialog.container.css({height: ch, width: cw});
 			if (d) {
-				this.dialog.wrap.css({overflow:'auto'});
+				this.dialog.wrap.css({overflow: d});
 			}
 			
 			this.setPosition();
