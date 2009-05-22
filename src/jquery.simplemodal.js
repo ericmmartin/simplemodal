@@ -94,12 +94,13 @@
 	 * SimpleModal default options
 	 * 
 	 * appendTo:		(String:'body') The jQuery selector to append the elements to. For ASP.NET, use 'form'.
-	 * focus				(Boolean:true) Forces focus to remain on the modal dialog
+	 * focus			(Boolean:true) Forces focus to remain on the modal dialog
 	 * opacity:			(Number:50) The opacity value for the overlay div, from 0 - 100
 	 * overlayId:		(String:'simplemodal-overlay') The DOM element id for the overlay div
 	 * overlayCss:		(Object:{}) The CSS styling for the overlay div
-	 * containerId:	(String:'simplemodal-container') The DOM element id for the container div
+	 * containerId:		(String:'simplemodal-container') The DOM element id for the container div
 	 * containerCss:	(Object:{}) The CSS styling for the container div
+	 * dataId:			(String:'simplemodal-data') The DOM element id for the data div
 	 * dataCss:			(Object:{}) The CSS styling for the data div
 	 * minHeight:		(Number:200) The minimum height for the container
 	 * minWidth:		(Number:200) The minimum width for the container
@@ -109,14 +110,14 @@
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
 	 						If false, none of them will be used.
 	 * closeHTML:		(String:'<a class="modalCloseImg" title="Close"></a>') The HTML for the 
-								default close link. SimpleModal will automatically add the closeClass to this element.
+							default close link. SimpleModal will automatically add the closeClass to this element.
 	 * closeClass:		(String:'simplemodal-close') The CSS class used to bind to the close event
 	 * escClose:		(Boolean:true) Allow Esc keypress to close the dialog? 
 	 * overlayClose:	(Boolean:false) Allow click on overlay to close the dialog?
 	 * position:		(Array:null) Position of container [top, left]. Can be number of pixels or percentage
 	 * persist:			(Boolean:false) Persist the data across modal calls? Only used for existing
-								DOM elements. If true, the data will be maintained across modal calls, if false,
-								the data will be reverted to its original state.
+							DOM elements. If true, the data will be maintained across modal calls, if false,
+							the data will be reverted to its original state.
 	 * onOpen:			(Function:null) The callback function used in place of SimpleModal's open
 	 * onShow:			(Function:null) The callback function used after the modal dialog has opened
 	 * onClose:			(Function:null) The callback function used in place of SimpleModal's close
@@ -206,7 +207,6 @@
 				alert('SimpleModal Error: Unsupported data type: ' + typeof data);
 				return false;
 			}
-			//this.dialog.data = data.addClass('simplemodal-data').css(this.opts.dataCss);
 
 			// create the modal overlay, container and, if necessary, iframe
 			this.create(data);
