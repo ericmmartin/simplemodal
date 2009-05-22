@@ -91,15 +91,11 @@ $(document).ready(function () {
 	});
    $('a#test19').click(function (e) {
    	e.preventDefault();
-		$('#modalContentOverflowTest').modal();
+		$('#modalContentOverflowTest').modal({maxHeight:400, maxWidth:600});
 	});
    $('a#test20').click(function (e) {
    	e.preventDefault();
 		$('#modalContentTest').modal({overlayClose:true});
-	});
-   $('a#test21').click(function (e) {
-   	e.preventDefault();
-		$('#modalContentTest').modal({escClose:true});
 	});
    $('a#test22').click(function (e) {
    	e.preventDefault();
@@ -124,10 +120,6 @@ $(document).ready(function () {
    $('a#test27').click(function (e) {
    	e.preventDefault();
 		$('#modalContentTest').modal({focus:false});
-	});
-   $('a#test28').click(function (e) {
-   	e.preventDefault();
-		$('#modalContentOverflowTest').modal({constrain:false, escClose:true});
 	});
 });
 

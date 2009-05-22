@@ -4,17 +4,11 @@
 <title> SimpleModal Tests </title>
 
 <meta name='author' content='Eric Martin' />
-<meta name='copyright' content='2008 - Eric Martin' />
+<meta name='copyright' content='2009 - Eric Martin' />
 <meta name='description' content='SimpleModal is a lightweight jQuery plugin that provides a simple interface to create a modal dialog.' />
 <meta name='keywords' content='simplemodal jquery plugin modal dialog css javascript dom' />
 
-<link href="css/smoothness/smoothness.css" type="text/css" rel="stylesheet" media="screen"></link>
 <link href="css/simplemodal.css" type="text/css" rel="stylesheet" media="screen"></link>
-
-<script src='js/jquery.js' type='text/javascript'></script>
-<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
-<script src='js/simplemodal.js' type='text/javascript'></script>
-
 <!--[if IE]>
 <style type='text/css'>
 	ul{margin: 0;}
@@ -25,6 +19,10 @@
 	@import "css/simplemodal-ie.css";
 </style>
 <![endif]-->
+
+<script src='js/jquery.js' type='text/javascript'></script>
+<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
+<script src='js/simplemodal.js' type='text/javascript'></script>
 
 </head>
 <body>
@@ -42,16 +40,14 @@
 		&lt;input type='text' value='input boxes' size='8'/&gt;, etc...&lt;/p&gt;\
 	 &lt;/div&gt;");</code></pre></li>
 		<li><a href='#' id='test6'>Modal Function w/ string - default options</a> <pre><code>$.modal("Sample Content - just a plain 'ol string");</code></pre></li>
-		<li><a href='#' id='test19'>Data overflow test</a> <pre><code>$('#modalContentOverflowTest').modal();</code></pre></li>
+		<li><a href='#' id='test19'>Data overflow test</a> <pre><code>$('#modalContentOverflowTest').modal({maxHeight:400, maxWidth:600});</code></pre></li>
 		<li><a href='#' id='test20'>Overlay Close</a> <pre><code>$('#modalContent').modal({overlayClose:true});</code></pre></li>
-		<li><a href='#' id='test21'>Esc Close</a> <pre><code>$('#modalContent').modal({escClose:true});</code></pre></li>
 		<li><a href='#' id='test22'>Min height</a> <pre><code>$('&gt;h1&lt;Test&gt;/h1&lt;').modal({minHeight:400});</code></pre></li>
 		<li><a href='#' id='test23'>Min width</a> <pre><code>$('&gt;h1&lt;Test&gt;/h1&lt;').modal({minWidth:600});</code></pre></li>
 		<li><a href='#' id='test24'>Max height</a> <pre><code>$('#modalContentOverflowTest').modal({maxHeight:500});</code></pre></li>
 		<li><a href='#' id='test25'>Max width</a> <pre><code>$('#modalContentOverflowTest').modal({maxWidth:700});</code></pre></li>
 		<li><a href='#' id='test26'>Max height/width</a> <pre><code>$('#modalContentOverflowTest').modal({maxHeight:500, maxWidth:700});</code></pre></li>
 		<li><a href='#' id='test27'>Disable focus</a> <pre><code>$('#modalContentTest').modal({focus:false});</code></pre></li>
-		<li><a href='#' id='test28'>Disable constrain - ESC to close</a> <pre><code>$('#modalContentOverflowTest').modal({constrain:false, escClose:true});</code></pre></li>
 		<li><a href='#' id='test7'>Modal Function w/ string/HTML - close: false</a> <pre><code>$.modal("&lt;div class='test'&gt;\
 		&lt;h1&gt;Sample Content&lt;/h1&gt;\
 		&lt;p&gt;This example uses a custom close.&lt;/p&gt;\

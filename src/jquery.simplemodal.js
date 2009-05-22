@@ -105,14 +105,13 @@
 	 * minWidth:		(Number:200) The minimum width for the container
 	 * maxHeight:		(Number:null) The maximum height for the container. If not specified, the window height is used.
 	 * maxWidth:		(Number:null) The maximum width for the container. If not specified, the window width is used.
-	 * constrain:		(Boolean:true) Prevent the dialog from being larger than the browser window
 	 * zIndex:			(Number: 1000) Starting z-index value
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
 	 						If false, none of them will be used.
 	 * closeHTML:		(String:'<a class="modalCloseImg" title="Close"></a>') The HTML for the 
 								default close link. SimpleModal will automatically add the closeClass to this element.
 	 * closeClass:		(String:'simplemodal-close') The CSS class used to bind to the close event
-	 * escClose:		(Boolean:false) Allow Esc keypress to close the dialog? 
+	 * escClose:		(Boolean:true) Allow Esc keypress to close the dialog? 
 	 * overlayClose:	(Boolean:false) Allow click on overlay to close the dialog?
 	 * position:		(Array:null) Position of container [top, left]. Can be number of pixels or percentage
 	 * persist:			(Boolean:false) Persist the data across modal calls? Only used for existing
@@ -136,12 +135,11 @@
 		minWidth: 300,
 		maxHeight: null,
 		maxWidth: null,
-		constrain: true,
 		zIndex: 1000,
 		close: true,
 		closeHTML: '<a class="modalCloseImg" title="Close"></a>',
 		closeClass: 'simplemodal-close',
-		escClose: false,
+		escClose: true,
 		overlayClose: false,
 		position: null,
 		persist: false,
@@ -281,7 +279,7 @@
 			this.dialog.wrap = $('<div/>')
 				.attr('tabIndex', -1)
 				.addClass('simplemodal-wrap')
-				.css({height: '100%', outline: 0})
+				.css({height: '100%', outline: 0, width: '100%'})
 				.appendTo(this.dialog.container);
 				
 			// add styling and attributes to the data
@@ -430,51 +428,47 @@
 
 			return [h, el.width()];
 		},
+		getVal: function (v) {
+			return v == 'auto' ? 0 : parseInt(v.replace(/px/, ''));
+		},
 		setContainerDimensions: function () {
 			// get the dimensions for the container and data
-			var ch = this.dialog.container.height(), cw = this.dialog.container.width(),
-				dh = this.dialog.data.height(), dw = this.dialog.data.width(),
-				d = null;
+			var ch = this.getVal(this.dialog.container.css('height')), cw = this.dialog.container.width(),
+				dh = this.dialog.data.width(), dw = this.dialog.data.width();
+			
+			var mh = this.opts.maxHeight && this.opts.maxHeight < w[0] ? this.opts.maxHeight : w[0],
+				mw = this.opts.maxWidth && this.opts.maxWidth < w[1] ? this.opts.maxWidth : w[1];
 
-			// determine container dimensions
-			if (!ch || ($.browser.msie && ch < 20)) {
-				if (!dh && !dw) {
-					// data dimensions are not set. Use min defaults and overflow data
-					ch = this.opts.minHeight, cw = this.opts.minWidth, d = 'auto';
-				}
+			// height
+			if (!ch) {
+				if (!dh) {ch = this.opts.minHeight;}
 				else {
-					// data dimensions are set. Check for min values
-					ch = dh < this.opts.minHeight ? this.opts.minHeight : dh;
-					cw = dw < this.opts.minWidth ? this.opts.minWidth : dw;
+					if (dh > mh) {ch = mh;}
+					else if (dh < this.opts.minHeight) {ch = this.opts.minHeight;}
+					else {ch = dh;}
 				}
 			}
 			else {
-				// if data dimensions exist, check to see if they are larger than the container
-				if (dh && dw && (dh > ch || dw > cw)) {
-					d = 'auto';
+				ch = ch > mh ? mh : ch;
+			}
+			
+			// width
+			if (!cw) {
+				if (!dw) {cw = this.opts.minWidth;}
+				else {
+					if (dw > mw) {cw = mh;}
+					else if (dw < this.opts.minWidth) {cw = this.opts.minWidth;}
+					else {cw = dw;}
 				}
 			}
-
-			// now, make sure the dimensions do not exceed the window or max values
-			var mh = this.opts.maxHeight 
-				? (this.opts.maxHeight > w[0] ? (this.opts.constrain ? w[0] : ch) : this.opts.maxHeight) 
-				: (this.opts.constrain ? w[0] : ch);
-			var mw = this.opts.maxWidth 
-				? (this.opts.maxWidth > w[1] ? (this.opts.constrain ? w[1] : cw) : this.opts.maxWidth) 
-				: (this.opts.constrain ? w[1] : cw);
-
-			if (ch > mh) {
-				ch = mh, d = 'auto';
-			}
-			if (cw > mw) {
-				cw = mw, d = 'auto';
+			else {
+				cw = cw > mh ? mh : cw;
 			}
 
 			this.dialog.container.css({height: ch, width: cw});
-			if (d) {
-				this.dialog.wrap.css({overflow: d});
+			if (dh > ch || dw > cw) {
+				this.dialog.wrap.css({overflow:'auto'});
 			}
-			
 			this.setPosition();
 		},
 		setPosition: function () {
