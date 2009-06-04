@@ -434,7 +434,7 @@
 		setContainerDimensions: function () {
 			// get the dimensions for the container and data
 			var ch = this.getVal(this.dialog.container.css('height')), cw = this.dialog.container.width(),
-				dh = this.dialog.data.width(), dw = this.dialog.data.width();
+				dh = this.dialog.data.height(), dw = this.dialog.data.width();
 			
 			var mh = this.opts.maxHeight && this.opts.maxHeight < w[0] ? this.opts.maxHeight : w[0],
 				mw = this.opts.maxWidth && this.opts.maxWidth < w[1] ? this.opts.maxWidth : w[1];
