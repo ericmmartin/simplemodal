@@ -47,10 +47,11 @@
  * overlayCss and/or containerCss options.
  *
  * SimpleModal has been tested in the following browsers:
- * - IE 6, 7
+ * - IE 6, 7, 8
  * - Firefox 2, 3
  * - Opera 9
  * - Safari 3
+ * - Chrome 1, 2
  *
  * @name SimpleModal
  * @type jQuery
@@ -59,7 +60,7 @@
  * @author Eric Martin (http://ericmmartin.com)
  * @version @VERSION
  */
-(function ($) {
+;(function ($) {
 	var ie6 = $.browser.msie && parseInt($.browser.version) == 6 && typeof window['XMLHttpRequest'] != "object",
 		ieQuirks = null,
 		w = [];
@@ -324,6 +325,7 @@
 					self.watchTab(e);
 				}
 				else if ((self.opts.close && self.opts.escClose) && e.keyCode == 27) { // ESC
+					e.preventDefault();
 					self.close();
 				}
 			});
@@ -412,10 +414,10 @@
 		},
 		focus: function (pos) {
 			var self = this,
-				pos = pos || 'first';
+				p = pos || 'first';
 
 			// focus on dialog or the first visible/enabled input element
-			var input = $(':input:enabled:visible:' + pos, self.dialog.wrap);
+			var input = $(':input:enabled:visible:' + p, self.dialog.wrap);
 			input.length > 0 ? input.focus() : self.dialog.wrap.focus();
 		},
 		getDimensions: function () {
@@ -473,15 +475,15 @@
 		},
 		setPosition: function () {
 			var top, left,
-				hCenter = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
-				vCenter = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
+				hc = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
+				vc = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
 
 			if (this.opts.position && this.opts.position.constructor == Array) {
-				top = this.opts.position[0] || hCenter;
-				left = this.opts.position[1] || vCenter;
+				top = this.opts.position[0] || hc;
+				left = this.opts.position[1] || vc;
 			} else {
-				top = hCenter;
-				left = vCenter;
+				top = hc;
+				left = vc;
 			}
 			this.dialog.container.css({left: left, top: top});
 		},
