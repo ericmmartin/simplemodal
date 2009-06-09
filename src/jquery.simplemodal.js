@@ -332,9 +332,6 @@
 					self.close();
 				}
 			});
-			
-			// save the list of inputs
-			self.inputs = $(':input:enabled:visible:first, :input:enabled:visible:last', self.dialog.wrap);
 
 			// update window size
 			$(window).bind('resize.simplemodal', function () {
@@ -493,6 +490,9 @@
 		watchTab: function (e) {
 			var self = this;
 			if ($(e.target).parents('.simplemodal-container').length > 0) {
+				// save the list of inputs
+				self.inputs = $(':input:enabled:visible:first, :input:enabled:visible:last', self.dialog.data);
+
 				// if it's the first or last tabbable element, refocus
 				if (!e.shiftKey && e.target == self.inputs[self.inputs.length -1] ||
 						e.shiftKey && e.target == self.inputs[0] ||
