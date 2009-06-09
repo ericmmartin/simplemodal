@@ -107,6 +107,7 @@
 	 * minWidth:		(Number:200) The minimum width for the container
 	 * maxHeight:		(Number:null) The maximum height for the container. If not specified, the window height is used.
 	 * maxWidth:		(Number:null) The maximum width for the container. If not specified, the window width is used.
+	 * autoResize:		(Boolean:false) Resize container on window resize? Use with caution - this may have undesirable side-effects.
 	 * zIndex:			(Number: 1000) Starting z-index value
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
 	 						If false, none of them will be used.
@@ -290,6 +291,7 @@
 				.css($.extend(this.opts.dataCss, {
 						display: 'none'
 				}));
+			data = null;
 
 			this.setContainerDimensions();
 			this.dialog.data.appendTo(this.dialog.wrap);
@@ -339,7 +341,7 @@
 				w = self.getDimensions();
 
 				// reposition the dialog
-				self.setContainerDimensions();
+				self.opts.autoResize ? self.setContainerDimensions() : self.setPosition();
 	
 				if (ie6 || ieQuirks) {
 					self.fixIE();
