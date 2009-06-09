@@ -19,7 +19,7 @@ $(document).ready(function () {
 		$.get("data/contact.php", function(data){
 			// create a modal dialog with the data
 			$(data).modal({
-				close: false,
+				closeHTML: "<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>",
 				position: ["15%",],
 				overlayId: 'contact-overlay',
 				containerId: 'contact-container',

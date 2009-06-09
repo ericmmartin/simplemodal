@@ -32,7 +32,6 @@ $action = isset($_POST["action"]) ? $_POST["action"] : "";
 if (empty($action)) {
 	// Send back the contact form HTML
 	$output = "<div style='display:none'>
-	<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
 	<div class='contact-top'></div>
 	<div class='contact-content'>
 		<h1 class='contact-title'>Send us a message:</h1>

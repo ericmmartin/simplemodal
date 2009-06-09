@@ -1,5 +1,14 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.3 ==
+ * Date: June 09, 2009
+ * Added autoResize option which enables/disables container resizing after window resize
+ * Fixed typos in dimension calculations in setContainerDimensions() function
+ * Added semi-colon at begining of script to prevent possible script combining/minfication issues
+ * Added e.preventDefault() to key binding event
+ * Moved input checking to watchTab function
+ * Thanks to Cedric and Tomas for reporting bugs/suggestions
+
 == 1.3-b1 ==
  * Date: May 22, 2009
  * Added appendTo option, primarily for .NET users to enable appendTo('form')
