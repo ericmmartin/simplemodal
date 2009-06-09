@@ -13,7 +13,7 @@
  * Added overlayClose option to bind modal close to a click on the overlay div
  * Added a wrapper div to allow for easier overflow capabilities
  * Changed meaning of close option. If false, the closeHTML, escClose and overlayClose
-		values will be ingored.
+		values will be ignored.
  * Fixed auto-centering issues when container dimensions were not provided
  * Fixed Opera screen painting issues by adding .hide() before .remove()
  * Fixed Opera 9.2.x issue with jQuery 1.3.x and $(window).height()
