@@ -458,7 +458,7 @@
 			if (!cw) {
 				if (!dw) {cw = this.opts.minWidth;}
 				else {
-					if (dw > mw) {cw = mh;}
+					if (dw > mw) {cw = mw;}
 					else if (dw < this.opts.minWidth) {cw = this.opts.minWidth;}
 					else {cw = dw;}
 				}
