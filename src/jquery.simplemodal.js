@@ -50,7 +50,7 @@
  * - IE 6, 7, 8
  * - Firefox 2, 3
  * - Opera 9
- * - Safari 3
+ * - Safari 3, 4
  * - Chrome 1, 2
  *
  * @name SimpleModal
@@ -203,7 +203,7 @@
 			}
 			else if (typeof data == 'string' || typeof data == 'number') {
 				// just insert the data as innerHTML
-				data = $('<div/>').html(data);
+				data = $('<div></div>').html(data);
 			}
 			else {
 				// unsupported data type!
@@ -235,7 +235,7 @@
 
 			// add an iframe to prevent select options from bleeding through
 			if (ie6) {
-				this.dialog.iframe = $('<iframe src="javascript:false;"/>')
+				this.dialog.iframe = $('<iframe src="javascript:false;"></iframe>')
 					.css($.extend(this.opts.iframeCss, {
 						display: 'none',
 						opacity: 0, 
@@ -250,7 +250,7 @@
 			}
 
 			// create the overlay
-			this.dialog.overlay = $('<div/>')
+			this.dialog.overlay = $('<div></div>')
 				.attr('id', this.opts.overlayId)
 				.addClass('simplemodal-overlay')
 				.css($.extend(this.opts.overlayCss, {
@@ -266,7 +266,7 @@
 				.appendTo(this.opts.appendTo);
 		
 			// create the container
-			this.dialog.container = $('<div/>')
+			this.dialog.container = $('<div></div>')
 				.attr('id', this.opts.containerId)
 				.addClass('simplemodal-container')
 				.css($.extend(this.opts.containerCss, {
@@ -279,19 +279,21 @@
 					: '')
 				.appendTo(this.opts.appendTo);
 				
-			this.dialog.wrap = $('<div/>')
+			this.dialog.wrap = $('<div></div>')
 				.attr('tabIndex', -1)
 				.addClass('simplemodal-wrap')
 				.css({height: '100%', outline: 0, width: '100%'})
 				.appendTo(this.dialog.container);
 				
 			// add styling and attributes to the data
+			// append to body to get correct dimensions, then  move to wrap
 			this.dialog.data = data
 				.attr('id', data.attr('id') || this.opts.dataId)
 				.addClass('simplemodal-data')
 				.css($.extend(this.opts.dataCss, {
 						display: 'none'
-				}));
+				}))
+				.appendTo('body');
 			data = null;
 
 			this.setContainerDimensions();
@@ -435,7 +437,7 @@
 		},
 		setContainerDimensions: function () {
 			// get the dimensions for the container and data
-			var ch = this.getVal(this.dialog.container.css('height')), cw = this.dialog.container.width(),
+			var ch = this.getVal(this.dialog.container.css('height')), cw = this.getVal(this.dialog.container.css('width')),
 				dh = this.dialog.data.height(), dw = this.dialog.data.width();
 			
 			var mh = this.opts.maxHeight && this.opts.maxHeight < w[0] ? this.opts.maxHeight : w[0],
@@ -477,8 +479,8 @@
 			var top, left,
 				hc = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
 				vc = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
-
-			if (this.opts.position && this.opts.position.constructor == Array) {
+      
+			if (this.opts.position && Object.prototype.toString.call(this.opts.position) === "[object Array]") {
 				top = this.opts.position[0] || hc;
 				left = this.opts.position[1] || vc;
 			} else {
