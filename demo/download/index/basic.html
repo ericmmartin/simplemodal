@@ -1,24 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <title> SimpleModal Basic Modal Dialog </title>
-
 <meta name='author' content='Eric Martin' />
 <meta name='copyright' content='2009 - Eric Martin' />
 
-<!-- Import jQuery and SimpleModal source files -->
-<script src='js/jquery.js' type='text/javascript'></script>
-<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
-
-<!-- Contact Form JS and CSS files -->
-<script src='js/basic.js' type='text/javascript'></script>
+<!-- Contact Form CSS files -->
 <link type='text/css' href='css/basic.css' rel='stylesheet' media='screen' />
 
-<!-- IE 6 hacks -->
+<!-- IE 6 "fixes" -->
 <!--[if lt IE 7]>
 <link type='text/css' href='css/basic_ie.css' rel='stylesheet' media='screen' />
 <![endif]-->
 
+<!-- JS files are loaded at the bottom of the page -->
 </head>
 <body>
 <div id='basicModal'><h2>Basic Modal Dialog</h2>
@@ -34,7 +29,11 @@
 	<p><code>$.modal(document.getElementById('basicModalContent')); // DOM</code></p>
 	<p><code>$.modal('&lt;p&gt;&lt;b&gt;HTML&lt;/b&gt; elements&lt;/p&gt;'); // HTML</code></p>
 
-	<p><a href='http://www.ericmmartin.com/projects/simplemodal'>More details...</a></p>
+	<p><a href='http://www.ericmmartin.com/projects/simplemodal/'>More details...</a></p>
 </div>
+<!-- Load jQuery, SimpleModal and Basic JS files -->
+<script type='text/javascript' src='js/jquery.js'></script>
+<script type='text/javascript' src='js/jquery.simplemodal.js'></script>
+<script type='text/javascript' src='js/basic.js'></script>
 </body>
 </html>

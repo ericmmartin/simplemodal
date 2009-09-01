@@ -69,6 +69,7 @@ if (in_array($demo, $valid)) {
 	if (!$fp) {
 		 exit("cannot open\n");
 	}
+	$contents = "";
 	while (!feof($fp)) {
 		 $contents .= fread($fp, 2);
 	}

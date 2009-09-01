@@ -19,7 +19,7 @@ $(document).ready(function () {
 		$.get("data/contact.php", function(data){
 			// create a modal dialog with the data
 			$(data).modal({
-				closeHTML: "<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>",
+				closeHTML: "<a href='#' title='Close' class='modalCloseX'>x</a>",
 				position: ["15%",],
 				overlayId: 'contact-overlay',
 				containerId: 'contact-container',
@@ -234,7 +234,7 @@ var contact = {
 	},
 	showError: function () {
 		$('#contact-container .contact-message')
-			.html($('<div class="contact-error">').append(contact.message))
+			.html($('<div class="contact-error"></div>').append(contact.message))
 			.fadeIn(200);
 	}
 };

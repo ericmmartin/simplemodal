@@ -18,5 +18,5 @@
 
 /* Container */
 #simplemodal-container {height:400px; width:600px; background-color:#fff; border:3px solid #ccc;}
-#simplemodal-container a.modalCloseImg {background:url(../img/basic/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-18px; cursor:pointer;}
+#simplemodal-container a.modalCloseImg {background:url(../img/basic/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
 #simplemodal-container #basicModalContent {padding:8px;}
