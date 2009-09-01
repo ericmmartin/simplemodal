@@ -286,7 +286,7 @@
 				.appendTo(this.dialog.container);
 				
 			// add styling and attributes to the data
-			// append to body to get correct dimensions, then  move to wrap
+			// append to body to get correct dimensions, then move to wrap
 			this.dialog.data = data
 				.attr('id', data.attr('id') || this.opts.dataId)
 				.addClass('simplemodal-data')
@@ -479,7 +479,7 @@
 			var top, left,
 				hc = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
 				vc = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
-      
+
 			if (this.opts.position && Object.prototype.toString.call(this.opts.position) === "[object Array]") {
 				top = this.opts.position[0] || hc;
 				left = this.opts.position[1] || vc;

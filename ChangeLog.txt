@@ -1,7 +1,7 @@
 ==== SimpleModal ChangeLog ====
 
 == 1.3.1 ==
- * Date: August 22, 2009
+ * Date: September 1, 2009
  * Fixed container width determination, which fixes width/centering issues in IE6
  * Fixed position type checking. Thanks to cavidae for reporting
  * Fixed data width and height determination by appending the data element to body, 
