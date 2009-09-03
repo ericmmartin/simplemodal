@@ -13,7 +13,7 @@
  */
 
 $(document).ready(function () {
-	$('#confirmDialog input.confirm, #confirmDialog a.confirm').click(function (e) {
+	$('#confirm-dialog input.confirm, #confirm-dialog a.confirm').click(function (e) {
 		e.preventDefault();
 
 		// example of calling the confirm function
@@ -26,15 +26,15 @@ $(document).ready(function () {
 
 function confirm(message, callback) {
 	$('#confirm').modal({
-		close:false,
+		closeHTML:"<a href='#' title='Close' class='modal-close'>x</a>",
 		position: ["20%",],
 		overlayId:'confirm-overlay',
 		containerId:'confirm-container', 
 		onShow: function (dialog) {
-			dialog.data.find('.message').append(message);
+			$('.message', dialog.data[0]).append(message);
 
 			// if the user clicks "yes"
-			dialog.data.find('.yes').click(function () {
+			$('.yes', dialog.data[0]).click(function () {
 				// call the callback
 				if ($.isFunction(callback)) {
 					callback.apply();

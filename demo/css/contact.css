@@ -39,8 +39,8 @@
 #contact-container .contact-button {margin:4px 0 0 4px; cursor:pointer; height:24px; border:0; font-size:1em; font-weight:bold; color:#fff; text-align:center; vertical-align:middle;}
 #contact-container .contact-send {width:50px; background:url(../img/contact/send.png) no-repeat;}
 #contact-container .contact-cancel {width:65px; background:url(../img/contact/cancel.png) no-repeat;}
-#contact-container a.modalCloseX,
-#contact-container a.modalCloseX:link,
-#contact-container a.modalCloseX:active,
-#contact-container a.modalCloseX:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-4px; right:6px; color:#999;}
-#contact-container a.modalCloseX:hover {color:#9bb3b3;}
+#contact-container a.modal-close,
+#contact-container a.modal-close:link,
+#contact-container a.modal-close:active,
+#contact-container a.modal-close:visited {text-decoration:none; font-weight:bold; font-size:1.2em; position:absolute; top:-4px; right:6px; color:#999;}
+#contact-container a.modal-close:hover {color:#9bb3b3;}

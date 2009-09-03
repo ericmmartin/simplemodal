@@ -8,13 +8,8 @@
 <meta name='description' content='SimpleModal is a lightweight jQuery plugin that provides a simple interface to create a modal dialog.' />
 <meta name='keywords' content='simplemodal,jquery,plugin,modal dialog,css,javascript,dom' />
 
-<!-- Import jQuery and SimpleModal source files -->
-<script src='js/jquery.js' type='text/javascript'></script>
-<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
-
-<!-- Demo specific stuff -->
+<!-- Load styles -->
 <link type='text/css' href='css/demo.css' rel='stylesheet' media='screen' />
-<script src='js/demo.js' type='text/javascript'></script>
 
 <!-- Basic Dialog -->
 <link type='text/css' href='css/basic.css' rel='stylesheet' media='screen' />
@@ -22,23 +17,21 @@
 <!--[if lt IE 7]>
 <link type='text/css' href='css/basic_ie.css' rel='stylesheet' media='screen' />
 <![endif]-->
-<script src='js/basic.js' type='text/javascript'></script>
 
 <!-- Contact Form -->
 <link type='text/css' href='css/contact.css' rel='stylesheet' media='screen' />
-<script src='js/contact.js' type='text/javascript'></script>
 
 <!-- Confirm -->
 <link type='text/css' href='css/confirm.css' rel='stylesheet' media='screen' />
-<script src='js/confirm.js' type='text/javascript'></script>
 
+<!-- JS files are loaded at the bottom of the page -->
 </head>
 <body>
 <div id='notice'>&raquo; Back to <a href='/projects/simplemodal'>SimpleModal Home</a></div>
 <div id='container'>
 	<div id='header'><h1>SimpleModal Demos</h1></div>
 	<div id='content'>
-		<div id='basicModal'><h2>Basic Modal Dialog</h2>
+		<div id='basic-modal'><h2>Basic Modal Dialog</h2>
 			<p>A basic modal dialog with minimal styling and without any additional settings. There are a few CSS attributes set internally by SimpleModal, however, SimpleModal relies mostly on external CSS for the look and feel.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='basic' value='Demo' class='basic demo'/><input type='button' name='download' value='Download' class='demo'/>
@@ -46,8 +39,8 @@
 			</form>
 			
 		</div>
-		<div id="basicModalContent" style='display:none'>
-			<h1>Basic Modal Dialog</h1>
+		<div id="basic-modal-content">
+			<h3>Basic Modal Dialog</h3>
 			<p>For this demo, SimpleModal is using this "hidden" data for its content. You can also populate the modal dialog with standard HTML or with DOM element(s).</p>
 			<p>Examples:</p>
 			<p><code>$('#basicModalContent').modal(); // jQuery object; this demo</code></p>
@@ -57,7 +50,7 @@
 		</div>
 		<br/>
 		<hr/>
-		<div id='contactForm'><h2>Contact Form</h2>
+		<div id='contact-form'><h2>Contact Form</h2>
 			<p>A contact form built on SimpleModal. Demonstrates the use of the <code>onOpen</code>, <code>onShow</code> and <code>onClose</code> callbacks, as well as the use of Ajax with SimpleModal.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='contact' value='Demo' class='contact demo'/><input type='button' name='download' value='Download' class='demo'/>
@@ -66,15 +59,15 @@
 		</div>
 		<br/>
 		<hr/>
-		<div id='confirmDialog'><h2>Confirm Override</h2>
+		<div id='confirm-dialog'><h2>Confirm Override</h2>
 			<p>A modal dialog override of the JavaScript confirm function. Demonstrates the use of <code>onShow</code> as well as how to display a modal dialog confirmation instead of the default JavaScript confirm dialog.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='confirm' value='Demo' class='confirm demo'/><input type='button' name='download' value='Download' class='demo'/>
 				<input type='hidden' name='demo' value='confirm'/>
 			</form>
 		</div>
-		<div id='confirm' style='display:none'>
-			<a href='#' title='Close' class='modalCloseX simplemodal-close'>x</a>
+		<div id='confirm'>
+			<a href='#' title='Close' class='modal-close simplemodal-close'>x</a>
 			<div class='header'><span>Confirm</span></div>
 			<p class='message'></p>
 			<div class='buttons'>
@@ -85,14 +78,21 @@
 	</div>
 </div>
 <div style='height:400px;'></div>
+<!-- Load JavaScript files -->
+<script src='js/jquery.js' type='text/javascript'></script>
+<script src='js/jquery.simplemodal.js' type='text/javascript'></script>
+<script src='js/demo.js' type='text/javascript'></script>
+<script src='js/basic.js' type='text/javascript'></script>
+<script src='js/contact.js' type='text/javascript'></script>
+<script src='js/confirm.js' type='text/javascript'></script>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
+try {
 var pageTracker = _gat._getTracker("UA-2691485-4");
-pageTracker._initData();
 pageTracker._trackPageview();
-</script>
+} catch(err) {}</script>
 </body>
 </html>

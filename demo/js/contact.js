@@ -13,13 +13,13 @@
  */
 
 $(document).ready(function () {
-	$('#contactForm input.contact, #contactForm a.contact').click(function (e) {
+	$('#contact-form input.contact, #contact-form a.contact').click(function (e) {
 		e.preventDefault();
 		// load the contact form using ajax
 		$.get("data/contact.php", function(data){
 			// create a modal dialog with the data
 			$(data).modal({
-				closeHTML: "<a href='#' title='Close' class='modalCloseX'>x</a>",
+				closeHTML: "<a href='#' title='Close' class='modal-close'>x</a>",
 				position: ["15%",],
 				overlayId: 'contact-overlay',
 				containerId: 'contact-container',
@@ -103,8 +103,9 @@ var contact = {
 			e.preventDefault();
 			// validate form
 			if (contact.validate()) {
-				$('#contact-container .contact-message').fadeOut(function () {
-					$('#contact-container .contact-message').removeClass('contact-error').empty();
+				var msg = $('#contact-container .contact-message');
+				msg.fadeOut(function () {
+					msg.removeClass('contact-error').empty();
 				});
 				$('#contact-container .contact-title').html('Sending...');
 				$('#contact-container form').fadeOut(200);
@@ -118,10 +119,10 @@ var contact = {
 							type: 'post',
 							cache: false,
 							dataType: 'html',
-							complete: function (xhr) {
+							success: function (data) {
 								$('#contact-container .contact-loading').fadeOut(200, function () {
 									$('#contact-container .contact-title').html('Thank you!');
-									$('#contact-container .contact-message').html(xhr.responseText).fadeIn(200);
+									msg.html(data).fadeIn(200);
 								});
 							},
 							error: contact.error

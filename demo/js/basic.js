@@ -13,8 +13,8 @@
  */
 
 $(document).ready(function () {
-	$('#basicModal input.basic, #basicModal a.basic').click(function (e) {
+	$('#basic-modal input.basic, #basic-modal a.basic').click(function (e) {
 		e.preventDefault();
-		$('#basicModalContent').modal();
+		$('#basic-modal-content').modal();
 	});
 });
