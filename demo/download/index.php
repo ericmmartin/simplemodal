@@ -1,7 +1,7 @@
 <?php
 
 $demo = isset($_POST['demo']) ? $_POST['demo'] : '';
-$valid = array("basic", "contact", "confirm");
+$valid = array("basic", "contact", "confirm", "osx");
 
 // don't allow hackers in
 if (in_array($demo, $valid)) {

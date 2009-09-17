@@ -12,6 +12,7 @@
  *
  */
 
+body {height:100%; margin:0;}
 
 /* Overlay */
 #contact-overlay {background-color:#000; cursor:wait;}
