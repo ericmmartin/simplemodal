@@ -108,6 +108,7 @@
 	 * maxHeight:		(Number:null) The maximum height for the container. If not specified, the window height is used.
 	 * maxWidth:		(Number:null) The maximum width for the container. If not specified, the window width is used.
 	 * autoResize:		(Boolean:false) Resize container on window resize? Use with caution - this may have undesirable side-effects.
+	 * autoPosition:	(Boolean:true) Reposition container on window resize?
 	 * zIndex:			(Number: 1000) Starting z-index value
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
 	 							If false, none of them will be used.
@@ -297,6 +298,7 @@
 			data = null;
 
 			this.setContainerDimensions();
+			this.setPosition();
 			this.dialog.data.appendTo(this.dialog.wrap);
 
 			// fix issues with IE
@@ -324,8 +326,8 @@
 				});
 			}
 	
-			// bind keydown events
-			$(document).bind('keydown.simplemodal', function (e) {
+			// bind keyup events
+			$(document).bind('keyup.simplemodal', function (e) {
 				if (self.opts.focus && e.keyCode == 9) { // TAB
 					self.watchTab(e);
 				}
@@ -341,7 +343,12 @@
 				w = self.getDimensions();
 
 				// reposition the dialog
-				self.opts.autoResize ? self.setContainerDimensions() : self.setPosition();
+				if (self.opts.autoResize) {
+					self.setContainerDimensions();
+				}
+				else if (self.opts.autoPosition) {
+					self.setPosition();
+				}
 	
 				if (ie6 || ieQuirks) {
 					self.fixIE();
@@ -358,7 +365,7 @@
 		 */
 		unbindEvents: function () {
 			$('.' + this.opts.closeClass).unbind('click.simplemodal');
-			$(document).unbind('keydown.simplemodal');
+			$(document).unbind('keyup.simplemodal');
 			$(window).unbind('resize.simplemodal');
 			this.dialog.overlay.unbind('click.simplemodal');
 		},
@@ -428,17 +435,19 @@
 			// fix a jQuery/Opera bug with determining the window height
 			var h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery <= '1.2.6' ? document.documentElement['clientHeight'] :
 				$.browser.opera && $.browser.version < '9.5' && $.fn.jquery > '1.2.6' ? window.innerHeight :
-				el.height();
+				el.outerHeight(true);
 
-			return [h, el.width()];
+			return [h, el.outerWidth(true)];
 		},
 		getVal: function (v) {
-			return v == 'auto' ? 0 : parseInt(v.replace(/px/, ''));
+			return v == 'auto' ? 0 
+				: v.indexOf('%') > 0 ? v 
+					: parseInt(v.replace(/px/, ''));
 		},
 		setContainerDimensions: function () {
 			// get the dimensions for the container and data
 			var ch = this.getVal(this.dialog.container.css('height')), cw = this.getVal(this.dialog.container.css('width')),
-				dh = this.dialog.data.height(), dw = this.dialog.data.width();
+				dh = this.dialog.data.outerHeight(true), dw = this.dialog.data.outerWidth(true);
 			
 			var mh = this.opts.maxHeight && this.opts.maxHeight < w[0] ? this.opts.maxHeight : w[0],
 				mw = this.opts.maxWidth && this.opts.maxWidth < w[1] ? this.opts.maxWidth : w[1];
@@ -473,12 +482,11 @@
 			if (dh > ch || dw > cw) {
 				this.dialog.wrap.css({overflow:'auto'});
 			}
-			this.setPosition();
 		},
 		setPosition: function () {
 			var top, left,
-				hc = (w[0]/2) - ((this.dialog.container.height() || this.dialog.data.height())/2),
-				vc = (w[1]/2) - ((this.dialog.container.width() || this.dialog.data.width())/2);
+				hc = (w[0]/2) - ((this.dialog.container.outerHeight(true) || this.dialog.data.outerHeight(true))/2),
+				vc = (w[1]/2) - ((this.dialog.container.outerWidth(true) || this.dialog.data.outerWidth(true))/2);
 
 			if (this.opts.position && Object.prototype.toString.call(this.opts.position) === "[object Array]") {
 				top = this.opts.position[0] || hc;
@@ -493,12 +501,10 @@
 			var self = this;
 			if ($(e.target).parents('.simplemodal-container').length > 0) {
 				// save the list of inputs
-				self.inputs = $(':input:enabled:visible:first, :input:enabled:visible:last', self.dialog.data);
+				self.inputs = $(':input:enabled:visible', self.dialog.data[0]);
 
 				// if it's the first or last tabbable element, refocus
-				if (!e.shiftKey && e.target == self.inputs[self.inputs.length -1] ||
-						e.shiftKey && e.target == self.inputs[0] ||
-						self.inputs.length == 0) {
+				if (self.inputs.index(e.target) === -1 || self.inputs.length === 0) {
 					e.preventDefault();
 					var pos = e.shiftKey ? 'last' : 'first';
 					setTimeout(function () {self.focus(pos);}, 10);

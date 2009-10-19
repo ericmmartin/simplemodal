@@ -27,6 +27,9 @@
 <!-- OSX -->
 <link type='text/css' href='css/osx.css' rel='stylesheet' media='screen' />
 
+<!-- Gallery -->
+<link type='text/css' href='css/gallery.css' rel='stylesheet' media='screen' />
+
 <!-- JS files are loaded at the bottom of the page -->
 </head>
 <body>
@@ -34,7 +37,7 @@
 <div id='container'>
 	<div id='header'><h1>SimpleModal Demos</h1></div>
 	<div id='content'>
-		<div id='basic-modal'><h2>Basic Modal Dialog</h2>
+		<div id='basic-modal' class='demo'><h2>Basic Modal Dialog</h2>
 			<p>A basic modal dialog with minimal styling and without any additional settings. There are a few CSS attributes set internally by SimpleModal, however, SimpleModal relies mostly on external CSS for the look and feel.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='basic' value='Demo' class='basic demo'/><input type='button' name='download' value='Download' class='demo'/>
@@ -53,7 +56,7 @@
 		</div>
 		<br/>
 		<hr/>
-		<div id='contact-form'><h2>Contact Form</h2>
+		<div id='contact-form' class='demo'><h2>Contact Form</h2>
 			<p>A contact form built on SimpleModal. Demonstrates the use of the <code>onOpen</code>, <code>onShow</code> and <code>onClose</code> callbacks, as well as the use of Ajax with SimpleModal.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='contact' value='Demo' class='contact demo'/><input type='button' name='download' value='Download' class='demo'/>
@@ -62,7 +65,22 @@
 		</div>
 		<br/>
 		<hr/>
-		<div id='confirm-dialog'><h2>Confirm Override</h2>
+		<div id='image-gallery' class='demo'><h2>Image Gallery</h2>
+			<p>A modal dialog configured to display images. Demonstrates the use of the <code>onOpen</code> and <code> onClose</code> callbacks as well as a handful of options, and custom styling.</p>
+			<!-- Start of Flickr Badge -->
+			<div id="flickr_badge_uber_wrapper">
+				<div id="flickr_badge_wrapper">
+					<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=5&display=random&size=t&layout=x&source=user&user=11678844%40N07"></script>
+				</div>
+				<div id="flickr_link">
+					<a href="http://www.flickr.com" id="flickr_www">www.<strong style="color:#3993ff">flick<span style="color:#ff1c92">r</span></strong>.com</a>
+				</div>
+			</div>
+			<!-- End of Flickr Badge -->
+		</div>
+		<br/>
+		<hr/>
+		<div id='confirm-dialog' class='demo'><h2>Confirm Override</h2>
 			<p>A modal dialog override of the JavaScript confirm function. Demonstrates the use of <code>onShow</code> as well as how to display a modal dialog confirmation instead of the default JavaScript confirm dialog.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='confirm' value='Demo' class='confirm demo'/><input type='button' name='download' value='Download' class='demo'/>
@@ -79,7 +97,7 @@
 		</div>
 		<br/>
 		<hr/>
-		<div id='osx-dialog'><h2>OSX Style Dialog</h2>
+		<div id='osx-dialog' class='demo'><h2>OSX Style Dialog</h2>
 			<p>A modal dialog configured to behave like an OSX dialog. Demonstrates the use of the <code>onOpen</code> and <code> onClose</code> callbacks as well as a handful of options, and custom styling.</p>
 			<form action='download/' method='post'>
 				<input type='button' name='osx' value='Demo' class='osx demo'/><input type='button' name='download' value='Download' class='demo'/>
@@ -109,5 +127,6 @@
 <script src='js/contact.js' type='text/javascript'></script>
 <script src='js/confirm.js' type='text/javascript'></script>
 <script src='js/osx.js' type='text/javascript'></script>
+<script src='js/gallery.js' type='text/javascript'></script>
 </body>
 </html>
