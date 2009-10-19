@@ -140,6 +140,7 @@
 		maxHeight: null,
 		maxWidth: null,
 		autoResize: false,
+		autoPosition: true,
 		zIndex: 1000,
 		close: true,
 		closeHTML: '<a class="modalCloseImg" title="Close"></a>',
@@ -435,9 +436,9 @@
 			// fix a jQuery/Opera bug with determining the window height
 			var h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery <= '1.2.6' ? document.documentElement['clientHeight'] :
 				$.browser.opera && $.browser.version < '9.5' && $.fn.jquery > '1.2.6' ? window.innerHeight :
-				el.outerHeight(true);
+				el.height();
 
-			return [h, el.outerWidth(true)];
+			return [h, el.width()];
 		},
 		getVal: function (v) {
 			return v == 'auto' ? 0 
