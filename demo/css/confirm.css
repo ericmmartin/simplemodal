@@ -19,7 +19,7 @@ body {height:100%; margin:0;}
 #confirm-overlay {background-color:#eee; cursor:wait;}
 
 /* Container */
-#confirm-container {height:140px; width:420px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; text-align:left; background:#fff; border:2px solid #336699;}
+#confirm-container {height:140px; width:420px; font-family:'Trebuchet MS', Verdana, Arial; font-size:16px; line-height:26px; text-align:left; background:#fff; border:2px solid #336699;}
 #confirm-container .header {height:30px; width:100%; background:url(../img/confirm/header.gif) repeat-x; color:#fff; font-size:1.1em; font-weight:bold; line-height:30px;}
 #confirm-container .header span {padding-left:8px;}
 #confirm-container .message {color:#333; margin:0; padding:12px 4px 12px 8px; font-size:1em;}
