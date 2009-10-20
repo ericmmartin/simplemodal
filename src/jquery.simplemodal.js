@@ -447,9 +447,9 @@
 
 			if (!resize || (resize && s.o.autoResize)) {
 				// get the dimensions for the container and data
-				var ch = s.d.container.outerHeight(true), cw = s.d.container.outerWidth(true),
+				var ch = s.d.container.height(), cw = s.d.container.width(),
 					dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
-				
+
 				var mh = s.o.maxHeight && s.o.maxHeight < w[0] ? s.o.maxHeight : w[0],
 					mw = s.o.maxWidth && s.o.maxWidth < w[1] ? s.o.maxWidth : w[1];
 

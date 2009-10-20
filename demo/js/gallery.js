@@ -130,8 +130,9 @@ jQuery(function ($) {
 					}
 
 					$(img).load(function () {
-						var h = img.height,
-							w = img.width;
+						var p = G.image_container.css('padding-top').replace('px', '') * 2,
+							h = img.height + p,
+							w = img.width + p;
 
 						if (G.gallery.height() !== h || G.gallery.width() !== w) {
 							G.gallery.animate(
