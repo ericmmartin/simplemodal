@@ -347,7 +347,7 @@
 				w = s.getDimensions();
 
 				// reposition the dialog
-				s.setContainerDimensions();
+				s.setContainerDimensions(true);
 	
 				if (ie6 || ieQuirks) {
 					s.fixIE();
@@ -442,10 +442,10 @@
 				: v.indexOf('%') > 0 ? v 
 					: parseInt(v.replace(/px/, ''));
 		},
-		setContainerDimensions: function () {
+		setContainerDimensions: function (resize) {
 			var s = this;
 
-			if (s.o.autoResize) {
+			if (!resize || (resize && s.o.autoResize)) {
 				// get the dimensions for the container and data
 				var ch = s.d.container.outerHeight(true), cw = s.d.container.outerWidth(true),
 					dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
