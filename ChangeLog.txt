@@ -1,6 +1,14 @@
 ==== SimpleModal ChangeLog ====
 
-== 1.3.1 ==
+== 1.3.2 ==
+ * Date: October 22, 2009
+ * Added autoPosition option which gives the ability to enable/disable the container positioning
+ * Changed data height() to outerHeight(true) and data width() to outerWidth(true). Thanks to Andrew Marcus
+ * Fixed bug that prevented % container dimension values from being used
+ * Aliased "this" to "s" wherever possible to reduce file size
+ * Reduced length of other internal variables to reduce file size
+
+== 1.3.1 (never officially released) ==
  * Date: September 1, 2009
  * Fixed container width determination, which fixes width/centering issues in IE6
  * Fixed position type checking. Thanks to cavidae for reporting
@@ -11,7 +19,7 @@
  * Date: June 09, 2009
  * Added autoResize option which enables/disables container resizing after window resize
  * Fixed typos in dimension calculations in setContainerDimensions() function
- * Added semi-colon at begining of script to prevent possible script combining/minfication issues
+ * Added semi-colon at beginning of script to prevent possible script combining/minfication issues
  * Added e.preventDefault() to key binding event
  * Moved input checking to watchTab function
  * Thanks to Cedric and Tomas for reporting bugs/suggestions

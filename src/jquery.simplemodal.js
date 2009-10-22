@@ -330,8 +330,8 @@
 				});
 			}
 	
-			// bind keyup events
-			$(document).bind('keyup.simplemodal', function (e) {
+			// bind keydown events
+			$(document).bind('keydown.simplemodal', function (e) {
 				if (s.o.focus && e.keyCode == 9) { // TAB
 					s.watchTab(e);
 				}
@@ -364,7 +364,7 @@
 		 */
 		unbindEvents: function () {
 			$('.' + this.o.closeClass).unbind('click.simplemodal');
-			$(document).unbind('keyup.simplemodal');
+			$(document).unbind('keydown.simplemodal');
 			$(window).unbind('resize.simplemodal');
 			this.d.overlay.unbind('click.simplemodal');
 		},
@@ -508,10 +508,12 @@
 
 			if ($(e.target).parents('.simplemodal-container').length > 0) {
 				// save the list of inputs
-				s.inputs = $(':input:enabled:visible', s.d.data[0]);
+				s.inputs = $(':input:enabled:visible:first, :input:enabled:visible:last', s.d.data[0]);
 
 				// if it's the first or last tabbable element, refocus
-				if (s.inputs.index(e.target) === -1 || s.inputs.length === 0) {
+				if ((!e.shiftKey && e.target == s.inputs[s.inputs.length -1]) ||
+						(e.shiftKey && e.target == s.inputs[0]) ||
+						s.inputs.length == 0) {
 					e.preventDefault();
 					var pos = e.shiftKey ? 'last' : 'first';
 					setTimeout(function () {s.focus(pos);}, 10);
