@@ -1,7 +1,7 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://www.ericmmartin.com/projects/simplemodal/
- * Copyright (c) 2009 Eric Martin
+ * Copyright (c) 2009 Eric Martin (http://twitter.com/EricMMartin)
  * Dual licensed under the MIT and GPL licenses
  * Revision: $Id$
  */
@@ -49,7 +49,7 @@
  * SimpleModal has been tested in the following browsers:
  * - IE 6, 7, 8
  * - Firefox 2, 3
- * - Opera 9
+ * - Opera 9, 10
  * - Safari 3, 4
  * - Chrome 1, 2
  *
