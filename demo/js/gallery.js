@@ -129,10 +129,12 @@ jQuery(function ($) {
 						n.src = G.images.eq(G.current_idx + 1).find('img').attr('src').replace(/_(s|t|m)\.jpg$/, '.jpg');
 					}
 
-					$(img).load(function () {
+					var i = $(img);
+					i.load(function () {
+						i.hide().appendTo('body');
 						var p = G.image_container.css('padding-top').replace('px', '') * 2,
-							h = img.height + p,
-							w = img.width + p;
+							h = i.outerHeight(true),
+							w = i.outerWidth(true);
 
 						if (G.gallery.height() !== h || G.gallery.width() !== w) {
 							G.gallery.animate(
@@ -160,7 +162,7 @@ jQuery(function ($) {
 		 * Show the image and then the controls and meta 
 		 */
 		show: function (img) {
-			G.image_container.prepend(img).fadeIn('slow', function () {
+			G.image_container.prepend($(img).show()).fadeIn('slow', function () {
 				G.showControls();
 				G.showMeta();		
 			});
