@@ -1,5 +1,11 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.3.4 ==
+ * Date: December xx, 2009
+ * Removed default values for minHeight and minWidth
+ * Added transient option which hides overlay, iframe, and disables certain events.
+ * Added a placeholder to put the content back in the correct place
+
 == 1.3.3 ==
  * Date: October 30, 2009
  * Fixed IE7 issues with container dimension determination

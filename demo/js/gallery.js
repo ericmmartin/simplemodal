@@ -145,14 +145,14 @@ jQuery(function ($) {
 										{width: w},
 										300,
 										function () {
-											G.show(img);
+											G.show(i);
 										}
 									);
 								}
 							);
 						}
 						else {
-							G.show(img);
+							G.show(i);
 						}
 					});
 				});
@@ -162,7 +162,8 @@ jQuery(function ($) {
 		 * Show the image and then the controls and meta 
 		 */
 		show: function (img) {
-			G.image_container.prepend($(img).show()).fadeIn('slow', function () {
+			img.show();
+			G.image_container.prepend(img).fadeIn('slow', function () {
 				G.showControls();
 				G.showMeta();		
 			});
