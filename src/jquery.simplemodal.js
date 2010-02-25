@@ -122,7 +122,7 @@
 								DOM elements. If true, the data will be maintained across modal calls, if false,
 								the data will be reverted to its original state.
 	 * transient:		(Boolean:false) If true, the overlay, iframe, and certain events will be disabled
-								allowing the user to interace with the page below the dialog;
+								allowing the user to interace with the page below the dialog
 	 * onOpen:			(Function:null) The callback function used in place of SimpleModal's open
 	 * onShow:			(Function:null) The callback function used after the modal dialog has opened
 	 * onClose:			(Function:null) The callback function used in place of SimpleModal's close
@@ -182,7 +182,7 @@
 			}
 
 			// $.boxModel is undefined if checked earlier
-			ieQuirks = $.browser.msie && !$.boxModel;
+			ieQuirks = $.browser.msie && !$.support.boxModel;
 
 			// merge defaults and user options
 			s.o = $.extend({}, $.modal.defaults, options);
@@ -456,7 +456,8 @@
 
 			if (!resize || (resize && s.o.autoResize)) {
 				// get the dimensions for the container and data
-				var ch = s.getVal(s.d.container.css('height')), cw = s.getVal(s.d.container.css('width')),
+				var ch = s.d.container.height() || s.getVal(s.d.container.css('height')), 
+					cw = s.d.container.width() || s.getVal(s.d.container.css('width')),
 					dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
 
 				var mh = s.o.maxHeight && s.o.maxHeight < w[0] ? s.o.maxHeight : w[0],
