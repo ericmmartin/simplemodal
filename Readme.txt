@@ -29,5 +29,5 @@ http://twitter.com/SimpleModal
 ---------------------------------------------------
 
 Donate:
-Please consider sponsoring SimpleModal by donating $1:
+Happy with SimpleModal and want to donate a buck or two?
 http://www.ericmmartin.com/donate/

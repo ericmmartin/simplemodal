@@ -3,7 +3,7 @@
  * http://www.ericmmartin.com/projects/simplemodal/
  * http://code.google.com/p/simplemodal/
  *
- * Copyright (c) 2009 Eric Martin - http://ericmmartin.com
+ * Copyright (c) 2010 Eric Martin - http://ericmmartin.com
  *
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -12,24 +12,25 @@
  */
 
 jQuery(function ($) {
-	$("input.osx, a.osx").click(function (e) {
-		e.preventDefault();	
-
-		$("#osx-modal-content").modal({
-			overlayId: 'osx-overlay',
-			containerId: 'osx-container',
-			closeHTML: '<div class="close"><a href="#" class="simplemodal-close">x</a></div>',
-			minHeight:80,
-			opacity:65, 
-			position:['0',],
-			overlayClose:true,
-			onOpen:OSX.open,
-			onClose:OSX.close
-		});
-	});
-
 	var OSX = {
 		container: null,
+		init: function () {
+			$("input.osx, a.osx").click(function (e) {
+				e.preventDefault();	
+
+				$("#osx-modal-content").modal({
+					overlayId: 'osx-overlay',
+					containerId: 'osx-container',
+					closeHTML: '<div class="close"><a href="#" class="simplemodal-close">x</a></div>',
+					minHeight:80,
+					opacity:65, 
+					position:['0',],
+					overlayClose:true,
+					onOpen:OSX.open,
+					onClose:OSX.close
+				});
+			});
+		},
 		open: function (d) {
 			var self = this;
 			self.container = d.container[0];
@@ -65,5 +66,7 @@ jQuery(function ($) {
 			);
 		}
 	};
-	
+
+	OSX.init();
+
 });
