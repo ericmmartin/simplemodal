@@ -1,7 +1,7 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://www.ericmmartin.com/projects/simplemodal/
- * Copyright (c) 2009 Eric Martin (http://twitter.com/EricMMartin)
+ * Copyright (c) 2010 Eric Martin (http://twitter.com/EricMMartin)
  * Dual licensed under the MIT and GPL licenses
  * Revision: $Id$
  */
@@ -51,7 +51,7 @@
  * - Firefox 2, 3
  * - Opera 9, 10
  * - Safari 3, 4
- * - Chrome 1, 2
+ * - Chrome 1, 2, 3, 4
  *
  * @name SimpleModal
  * @type jQuery
@@ -456,8 +456,8 @@
 
 			if (!resize || (resize && s.o.autoResize)) {
 				// get the dimensions for the container and data
-				var ch = s.d.container.height() || s.getVal(s.d.container.css('height')), 
-					cw = s.d.container.width() || s.getVal(s.d.container.css('width')),
+				var ch = $.browser.opera ? s.d.container.height() : s.getVal(s.d.container.css('height')), 
+					cw = $.browser.opera ? s.d.container.width() : s.getVal(s.d.container.css('width')),
 					dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
 
 				var mh = s.o.maxHeight && s.o.maxHeight < w[0] ? s.o.maxHeight : w[0],
