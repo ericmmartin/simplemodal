@@ -21,13 +21,13 @@ jQuery(function ($) {
 				$("#osx-modal-content").modal({
 					overlayId: 'osx-overlay',
 					containerId: 'osx-container',
-					closeHTML: '<div class="close"><a href="#" class="simplemodal-close">x</a></div>',
-					minHeight:80,
-					opacity:65, 
-					position:['0',],
-					overlayClose:true,
-					onOpen:OSX.open,
-					onClose:OSX.close
+					closeHTML: null,
+					minHeight: 80,
+					opacity: 65, 
+					position: ['0',],
+					overlayClose: true,
+					onOpen: OSX.open,
+					onClose: OSX.close
 				});
 			});
 		},
@@ -56,7 +56,7 @@ jQuery(function ($) {
 			})
 		},
 		close: function (d) {
-			var self = this;
+			var self = this; // this = SimpleModal object
 			d.container.animate(
 				{top:"-" + (d.container.height() + 20)},
 				500,

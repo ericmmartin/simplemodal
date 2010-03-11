@@ -1,7 +1,7 @@
 <?php
 
 $demo = isset($_POST['demo']) ? $_POST['demo'] : '';
-$valid = array("basic", "contact", "confirm", "osx");
+$valid = array("basic", "contact", "confirm", "gallery", "osx");
 
 // don't allow hackers in
 if (in_array($demo, $valid)) {
@@ -76,7 +76,7 @@ if (in_array($demo, $valid)) {
 	fclose($fp);
 
 	/* Delete file */
-	unlink($file);
+	//unlink($file);
 
 	/* Send to browser */
 	Header("Content-type: application/octet-stream");

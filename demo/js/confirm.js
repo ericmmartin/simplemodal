@@ -26,10 +26,10 @@ jQuery(function ($) {
 
 function confirm(message, callback) {
 	$('#confirm').modal({
-		closeHTML:"<a href='#' title='Close' class='modal-close'>x</a>",
+		closeHTML: "<a href='#' title='Close' class='modal-close'>x</a>",
 		position: ["20%",],
-		overlayId:'confirm-overlay',
-		containerId:'confirm-container', 
+		overlayId: 'confirm-overlay',
+		containerId: 'confirm-container', 
 		onShow: function (dialog) {
 			$('.message', dialog.data[0]).append(message);
 

@@ -65,18 +65,23 @@
 		</div>
 		<br/>
 		<hr/>
-		<div id='image-gallery' class='demo'><h2>Image Gallery</h2>
-			<p>A modal dialog configured to display images. Demonstrates the use of the <code>onOpen</code> and <code> onClose</code> callbacks as well as a handful of options, and custom styling.</p>
+		<div id='image-gallery' class='demo'><h2>Flickr Badge Viewer</h2>
+			<p>A modal dialog configured to display images. Demonstrates the use of the <code>onOpen</code> and <code>onClose</code> callbacks as well as a handful of options, and custom styling.</p>
 			<!-- Start of Flickr Badge -->
 			<div id="flickr_badge_uber_wrapper">
 				<div id="flickr_badge_wrapper">
-					<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=5&display=random&size=t&layout=x&source=user&user=11678844%40N07"></script>
+					<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=5&display=latest&size=s&layout=x&source=user_set&user=11678844%40N07&set=72157623117460038&context=in%2Fset-72157623117460038%2F"></script>
 				</div>
 				<div id="flickr_link">
 					<a href="http://www.flickr.com" id="flickr_www">www.<strong style="color:#3993ff">flick<span style="color:#ff1c92">r</span></strong>.com</a>
 				</div>
 			</div>
 			<!-- End of Flickr Badge -->
+			<br/>
+			<form action='download/' method='post'>
+				<input type='button' name='download' value='Download' class='demo'/>
+				<input type='hidden' name='demo' value='gallery'/>
+			</form>
 		</div>
 		<br/>
 		<hr/>
@@ -106,6 +111,7 @@
 		</div>
 		<div id="osx-modal-content">
 			<div id="osx-modal-title">OSX Style Modal Dialog</div>
+			<div class="close"><a href="#" class="simplemodal-close">x</a></div>
 			<div id="osx-modal-data">
 				<h2>Hello!</h2>
 				<p>SimpleModal is a lightweight jQuery Plugin which provides a powerful interface for modal dialog development. Think of it as a modal dialog framework.</p>
