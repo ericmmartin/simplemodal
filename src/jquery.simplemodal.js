@@ -108,7 +108,7 @@
 	 * maxHeight:		(Number:null) The maximum height for the container. If not specified, the window height is used.
 	 * maxWidth:		(Number:null) The maximum width for the container. If not specified, the window width is used.
 	 * autoResize:		(Boolean:false) Resize container on window resize? Use with caution - this may have undesirable side-effects.
-	 * autoPosition:	(Boolean:true) Reposition container on window resize?
+	 * autoPosition:	(Boolean:true) Automatically position container on creation and window resize?
 	 * zIndex:			(Number: 1000) Starting z-index value
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
 	 							If false, none of them will be used.
