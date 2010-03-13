@@ -182,7 +182,7 @@
 			}
 
 			// $.boxModel is undefined if checked earlier
-			ieQuirks = $.browser.msie && !$.support.boxModel;
+			ieQuirks = $.browser.msie && !$.boxModel;
 
 			// merge defaults and user options
 			s.o = $.extend({}, $.modal.defaults, options);

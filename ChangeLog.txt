@@ -1,6 +1,10 @@
 ==== SimpleModal ChangeLog ====
 
-== 1.3.4 ==
+== 1.3.5 ==
+ * Date: March 12, 2010
+ * Switched back to using $.boxModal to support older versions of jQuery
+ 
+ == 1.3.4 ==
  * Date: March 09, 2010
  * Removed default values for minHeight and minWidth
  * Added transient option which hides overlay, iframe, and disables certain events.
