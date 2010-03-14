@@ -22,6 +22,8 @@ if (in_array($demo, $valid)) {
 			'css_zip' => $demo . '/css/' . $demo . '.css',
 			'css_ie' => $dir . '/css/' . $demo . '_ie.css',
 			'css_ie_zip' => $demo . '/css/' . $demo . '_ie.css',
+			'css_demo' => $dir . '/css/demo.css',
+			'css_demo_zip' => $demo . '/css/demo.css',
 			'data' => $dir . '/data/' . $demo . '-dist.php',
 			'data_zip' => $demo . '/data/' . $demo . '.php',
 			'img_match' => $dir . '/img/' . $demo . '/{*.gif,*.jpg,*.png}'
@@ -49,6 +51,9 @@ if (in_array($demo, $valid)) {
 		}
 		if (file_exists($files['css_ie'])) {
 			$zip->addFile($files['css_ie'], $files['css_ie_zip']);
+		}
+		if (file_exists($files['css_demo'])) {
+			$zip->addFile($files['css_demo'], $files['css_demo_zip']);
 		}
 		if (file_exists($files['data'])) {
 			$zip->addFile($files['data'], $files['data_zip']);

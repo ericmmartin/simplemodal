@@ -5,16 +5,35 @@
 <meta name='author' content='Eric Martin' />
 <meta name='copyright' content='2010 - Eric Martin' />
 
+<!-- Page styles -->
+<style type='text/css'>@import url('css/demo.css');</style>
+
 <!-- Contact Form CSS files -->
 <link type='text/css' href='css/contact.css' rel='stylesheet' media='screen' />
 
 <!-- JS files are loaded at the bottom of the page -->
 </head>
 <body>
-<div id='contact-form'><h2>Contact Form</h2>
-<p>A contact form built on SimpleModal. Demonstrates the use of the <code>onOpen</code>, <code>onShow</code> and <code>onClose</code> callbacks, as well as the use of Ajax with SimpleModal.</p>
-<p>To use: Open <code>data/contact.php</code> and modify the <code>$to</code> and <code>$subject</code> values. To enable/disable information about the user, configure the <code>$extra</code> array.</p>
-<input type='button' name='contact' value='Demo' class='contact demo'/> or <a href='#' class='contact'>Demo</a>
+<div id='container'>
+	<div id='logo'>
+		<h1>Simple<span>Modal</span></h1>
+		<span class='title'>A Modal Dialog Framework Plugin for jQuery</span>
+	</div>
+	<div id='content'>
+		<div id='contact-form'>
+			<h3>Contact Form</h3>
+			<p>A contact form built on SimpleModal. Demonstrates the use of the <code>onOpen</code>, <code>onShow</code> and <code>onClose</code> callbacks, as well as the use of Ajax with SimpleModal.</p>
+			<p>To use: Open <code>data/contact.php</code> and modify the <code>$to</code> and <code>$subject</code> values. To enable/disable information about the user, configure the <code>$extra</code> array.</p>
+			<input type='button' name='contact' value='Demo' class='contact demo'/> or <a href='#' class='contact'>Demo</a>
+		</div>
+		<!-- preload the images -->
+		<div style='display:none'>
+			<img src='img/contact/loading.gif' alt='' />
+		</div>
+	</div>
+	<div id='footer'>
+		&copy; <?php echo date('o'); ?> <a href='http://www.ericmmartin.com/'>Eric Martin</a> | <a href='http://twitter.com/ericmmartin'>@ericmmartin</a>
+	</div>
 </div>
 <!-- Load JavaScript files -->
 <script type='text/javascript' src='js/jquery.js'></script>

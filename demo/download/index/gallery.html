@@ -5,26 +5,48 @@
 <meta name='author' content='Eric Martin' />
 <meta name='copyright' content='2010 - Eric Martin' />
 
+<!-- Page styles -->
+<style type='text/css'>@import url('css/demo.css');</style>
+
 <!-- OSX Style CSS files -->
 <link type='text/css' href='css/gallery.css' rel='stylesheet' media='screen' />
 
 <!-- JS files are loaded at the bottom of the page -->
 </head>
 <body>
-<div id='image-gallery' class='demo'><h2>Flickr Badge Viewer</h2>
-	<p>A modal dialog configured to display images. Demonstrates the use of the <code>onOpen</code> and <code>onClose</code> callbacks as well as a handful of options, and custom styling.</p>
-	<p>To use: Edit this file and modify the flickr badge script href to point to your own badge, or just include <code>gallery.js</code> and <code>gallery.css</code> on your page that already contains your flickr badge.</p>
-	<!-- Start of Flickr Badge -->
-	<div id="flickr_badge_uber_wrapper">
-		<div id="flickr_badge_wrapper">
-			<!-- Enter your own flickr badge href below -->
-			<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=5&display=latest&size=s&layout=x&source=user_set&user=11678844%40N07&set=72157623117460038&context=in%2Fset-72157623117460038%2F"></script>
-		</div>
-		<div id="flickr_link">
-			<a href="http://www.flickr.com" id="flickr_www">www.<strong style="color:#3993ff">flick<span style="color:#ff1c92">r</span></strong>.com</a>
+<div id='container'>
+	<div id='logo'>
+		<h1>Simple<span>Modal</span></h1>
+		<span class='title'>A Modal Dialog Framework Plugin for jQuery</span>
+	</div>
+	<div id='content'>
+		<div id='image-gallery' class='demo'>
+			<h3>Flickr Badge Viewer</h3>
+			<p>A modal dialog configured to display images. Demonstrates the use of the <code>onOpen</code> and <code>onClose</code> callbacks as well as a handful of options, and custom styling.</p>
+			<p>The viewer also includes keyboard navigation; Previous Image: <code>p</code> or <code>&larr;</code>, Next Image: <code>n</code> or <code>&rarr;</code>, Close Viewer: <code>ESC</code>.</p>
+			<p>To use: Edit this file and modify the flickr badge script href to point to your own badge, or just include <code>gallery.js</code> and <code>gallery.css</code> on your page that already contains your flickr badge.</p>
+			
+			<!-- Start of Flickr Badge -->
+			<div id="flickr_badge_uber_wrapper">
+				<div id="flickr_badge_wrapper">
+					<!-- Enter your own flickr badge href below -->
+					<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=5&display=latest&size=s&layout=x&source=user_set&user=11678844%40N07&set=72157623117460038&context=in%2Fset-72157623117460038%2F"></script>
+				</div>
+				<div id="flickr_link">
+					<a href="http://www.flickr.com" id="flickr_www">www.<strong style="color:#3993ff">flick<span style="color:#ff1c92">r</span></strong>.com</a>
+				</div>
+			</div>
+			<!-- End of Flickr Badge -->
+
+			<!-- preload the images -->
+			<div style='display:none'>
+				<img src='img/gallery/loading.gif' alt='' />
+			</div>
 		</div>
 	</div>
-	<!-- End of Flickr Badge -->
+	<div id='footer'>
+		&copy; <?php echo date('o'); ?> <a href='http://www.ericmmartin.com/'>Eric Martin</a> | <a href='http://twitter.com/ericmmartin'>@ericmmartin</a>
+	</div>
 </div>
 <!-- Load JavaScript files -->
 <script type='text/javascript' src='js/jquery.js'></script>

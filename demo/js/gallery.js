@@ -222,7 +222,10 @@ jQuery(function ($) {
 		 * Show the image meta; title, image x of x and the close X 
 		 */
 		showMeta: function () {
-			G.title.html(G.images.eq(G.current_idx).find('img').attr('title'));
+			var link = G.images.eq(G.current_idx).clone(),
+				title = link.find('img').attr('title');
+
+			G.title.html(link.attr('title', 'View on Flickr').html(title));
 			G.pages.html('Image ' + (G.current_idx + 1) + ' of ' + G.images.length);
 			G.meta_container.show()
 			G.meta.slideDown(function () {
