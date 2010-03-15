@@ -13,8 +13,9 @@
  */
 
 jQuery(function ($) {
-	$('#basic-modal input.basic, #basic-modal a.basic').click(function (e) {
-		e.preventDefault();
+	$('#basic-modal .basic').click(function (e) {
 		$('#basic-modal-content').modal();
+		
+		  return false;
 	});
 });

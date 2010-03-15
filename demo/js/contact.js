@@ -33,13 +33,6 @@ jQuery(function ($) {
 					});
 				});
 			});
-
-			// preload images
-			var img = ['cancel.png', 'form_bottom.gif', 'form_top.gif', 'loading.gif', 'send.png'];
-			$(img).each(function () {
-				var i = new Image();
-				i.src = 'img/contact/' + this;
-			});
 		},
 		open: function (dialog) {
 			// add padding to the buttons in firefox/mozilla
