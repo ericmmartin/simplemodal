@@ -208,13 +208,13 @@ jQuery(function ($) {
 			$('div', G.controls[0]).hover(
 				function () {
 					var self = this,
-						l = $(self).find('a:not(.disabled):not(:animated)');
+						l = $(self).find('a:not(.disabled)');
 					if (l.length > 0) {
-						l.fadeIn();
+						l.show();
 					}
 				},
 				function () {
-					$(this).find('a').fadeOut();
+					$(this).find('a').hide();
 				}
 			);
 		},

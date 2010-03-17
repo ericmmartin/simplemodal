@@ -13,7 +13,7 @@
  */
 
 #gallery-overlay {background-color:#000; cursor:wait;}
-#gallery-container {background:#fff; font: 16px/22px verdana, arial, sans-serif; margin:0 auto;}
+#gallery-container {font: 16px/22px verdana, arial, sans-serif; margin:0 auto;}
 #gallery {background:#fff url(../img/gallery/loading.gif) center 100px no-repeat; color:#999; display:none; height:200px;margin:0 auto; position:relative; width:300px; -moz-box-shadow:0 0 64px #000; -webkit-box-shadow:0 0 64px #000;}
 #gallery-image-container {display:none; height:100%;}
 #gallery-loading {padding:8px;}
