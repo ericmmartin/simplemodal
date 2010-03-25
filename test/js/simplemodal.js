@@ -121,6 +121,10 @@ $(document).ready(function () {
    	e.preventDefault();
 		$('#modalContentTest').modal({focus:false});
 	});
+   $('a#test28').click(function (e) {
+   	e.preventDefault();
+		$('#modalContentTest').modal({modal:false});
+	});
 });
 
 /**
