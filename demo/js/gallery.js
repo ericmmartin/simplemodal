@@ -25,9 +25,9 @@ jQuery(function ($) {
 					closeHTML: '',
 					overlayId: 'gallery-overlay',
 					containerId: 'gallery-container',
-					containerCss: {left:0, top:'10%', width:'100%'},
+					containerCss: {left:0, width:'100%'},
 					opacity: 80,
-					autoPosition: false,
+					position: ['10%', null],
 					onOpen: G.open,
 					onClose: G.close
 				});

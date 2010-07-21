@@ -1,20 +1,21 @@
-Copyright (c) 2009 Eric Martin http://ericmmartin.com
+You may use SimpleModal under the terms of either the MIT License or 
+the GNU General Public License (GPL) Version 2.
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+The MIT License is recommended for most projects. It is simple and 
+easy to understand and it places almost no restrictions on what you 
+can do with SimpleModal.
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+If the GPL suits your project better you are also free to use 
+SimpleModal under that license.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+You don’t have to do anything special to choose one license or the
+other and you don’t have to notify anyone which license you are using.
+
+You are free to use SimpleModal in commercial projects as long as the 
+copyright header is left intact. If you would like to remove the 
+SimpleModal copyright, please contact me (eric@ericmmartin.com) regarding
+re-licensing.
+
+Licenses
+MIT License (MIT-LICENSE.txt)
+GPL (GPL-LICENSE.txt)

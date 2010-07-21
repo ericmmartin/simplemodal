@@ -125,6 +125,39 @@ $(document).ready(function () {
    	e.preventDefault();
 		$('#modalContentTest').modal({modal:false});
 	});
+   $('a#test29').click(function (e) {
+	   	e.preventDefault();
+		$('#modalContentTest').modal({
+			onShow: function (d) {
+				var m = this;
+				$('input.animate', d.data[0]).click(function () {
+					$('#modalContentTest', d.container[0]).html($('#modalContentOverflowTest').html());
+					m.update('auto', '600px');
+					
+					$('input.animate', d.data[0]).click(function () {
+						$('#modalContentTest', d.container[0]).html($('#modalContentPersistTest').html());
+						m.update('auto', 'auto');
+						return false;
+					});
+
+					return false;
+				});
+			}
+		});
+	});
+   $('a#test30').click(function (e) {
+	   	e.preventDefault();
+		$('#modalContentTest').modal({
+			onShow: function (d) {
+				var m = this;
+				$('input.animate', d.data[0]).click(function () {
+					$('form', d.data[0]).after('<h1>Test</h1><p>Test<br/>Test</br></p>');
+					m.update('auto');
+					return false;
+				});
+			}
+		});
+	});
 });
 
 /**

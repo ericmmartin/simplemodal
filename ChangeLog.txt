@@ -1,5 +1,14 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.3.6 ==
+ * Date: July 22, 2010
+ * Added bodyStretch option (to force overlay to fill window in IE6)
+ * Removed the autoResize and autoPosition options
+ * Changed meaning of the focus option
+ * Added update() function
+ * Changed setContainerDimensions fucntion code
+ * Fixed Opera screen painting issues
+
 == 1.3.5 ==
  * Date: April 19, 2010
  * Switched back to using $.boxModal to support older versions of jQuery
