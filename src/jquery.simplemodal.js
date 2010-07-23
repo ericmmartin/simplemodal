@@ -44,7 +44,7 @@
  * properly in all browsers, yet provides the developer with the flexibility
  * to easily control the look and feel. The styling for SimpleModal can be
  * done through external stylesheets, or through SimpleModal, using the
- * overlayCss and/or containerCss options.
+ * overlayCss, containerCss, and dataCss options.
  *
  * SimpleModal has been tested in the following browsers:
  * - IE 6, 7, 8
@@ -55,13 +55,13 @@
  *
  * @name SimpleModal
  * @type jQuery
- * @requires jQuery v1.2.2
+ * @requires jQuery v1.2.4
  * @cat Plugins/Windows and Overlays
  * @author Eric Martin (http://ericmmartin.com)
  * @version @VERSION
  */
 ;(function ($) {
-	var ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== "object",
+	var ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== 'object',
 		ieQuirks = null,
 		w = [];
 
@@ -107,6 +107,8 @@
 	 * minWidth:		(Number:null) The minimum width for the container
 	 * maxHeight:		(Number:null) The maximum height for the container. If not specified, the window height is used.
 	 * maxWidth:		(Number:null) The maximum width for the container. If not specified, the window width is used.
+	 * autoResize:		(Boolean:true) Automatically resize the container, if necessary, on window resize?
+	 * autoPosition:	(Boolean:true) Automatically position the container upon creation and on window resize?
 	 * zIndex:			(Number: 1000) Starting z-index value
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
 	 							If false, none of them will be used.
@@ -140,6 +142,8 @@
 		minWidth: null,
 		maxHeight: null,
 		maxWidth: null,
+		autoResize: true,
+		autoPosition: true,
 		zIndex: 1000,
 		close: true,
 		closeHTML: '<a class="modalCloseImg" title="Close"></a>',
@@ -151,18 +155,14 @@
 		modal: true,
 		onOpen: null,
 		onShow: null,
-		onClose: null,
-		bodyStretch: true
+		onClose: null
 	};
 
 	/*
 	 * Main modal object
+	 * o = options
 	 */
 	$.modal.impl = {
-		/*
-		 * Modal dialog options
-		 */
-		o: null,
 		/*
 		 * Contains the modal dialog elements and is the object passed
 		 * back to the callback (onOpen, onShow, onClose) functions
@@ -354,8 +354,7 @@
 				w = s.getDimensions();
 
 				// reposition the dialog
-				// TODO setPosition or setContainerDimensions?
-				s.setPosition();
+				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
 
 				if (ie6 || ieQuirks) {
 					s.fixIE();
@@ -381,9 +380,6 @@
 		 */
 		fixIE: function () {
 			var s = this, p = s.o.position;
-			
-			// TODO prevent this from causing scrollbars
-			ie6 && s.o.bodyStretch && $('body').css({height: '100%', width: '100%'});
 
 			// simulate fixed position - adapted from BlockUI
 			$.each([s.d.iframe || null, !s.o.modal ? null : s.d.overlay, s.d.container], function (i, el) {
@@ -450,14 +446,15 @@
 
 			return [h, el.width()];
 		},
-		getVal: function (v) {
-			return typeof v === 'number' ? v
+		getVal: function (v, d) {
+			return v ? (typeof v === 'number' ? v
 					: v === 'auto' ? 0
-					: v.indexOf('%') > 0 ? v
-					: parseInt(v.replace(/px/, ''));
+					: v.indexOf('%') > 0 ? ((parseInt(v.replace(/%/, '')) / 100) * (d === 'h' ? w[0] : w[1]))
+					: parseInt(v.replace(/px/, '')))
+				: null;
 		},
 		/*
-		 * Update the container. Set new dimensions, if provided. 
+		 * Update the container. Set new dimensions, if provided.
 		 * Focus, if enabled. Re-bind events.
 		 */
 		update: function (height, width) {
@@ -467,6 +464,10 @@
 			if (!s.d.data) {
 				return false;
 			}
+
+			// reset orig values
+			s.d.origHeight = s.getVal(height, 'h');
+			s.d.origWidth = s.getVal(width, 'w');
 
 			// hide data to prevent screen flicker
 			s.d.data.hide();
@@ -484,15 +485,21 @@
 			var s = this;
 
 			// get the dimensions for the container and data
-			var ch = $.browser.opera ? s.d.container.height() : s.getVal(s.d.container.css('height')),
-				cw = $.browser.opera ? s.d.container.width() : s.getVal(s.d.container.css('width')),
+			var ch = s.d.origHeight ? s.d.origHeight : $.browser.opera ? s.d.container.height() : s.getVal(s.d.container.css('height'), 'h'),
+				cw = s.d.origWidth ? s.d.origWidth : $.browser.opera ? s.d.container.width() : s.getVal(s.d.container.css('width'), 'w'),
 				dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
 
-			var mh = s.o.maxHeight && s.getVal(s.o.maxHeight) < w[0] ? s.getVal(s.o.maxHeight) : w[0],
-				mw = s.o.maxWidth && s.getVal(s.o.maxWidth) < w[1] ? s.getVal(s.o.maxWidth) : w[1];
+			s.d.origHeight = s.d.origHeight || ch;
+			s.d.origWidth = s.d.origWidth || cw;
 
-			// height
-			var moh = s.o.minHeight ? s.getVal(s.o.minHeight) : 'auto';
+			// mxoh = max option height, mxow = max option width
+			var mxoh = s.o.maxHeight ? s.getVal(s.o.maxHeight, 'h') : null,
+				mxow = s.o.maxWidth ? s.getVal(s.o.maxWidth, 'w') : null,
+				mh = mxoh && mxoh < w[0] ? mxoh : w[0],
+				mw = mxow && mxow < w[1] ? mxow : w[1];
+
+			// moh = min option height
+			var moh = s.o.minHeight ? s.getVal(s.o.minHeight, 'h') : 'auto';
 			if (!ch) {
 				if (!dh) {ch = moh;}
 				else {
@@ -505,8 +512,8 @@
 				ch = ch > mh ? mh : ch;
 			}
 
-			// width
-			var mow = s.o.minWidth ? s.getVal(s.o.minWidth) : 'auto';
+			// mow = min option width
+			var mow = s.o.minWidth ? s.getVal(s.o.minWidth, 'w') : 'auto';
 			if (!cw) {
 				if (!dw) {cw = mow;}
 				else {
@@ -521,14 +528,14 @@
 
 			s.d.container.css({height: ch, width: cw});
 			s.d.wrap.css({overflow: (dh > ch || dw > cw) ? 'auto' : 'visible'});
-			s.setPosition();
+			s.o.autoPosition && s.setPosition();
 		},
 		setPosition: function () {
 			var s = this, top, left,
 				hc = (w[0]/2) - (s.d.container.outerHeight(true)/2),
 				vc = (w[1]/2) - (s.d.container.outerWidth(true)/2);
 
-			if (s.o.position && Object.prototype.toString.call(s.o.position) === "[object Array]") {
+			if (s.o.position && Object.prototype.toString.call(s.o.position) === '[object Array]') {
 				top = s.o.position[0] || hc;
 				left = s.o.position[1] || vc;
 			} else {
@@ -644,7 +651,7 @@
 
 					// reset the dialog object
 					s.d = {};
-				}, 10); 
+				}, 10);
 			}
 		}
 	};
