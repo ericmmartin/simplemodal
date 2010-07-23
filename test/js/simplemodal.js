@@ -89,44 +89,44 @@ $(document).ready(function () {
 		e.preventDefault();
 		$('#modalContentTest').modal();
 	});
-   $('a#test19').click(function (e) {
-   	e.preventDefault();
+	$('a#test19').click(function (e) {
+		e.preventDefault();
 		$('#modalContentOverflowTest').modal({maxHeight:400, maxWidth:600});
 	});
-   $('a#test20').click(function (e) {
-   	e.preventDefault();
+	$('a#test20').click(function (e) {
+		e.preventDefault();
 		$('#modalContentTest').modal({overlayClose:true});
 	});
-   $('a#test22').click(function (e) {
-   	e.preventDefault();
+	$('a#test22').click(function (e) {
+		e.preventDefault();
 		$('<h1>Test</h1>').modal({minHeight:400});
 	});
-   $('a#test23').click(function (e) {
-   	e.preventDefault();
+	$('a#test23').click(function (e) {
+		e.preventDefault();
 		$('<h1>Test</h1>').modal({minWidth:600});
 	});
-   $('a#test24').click(function (e) {
-   	e.preventDefault();
+	$('a#test24').click(function (e) {
+		e.preventDefault();
 		$('#modalContentOverflowTest').modal({maxHeight:500});
 	});
-   $('a#test25').click(function (e) {
-   	e.preventDefault();
+	$('a#test25').click(function (e) {
+		e.preventDefault();
 		$('#modalContentOverflowTest').modal({maxWidth:700});
 	});
-   $('a#test26').click(function (e) {
-   	e.preventDefault();
+	$('a#test26').click(function (e) {
+		e.preventDefault();
 		$('#modalContentOverflowTest').modal({maxHeight:500, maxWidth:700});
 	});
-   $('a#test27').click(function (e) {
-   	e.preventDefault();
+	$('a#test27').click(function (e) {
+		e.preventDefault();
 		$('#modalContentTest').modal({focus:false});
 	});
-   $('a#test28').click(function (e) {
-   	e.preventDefault();
+	$('a#test28').click(function (e) {
+		e.preventDefault();
 		$('#modalContentTest').modal({modal:false});
 	});
-   $('a#test29').click(function (e) {
-	   	e.preventDefault();
+	$('a#test29').click(function (e) {
+		e.preventDefault();
 		$('#modalContentTest').modal({
 			onShow: function (d) {
 				var m = this;
@@ -145,14 +145,40 @@ $(document).ready(function () {
 			}
 		});
 	});
-   $('a#test30').click(function (e) {
-	   	e.preventDefault();
+	$('a#test30').click(function (e) {
+		e.preventDefault();
 		$('#modalContentTest').modal({
 			onShow: function (d) {
 				var m = this;
 				$('input.animate', d.data[0]).click(function () {
 					$('form', d.data[0]).after('<h1>Test</h1><p>Test<br/>Test</br></p>');
 					m.update('auto');
+					return false;
+				});
+			}
+		});
+	});
+	$('a#test31').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({
+			onShow: function (d) {
+				var m = this;
+				$('input.animate', d.data[0]).click(function () {
+					$('form', d.data[0]).after('<h1>Test</h1><p>Test<br/>Test</br></p>');
+					m.update('50%');
+					return false;
+				});
+			}
+		});
+	});
+	$('a#test32').click(function (e) {
+		e.preventDefault();
+		$('#modalContentTest').modal({
+			onShow: function (d) {
+				var m = this;
+				$('input.animate', d.data[0]).click(function () {
+					$('form', d.data[0]).after('<h1>Test</h1><p>Test<br/>Test</br></p>');
+					m.update('auto', '50%');
 					return false;
 				});
 			}

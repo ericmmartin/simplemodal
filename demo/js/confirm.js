@@ -9,7 +9,6 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *
  * Revision: $Id$
- *
  */
 
 jQuery(function ($) {
@@ -31,6 +30,8 @@ function confirm(message, callback) {
 		overlayId: 'confirm-overlay',
 		containerId: 'confirm-container', 
 		onShow: function (dialog) {
+			var modal = this;
+
 			$('.message', dialog.data[0]).append(message);
 
 			// if the user clicks "yes"
@@ -40,7 +41,7 @@ function confirm(message, callback) {
 					callback.apply();
 				}
 				// close the dialog
-				$.modal.close();
+				modal.close(); // or $.modal.close();
 			});
 		}
 	});

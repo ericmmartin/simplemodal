@@ -23,7 +23,7 @@ $subject = "SimpleModal Contact Form";
 $extra = array(
 	"form_subject"	=> true,
 	"form_cc"		=> true,
-	"ip"				=> true,
+	"ip"			=> true,
 	"user_agent"	=> true
 );
 

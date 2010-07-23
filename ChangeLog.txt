@@ -1,14 +1,16 @@
 ==== SimpleModal ChangeLog ====
 
-== 1.3.6 ==
+== 1.4 ==
  * Date: July 22, 2010
- * Added bodyStretch option (to force overlay to fill window in IE6)
- * Removed the autoResize and autoPosition options
- * Changed meaning of the focus option
+ * Changed the implementation of the autoResize, autoPosition, and focus options
+ * The default value for autoResize changed to true
  * Added update() function
- * Changed setContainerDimensions fucntion code
+ * Reworked a number of functions
  * Fixed Opera screen painting issues
-
+ * Updated jQuery requirement to 1.2.4
+ * Updated container to shrink/grow as window resizes
+ * Switched to Google compiler for minification
+ 
 == 1.3.5 ==
  * Date: April 19, 2010
  * Switched back to using $.boxModal to support older versions of jQuery
@@ -45,7 +47,7 @@
  * Date: June 09, 2009
  * Added autoResize option which enables/disables container resizing after window resize
  * Fixed typos in dimension calculations in setContainerDimensions() function
- * Added semi-colon at beginning of script to prevent possible script combining/minfication issues
+ * Added semi-colon at beginning of script to prevent possible script combining/minification issues
  * Added e.preventDefault() to key binding event
  * Moved input checking to watchTab function
  * Thanks to Cedric and Tomas for reporting bugs/suggestions

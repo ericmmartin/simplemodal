@@ -9,7 +9,6 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *
  * Revision: $Id$
- *
  */
 
 jQuery(function ($) {

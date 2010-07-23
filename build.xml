@@ -1,63 +1,58 @@
-<project name="SimpleModal" default="default" basedir=".">
+<project name="SimpleModal" default="all" basedir=".">
 
-	<!--
-	Adapted from the jQuery build scripts
-	-->
+	<loadfile property="version" srcfile="version.txt" />
+	<property name="PREFIX" value="." />
+	<property description="Folder for SimpleModal and min target" name="dist" value="${PREFIX}/dist" />
+	<property description="Source Folder" name="src" value="${PREFIX}/src" />
 
-	<!-- SETUP -->
-	<loadfile property="version" srcFile="version.txt" />
-	<property description="Source Folder" name="SRC_DIR" value="src"  />
-	<property description="Files for parsing etc." name="BUILD_DIR" value="../build" />
-	<property description="Rhino JS Engine" name="JAR" value="${BUILD_DIR}/js.jar" />
+	<property name="SM" value="${dist}/jquery.simplemodal-${version}.js" />
+	<property name="SM_MIN" value="${dist}/jquery.simplemodal.${version}.min.js" />
 
-	<property description="Folder for full, min and packed target" name="DIST_DIR" value="./dist" />
+	<target name="all" depends="clean,full,min" />
 
-	<!-- Files names for distribution -->
-	<property name="FULL" value="${DIST_DIR}/jquery.simplemodal-${version}.js" />
-	<property name="MIN" value="${DIST_DIR}/jquery.simplemodal-${version}.min.js" />
-	<property name="PACK" value="${DIST_DIR}/jquery.simplemodal-${version}.pack.js" />
-
-	<!-- MAIN -->
-
-	<target name="default" description="Main build, replaces @VERSION">
-		<echo message="Building ${FULL}" />
-		<mkdir dir="${DIST_DIR}" />
-		<concat destfile="${FULL}">
-			<fileset dir="${SRC_DIR}" includes="jquery.simplemodal.js" />
+	<target name="full" description="Main build, replaces @VERSION">
+		<echo message="Building ${SM}" />
+		<mkdir dir="${dist}" />
+		<concat destfile="${SM}">
+			<fileset dir="${src}" includes="jquery.simplemodal.js" />
 		</concat>
-		<java jar="${JAR}" fork="true">
-			<arg value="${BUILD_DIR}/build/version.js" />
-			<arg value="${FULL}" />
-		</java>
-		<echo message="${FULL} built." />
+		<replaceregexp match="@VERSION" replace="${version}" flags="g" file="${SM}" />
+		<echo message="${SM} built." />
 	</target>
 
-	<target name="min" depends="default" description="Remove all comments and whitespace, no compression, great in combination with GZip">
-		<echo message="Building ${MIN}" />
-		<java jar="${JAR}" fork="true">
-			<arg value="${BUILD_DIR}/build/min.js" />
-			<arg value="${FULL}" />
-			<arg value="${MIN}" />
-		</java>
-		<echo message="${MIN} built." />
-	</target>
-
-	<target name="pack" depends="default" description="Remove all comments and whitespace and compress">
-		<echo message="Building ${PACK}" />
-		<java jar="${JAR}" fork="true">
-			<arg value="${BUILD_DIR}/build/pack.js" />
-			<arg value="${FULL}" />
-			<arg value="${PACK}" />
-		</java>
-		<echo message="${PACK} built." />
+	<target name="min" depends="full" description="Remove all comments and whitespace, no compression, great in combination with GZip">
+		<echo message="Building ${SM_MIN}" />
+		<apply executable="java" parallel="false" verbose="true" dest="${dist}">
+			<fileset dir="${dist}">
+				<include name="jquery.simplemodal-${version}.js" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="../build/google-compiler-20091218.jar" />
+			<arg value="--warning_level" />
+			<arg value="QUIET" />
+			<arg value="--js_output_file" />
+			<targetfile />
+			<arg value="--js" />
+			<mapper type="glob" from="jquery.simplemodal-${version}.js" to="tmpmin" />
+		</apply>
+		<concat destfile="${SM_MIN}">
+			<filelist files="${SM}, ${dist}/tmpmin" />
+			<filterchain>
+				<headfilter lines="7" />
+			</filterchain>
+		</concat>
+		<concat destfile="${SM_MIN}" append="yes">
+			<filelist files="${dist}/tmpmin" />
+		</concat>
+		<concat destfile="${dist}/jquery.simplemodal.js" append="yes">
+			<filelist files="${SM_MIN}" />
+		</concat>
+		<delete file="${dist}/tmpmin" />
+		<echo message="${SM_MIN} built." />
 	</target>
 
 	<target name="clean">
-		<delete dir="${DIST_DIR}" />
-	</target>
-
-	<target name="all" depends="clean,default,min,pack">
-		<echo message="Build complete." />
+		<delete dir="${dist}" />
 	</target>
 
 </project>
