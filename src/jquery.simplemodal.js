@@ -66,7 +66,7 @@
 		w = [];
 
 	/*
-	 * Stand-alone function to create a modal dialog.
+	 * Create and display a modal dialog.
 	 *
 	 * @param {string, object} data A string, jQuery object or DOM object
 	 * @param {object} [options] An optional object containing options overrides
@@ -76,14 +76,23 @@
 	};
 
 	/*
-	 * Stand-alone function to close the modal dialog
+	 * Close the modal dialog.
 	 */
 	$.modal.close = function () {
 		$.modal.impl.close();
 	};
 
 	/*
-	 * Stand-alone function to determine the dimensions of the modal dialog.
+	 * Set focus on first or last visible input in the modal dialog. To focus on the last
+	 * element, call $.modal.focus('last'). If no input elements are found, focus is placed
+	 * on the data wrapper element.
+	 */
+	$.modal.focus = function (pos) {
+		$.modal.impl.focus(pos);
+	};
+
+	/*
+	 * Determine and set the dimensions of the modal dialog container.
 	 * setPosition() is called if the autoPosition option is true.
 	 */
 	$.modal.setContainerDimensions = function () {
@@ -91,25 +100,21 @@
 	};
 
 	/*
-	 * Stand-alone function to re-position the modal dialog
+	 * Re-position the modal dialog.
 	 */
 	$.modal.setPosition = function () {
 		$.modal.impl.setPosition();
 	};
 
 	/*
-	 * Stand-alone function to update the modal dialog.
+	 * Update the modal dialog. If new dimensions are passed, they will be used to determine
+	 * the dimensions of the container.
+	 *
+	 * setContainerDimensions() is called, which in turn calls setPosition(), if enabled.
+	 * Lastly, focus() is called is the focus option is true.
 	 */
-	$.modal.update = function () {
-		$.modal.impl.update();
-	};
-
-	/*
-	 * Stand-alone function to set focus on first or last visible input in the modal dialog.
-	 * To focus on the last element, call $.modal.focus()
-	 */
-	$.modal.focus = function (pos) {
-		$.modal.impl.focus(pos);
+	$.modal.update = function (height, width) {
+		$.modal.impl.update(height, width);
 	};
 
 	/*
@@ -137,7 +142,7 @@
 	 * minWidth:		(Number:null) The minimum width for the container
 	 * maxHeight:		(Number:null) The maximum height for the container. If not specified, the window height is used.
 	 * maxWidth:		(Number:null) The maximum width for the container. If not specified, the window width is used.
-	 * autoResize:		(Boolean:true) Automatically resize the container, if necessary, on window resize?
+	 * autoResize:		(Boolean:false) Automatically resize the container if it exceeds the browser window dimensions?
 	 * autoPosition:	(Boolean:true) Automatically position the container upon creation and on window resize?
 	 * zIndex:			(Number: 1000) Starting z-index value
 	 * close:			(Boolean:true) If true, closeHTML, escClose and overClose will be used if set.
@@ -172,7 +177,7 @@
 		minWidth: null,
 		maxHeight: null,
 		maxWidth: null,
-		autoResize: true,
+		autoResize: false,
 		autoPosition: true,
 		zIndex: 1000,
 		close: true,
@@ -542,7 +547,7 @@
 				}
 			}
 			else {
-				ch = ch > mh ? mh : ch;
+				ch = s.o.autoResize && ch > mh ? mh : ch;
 			}
 
 			// mow = min option width
@@ -556,7 +561,7 @@
 				}
 			}
 			else {
-				cw = cw > mw ? mw : cw;
+				cw = s.o.autoResize && cw > mw ? mw : cw;
 			}
 
 			s.d.container.css({height: ch, width: cw});
