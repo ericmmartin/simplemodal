@@ -1,11 +1,12 @@
 ==== SimpleModal ChangeLog ====
 
 == 1.4 ==
- * Date: July 22, 2010
+ * Date: July 28, 2010
  * Changed the implementation of the autoResize, autoPosition, and focus options
  * The default value for autoResize changed to true
  * Added update() function
- * Reworked a number of functions
+ * Added "shortcut" functions for focus(), setContainerDimensions(), setPosition(), and update()
+ * Reworked the code in a number of functions
  * Fixed Opera screen painting issues
  * Updated jQuery requirement to 1.2.4
  * Updated container to shrink/grow as window resizes

@@ -184,6 +184,10 @@ $(document).ready(function () {
 			}
 		});
 	});
+	$('a#test33').click(function (e) {
+		e.preventDefault();
+		$('#modalContentOverflowTest').modal({autoResize:true, containerCss:{height:'1000px', width:'1000px'}});
+	});
 });
 
 /**
