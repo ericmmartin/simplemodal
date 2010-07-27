@@ -76,10 +76,40 @@
 	};
 
 	/*
-	 * Stand-alone close function to close the modal dialog
+	 * Stand-alone function to close the modal dialog
 	 */
 	$.modal.close = function () {
 		$.modal.impl.close();
+	};
+
+	/*
+	 * Stand-alone function to determine the dimensions of the modal dialog.
+	 * setPosition() is called if the autoPosition option is true.
+	 */
+	$.modal.setContainerDimensions = function () {
+		$.modal.impl.setContainerDimensions();
+	};
+
+	/*
+	 * Stand-alone function to re-position the modal dialog
+	 */
+	$.modal.setPosition = function () {
+		$.modal.impl.setPosition();
+	};
+
+	/*
+	 * Stand-alone function to update the modal dialog.
+	 */
+	$.modal.update = function () {
+		$.modal.impl.update();
+	};
+
+	/*
+	 * Stand-alone function to set focus on first or last visible input in the modal dialog.
+	 * To focus on the last element, call $.modal.focus()
+	 */
+	$.modal.focus = function (pos) {
+		$.modal.impl.focus(pos);
 	};
 
 	/*
@@ -427,8 +457,11 @@
 				}
 			});
 		},
+		/*
+		 * Place focus on the first or last visible input
+		 */
 		focus: function (pos) {
-			var s = this, p = pos || 'first';
+			var s = this, p = pos && $.inArray(pos, ['first', 'last']) !== -1 ? pos : 'first';
 
 			// focus on dialog or the first visible/enabled input element
 			var input = $(':input:enabled:visible:' + p, s.d.wrap);
