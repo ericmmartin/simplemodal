@@ -47,11 +47,11 @@
  * overlayCss, containerCss, and dataCss options.
  *
  * SimpleModal has been tested in the following browsers:
- * - IE 6, 7, 8
- * - Firefox 2, 3
+ * - IE 6, 7, 8, 9
+ * - Firefox 2, 3, 4
  * - Opera 9, 10
  * - Safari 3, 4, 5
- * - Chrome 1, 2, 3, 4, 5
+ * - Chrome 1, 2, 3, 4, 5, 6
  *
  * @name SimpleModal
  * @type jQuery
