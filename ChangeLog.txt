@@ -1,5 +1,10 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.4.1 ==
+ * Date: November 04, 2010
+ * Resolved the container height issue in IE6 & IE7 with jQuery 1.4.3
+ * Fixed a bug where minWidth and minHeight were not being honored in certain cases
+
 == 1.4 ==
  * Date: July 28, 2010
  * Changed the implementation of the autoResize, autoPosition, and focus options

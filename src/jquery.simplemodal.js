@@ -62,6 +62,7 @@
  */
 ;(function ($) {
 	var ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== 'object',
+		ie7 = $.browser.msie && parseInt($.browser.version) === 7,
 		ieQuirks = null,
 		w = [];
 
@@ -520,11 +521,12 @@
 			s.bindEvents();
 		},
 		setContainerDimensions: function () {
-			var s = this;
+			var s = this,
+				badIE = ie6 || ie7;
 
 			// get the dimensions for the container and data
-			var ch = s.d.origHeight ? s.d.origHeight : $.browser.opera ? s.d.container.height() : s.getVal(s.d.container.css('height'), 'h'),
-				cw = s.d.origWidth ? s.d.origWidth : $.browser.opera ? s.d.container.width() : s.getVal(s.d.container.css('width'), 'w'),
+			var ch = s.d.origHeight ? s.d.origHeight : $.browser.opera ? s.d.container.height() : s.getVal(badIE ? s.d.container[0].currentStyle['height'] : s.d.container.css('height'), 'h'),
+				cw = s.d.origWidth ? s.d.origWidth : $.browser.opera ? s.d.container.width() : s.getVal(badIE ? s.d.container[0].currentStyle['width'] : s.d.container.css('width'), 'w'),
 				dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
 
 			s.d.origHeight = s.d.origHeight || ch;
@@ -547,7 +549,7 @@
 				}
 			}
 			else {
-				ch = s.o.autoResize && ch > mh ? mh : ch;
+				ch = s.o.autoResize && ch > mh ? mh : ch < moh ? moh : ch;
 			}
 
 			// mow = min option width
@@ -561,7 +563,7 @@
 				}
 			}
 			else {
-				cw = s.o.autoResize && cw > mw ? mw : cw;
+				cw = s.o.autoResize && cw > mw ? mw : cw < mow ? mow : cw;
 			}
 
 			s.d.container.css({height: ch, width: cw});
