@@ -2,6 +2,7 @@
 
 $demo = isset($_POST['demo']) ? $_POST['demo'] : '';
 $valid = array("basic", "contact", "confirm", "gallery", "osx");
+$version = '1.4.1';
 
 // don't allow hackers in
 if (in_array($demo, $valid)) {
@@ -30,9 +31,10 @@ if (in_array($demo, $valid)) {
 		);
 
 	/* Create the zip file */
+	$filename = strtolower("simplemodal-demo-$demo-$version.zip");
 	$now = time();
 	$zip = new ZipArchive();
-	$res = $zip->open($now . $demo . '.zip', ZipArchive::CREATE);
+	$res = $zip->open($filename, ZipArchive::CREATE);
 	if ($res === TRUE) {
 		if (file_exists($files['index'])) {
 			$zip->addFile($files['index'], $files['index_zip']);
@@ -69,7 +71,7 @@ if (in_array($demo, $valid)) {
 	}
 
 	/* Open for download */
-	$file = dirname(__FILE__) . '/' . $now . $demo . '.zip';
+	$file = dirname(__FILE__) . '/' . $filename;
 	$fp = fopen($file, 'r');
 	if (!$fp) {
 		 exit("cannot open\n");
