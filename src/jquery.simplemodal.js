@@ -3,7 +3,7 @@
  * http://www.ericmmartin.com/projects/simplemodal/
  * Copyright (c) 2010 Eric Martin (http://twitter.com/ericmmartin)
  * Dual licensed under the MIT and GPL licenses
- * Revision: $Id$
+ * Date: 
  */
 
 /**
@@ -47,11 +47,11 @@
  * overlayCss, containerCss, and dataCss options.
  *
  * SimpleModal has been tested in the following browsers:
- * - IE 6, 7, 8, 9
- * - Firefox 2, 3, 4
+ * - IE 6-9
+ * - Firefox 2-4
  * - Opera 9, 10
- * - Safari 3, 4, 5
- * - Chrome 1, 2, 3, 4, 5, 6
+ * - Safari 3-5
+ * - Chrome 1-6
  *
  * @name SimpleModal
  * @type jQuery
