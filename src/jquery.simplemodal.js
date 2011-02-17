@@ -152,6 +152,7 @@
 								SimpleModal will automatically add the closeClass to this element.
 	 * closeClass:		(String:'simplemodal-close') The CSS class used to bind to the close event
 	 * escClose:		(Boolean:true) Allow Esc keypress to close the dialog?
+	 * anykeyClose: (Boolean:false) Allow any keypress to close the dialog?
 	 * overlayClose:	(Boolean:false) Allow click on overlay to close the dialog?
 	 * position:		(Array:null) Position of container [top, left]. Can be number of pixels or percentage
 	 * persist:			(Boolean:false) Persist the data across modal calls? Only used for existing
@@ -185,6 +186,7 @@
 		closeHTML: '<a class="modalCloseImg" title="Close"></a>',
 		closeClass: 'simplemodal-close',
 		escClose: true,
+		anykeyClose: false,
 		overlayClose: false,
 		position: null,
 		persist: false,
@@ -375,7 +377,10 @@
 
 			// bind keydown events
 			$(document).bind('keydown.simplemodal', function (e) {
-				if (s.o.modal && e.keyCode === 9) { // TAB
+				if (s.o.close && s.o.anykeyClose) {
+					e.preventDefault();
+					s.close();
+				} else if (s.o.modal && e.keyCode === 9) { // TAB
 					s.watchTab(e);
 				}
 				else if ((s.o.close && s.o.escClose) && e.keyCode === 27) { // ESC
