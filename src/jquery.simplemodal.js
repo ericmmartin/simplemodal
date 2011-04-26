@@ -97,14 +97,14 @@
 	 * setPosition() is called if the autoPosition option is true.
 	 */
 	$.modal.setContainerDimensions = function () {
-		$.modal.impl.setContainerDimensions();
+		$.modal.impl.setContainerDimensions(true);
 	};
 
 	/*
 	 * Re-position the modal dialog.
 	 */
 	$.modal.setPosition = function () {
-		$.modal.impl.setPosition();
+		$.modal.impl.setPosition(true);
 	};
 
 	/*
@@ -160,6 +160,9 @@
 	 * modal:			(Boolean:true) User will be unable to interact with the page below the modal or tab away from the dialog.
 								If false, the overlay, iframe, and certain events will be disabled allowing the user to interact
 								with the page below the dialog.
+	 * easing:			Defines the easing type [linear|swing] for the resize animation. If jQuery UI included, more easing types
+	 * 					are available.
+	 * animSpeed:		The speed, in ms, for the resize animation to occur
 	 * onOpen:			(Function:null) The callback function used in place of SimpleModal's open
 	 * onShow:			(Function:null) The callback function used after the modal dialog has opened
 	 * onClose:			(Function:null) The callback function used in place of SimpleModal's close
@@ -189,6 +192,8 @@
 		position: null,
 		persist: false,
 		modal: true,
+		easing: 'swing',
+		animSpeed: 200,
 		onOpen: null,
 		onShow: null,
 		onClose: null
@@ -390,7 +395,7 @@
 				w = s.getDimensions();
 
 				// reposition the dialog
-				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
+				s.o.autoResize ? s.setContainerDimensions(true) : s.o.autoPosition && s.setPosition();
 
 				if (ie6 || ieQuirks) {
 					s.fixIE();
@@ -510,9 +515,14 @@
 
 			// hide data to prevent screen flicker
 			s.d.data.hide();
-			height && s.d.container.css('height', height);
-			width && s.d.container.css('width', width);
-			s.setContainerDimensions();
+
+			// set new dimensions
+			if (height && width) s.d.container.animate({height: height, width: width}, s.o.animSpeed, s.o.animEasing);
+			else if (height) s.d.container.animate({height: height}, s.o.animSpeed, s.o.animEasing);
+			else if (width) s.d.container.animate({width: width}, s.o.animSpeed, s.o.animEasing);
+
+			// animate
+			s.setContainerDimensions(true);
 			s.d.data.show();
 			s.o.focus && s.focus();
 
@@ -520,60 +530,100 @@
 			s.unbindEvents();
 			s.bindEvents();
 		},
-		setContainerDimensions: function () {
+		setContainerDimensions: function (animate) {
 			var s = this,
-				badIE = ie6 || ie7;
-
-			// get the dimensions for the container and data
-			var ch = s.d.origHeight ? s.d.origHeight : $.browser.opera ? s.d.container.height() : s.getVal(badIE ? s.d.container[0].currentStyle['height'] : s.d.container.css('height'), 'h'),
+				badIE = ie6 || ie7,
+				// ch/cw = container height/width
+				ch = s.d.origHeight ? s.d.origHeight : $.browser.opera ? s.d.container.height() : s.getVal(badIE ? s.d.container[0].currentStyle['height'] : s.d.container.css('height'), 'h'),
 				cw = s.d.origWidth ? s.d.origWidth : $.browser.opera ? s.d.container.width() : s.getVal(badIE ? s.d.container[0].currentStyle['width'] : s.d.container.css('width'), 'w'),
-				dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
+				// dh/dw = data height/width
+				dh = s.d.data.outerHeight(true),
+				dw = s.d.data.outerWidth(true),
+				// cmh/cmw = container outer height/width
+				cmh = s.d.container.outerHeight(true),
+				cmw = s.d.container.outerWidth(true),
+				// chp/cwp = container height/width padding
+				chp = cmh - ch,
+				cwp = cmw - cw;
+				// mxoh/mxow = max option height/width
+				mxoh = s.o.maxHeight ? s.getVal(s.o.maxHeight, 'h') : null,
+				mxow = s.o.maxWidth ? s.getVal(s.o.maxWidth, 'w') : null,
+				// mh/mw = max height/width
+				mh = mxoh && mxoh < w[0] ? mxoh : w[0],
+				mw = mxow && mxow < w[1] ? mxow : w[1],
+				// moh/mow = min option height/width
+				moh = s.o.minHeight ? s.getVal(s.o.minHeight, 'h') : 'auto',
+				mow = s.o.minWidth ? s.getVal(s.o.minWidth, 'w') : 'auto',
+				// final required container dimensions
+				fh = dh + chp,
+				fw = dw + cwp;
 
 			s.d.origHeight = s.d.origHeight || ch;
 			s.d.origWidth = s.d.origWidth || cw;
 
-			// mxoh = max option height, mxow = max option width
-			var mxoh = s.o.maxHeight ? s.getVal(s.o.maxHeight, 'h') : null,
-				mxow = s.o.maxWidth ? s.getVal(s.o.maxWidth, 'w') : null,
-				mh = mxoh && mxoh < w[0] ? mxoh : w[0],
-				mw = mxow && mxow < w[1] ? mxow : w[1];
-
-			// moh = min option height
-			var moh = s.o.minHeight ? s.getVal(s.o.minHeight, 'h') : 'auto';
 			if (!ch) {
-				if (!dh) {ch = moh;}
-				else {
-					if (dh > mh) {ch = mh;}
+				if (!dh) {
+					if (moh === 'auto') {ch = moh;}
+					else if (moh < mh) ch = moh;
+					else ch = mh;
+				} else {
+					if (fh > mh) {ch = mh-chp;}
 					else if (s.o.minHeight && moh !== 'auto' && dh < moh) {ch = moh;}
 					else {ch = dh;}
 				}
-			}
-			else {
-				ch = s.o.autoResize && ch > mh ? mh : ch < moh ? moh : ch;
+			} else {
+				if (s.o.autoResize) {
+					if (fh > mh) {ch = mh-chp;}
+					else if (moh !== 'auto') {
+						if (dh > moh) {ch = moh;}
+						else {ch = dh;}
+					} else {ch = dh;}
+				}
+				else if (moh !== 'auto' && ch < moh) {ch = moh;}
+				else ch = ch;
 			}
 
-			// mow = min option width
-			var mow = s.o.minWidth ? s.getVal(s.o.minWidth, 'w') : 'auto';
 			if (!cw) {
-				if (!dw) {cw = mow;}
-				else {
-					if (dw > mw) {cw = mw;}
+				if (!dw) {
+					if (mow === 'auto') {cw = mow;}
+					else if (mow < mw) cw = mow;
+					else cw = mw;
+				} else {
+					if (dw > mw) {cw = mw-dwp;}
 					else if (s.o.minWidth && mow !== 'auto' && dw < mow) {cw = mow;}
 					else {cw = dw;}
 				}
-			}
-			else {
-				cw = s.o.autoResize && cw > mw ? mw : cw < mow ? mow : cw;
+			} else {
+				if (s.o.autoResize) {
+					if (fw > mw) {cw = mw-cwp;}
+					else if (mow !== 'auto') {
+						if (dw > mow) {cw = mow;}
+						else {cw = dw;}
+					} else {cw = dw;}
+				}
+				else if (mow !== 'auto' && cw < mow) {cw = mow;}
+				else {cw = cw;}
 			}
 
-			s.d.container.css({height: ch, width: cw});
-			s.d.wrap.css({overflow: (dh > ch || dw > cw) ? 'auto' : 'visible'});
-			s.o.autoPosition && s.setPosition();
+			if (animate && s.o.autoPosition) {
+				var pos = s.setPosition(animate, ch+chp, cw+cwp);
+				s.d.wrap.css({overflow: (fh > mh || fw > mw) ? 'auto' : 'visible'});
+				s.d.container.animate({height: ch, width: cw, top: pos.top, left: pos.left}, s.o.animSpeed, s.o.animEasing);
+			} else {
+				s.d.wrap.css({overflow: (fh > mh || fw > mw) ? 'auto' : 'visible'});
+				s.d.container.css({height: ch, width: cw});
+				s.o.autoPosition && s.setPosition(animate);
+			}
 		},
-		setPosition: function () {
-			var s = this, top, left,
+		setPosition: function (animate, ht, wt) {
+			var s = this, top, left, hc, vc;
+			if (ht && wt) {
+				hc = (w[0]/2) - (ht/2),
+				vc = (w[1]/2) - (wt/2);
+			} else {
 				hc = (w[0]/2) - (s.d.container.outerHeight(true)/2),
 				vc = (w[1]/2) - (s.d.container.outerWidth(true)/2);
+			}
 
 			if (s.o.position && Object.prototype.toString.call(s.o.position) === '[object Array]') {
 				top = s.o.position[0] || hc;
@@ -582,7 +632,8 @@
 				top = hc;
 				left = vc;
 			}
-			s.d.container.css({left: left, top: top});
+			if (animate) return {left: left, top: top};
+			else s.d.container.css({left: left, top: top});
 		},
 		watchTab: function (e) {
 			var s = this;
@@ -685,13 +736,9 @@
 				s.d.container.hide().remove();
 				s.d.overlay.hide();
 				s.d.iframe && s.d.iframe.hide().remove();
-				setTimeout(function(){
-					// opera work-around
-					s.d.overlay.remove();
+				s.d.overlay.remove();
+				s.d = {};
 
-					// reset the dialog object
-					s.d = {};
-				}, 10);
 			}
 		}
 	};
