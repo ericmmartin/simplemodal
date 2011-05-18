@@ -1,5 +1,13 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.4.2 ==
+ * Date: April 25, 2011
+ * Added default animation transition for resizing. Now supports options 'easing' (swing|linear) and 'animSpeed' (int).
+ * New animation transitioning expands and contracts from the center of the viewport.
+ * Removed opera workaround on modal close which didn't allow re-opening of modal within 10ms.
+ * Fixed buggy nature of autoResize not calculating the proper dimensions when content changes and manually called.
+ * Added bounds checking to setContainerDimensions to not exceed the window size.
+
 == 1.4.1 ==
  * Date: November 04, 2010
  * Resolved the container height issue in IE6 & IE7 with jQuery 1.4.3
