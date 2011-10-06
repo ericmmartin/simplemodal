@@ -1,5 +1,12 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.4.2 ==
+ * Date: October 06, 2011
+ * Added a new 'fixed' option for fixed or absolute positioning
+ * Changed overlay to use the document dimensions instead of window
+ * Removed opera work-around for close() that was causing issues
+
+
 == 1.4.1 ==
  * Date: November 04, 2010
  * Resolved the container height issue in IE6 & IE7 with jQuery 1.4.3
