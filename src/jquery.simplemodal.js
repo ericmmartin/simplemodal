@@ -3,7 +3,7 @@
  * http://www.ericmmartin.com/projects/simplemodal/
  * Copyright (c) 2011 Eric Martin (http://twitter.com/ericmmartin)
  * Dual licensed under the MIT and GPL licenses
- * Date: 
+ * Date:
  */
 
 /**
@@ -60,7 +60,17 @@
  * @author Eric Martin (http://ericmmartin.com)
  * @version @VERSION
  */
-;(function ($) {
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}
+(function ($) {
 	var d = [],
 		doc = $(document),
 		ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== 'object',
@@ -325,7 +335,7 @@
 				.attr('id', s.o.containerId)
 				.addClass('simplemodal-container')
 				.css($.extend(
-					{position: s.o.fixed ? 'fixed' : 'absolute'},	
+					{position: s.o.fixed ? 'fixed' : 'absolute'},
 					s.o.containerCss,
 					{display: 'none', zIndex: s.o.zIndex + 2}
 				))
@@ -699,4 +709,4 @@
 			}
 		}
 	};
-})(jQuery);
+}));
