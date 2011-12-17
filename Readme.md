@@ -1,12 +1,12 @@
-[SimpleModal](http://www.ericmmartin.com/projects/simplemodal/) - A modal dialog framework for jQuery
+[SimpleModal](http://simplemodal.com/) - A modal dialog framework for jQuery
 ================================
 
-* [Documentation](http://www.ericmmartin.com/projects/simplemodal/)
+* [Documentation](http://simplemodal.com/)
 * [Demos](http://www.ericmmartin.com/projects/simplemodal-demos/)
 
 Questions?
 --------
-For questions, please post them on [stackoverflow](http://stackoverflow.com/) or in the [jQuery Plugins Forum](http://forum.jquery.com/using-jquery-plugins).
+For questions, please post them on [stackoverflow](http://stackoverflow.com/) and tag the question with "simplemodal".
 
 For issues or feature requests, please enter them on the [issues](https://github.com/ericmmartin/simplemodal/issues) page. 
 
