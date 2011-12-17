@@ -1,8 +1,8 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
- * http://www.ericmmartin.com/projects/simplemodal/
- * Copyright (c) 2011 Eric Martin (http://twitter.com/ericmmartin)
- * Dual licensed under the MIT and GPL licenses
+ * http://simplemodal.com/
+ * Copyright (c) 2011 Eric Martin
+ * Licensed under MIT and GPL
  * Date:
  */
 
@@ -61,7 +61,7 @@
  * @version @VERSION
  */
 
-(function (factory) {
+;(function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);

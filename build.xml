@@ -18,7 +18,7 @@
 			<fileset dir="${src}" includes="jquery.simplemodal.js" />
 		</concat>
 		<replaceregexp match="@VERSION" replace="${version}" flags="g" file="${SM}" />
-		<replaceregexp match="Date: " replace="Date: ${build.time}" file="${SM}" />
+		<replaceregexp match="Date:" replace="Date: ${build.time}" file="${SM}" />
 		<echo message="${SM} built." />
 	</target>
 
@@ -29,7 +29,7 @@
 				<include name="jquery.simplemodal-${version}.js" />
 			</fileset>
 			<arg line="-jar" />
-			<arg path="build/google-compiler-20100917.jar" />
+			<arg path="build/compiler.jar" />
 			<arg value="--warning_level" />
 			<arg value="QUIET" />
 			<arg value="--js_output_file" />
