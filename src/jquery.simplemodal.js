@@ -494,9 +494,7 @@
 		getDimensions: function () {
 			// fix a jQuery/Opera bug with determining the window height
 			var s = this,
-				h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery < '1.3'
-						|| $.browser.opera && $.browser.version < '9.5' && $.fn.jquery > '1.2.6'
-				? wndw[0].innerHeight : wndw.height();
+				h = wndw[0].innerHeight ? wndw[0].innerHeight : wndw.height();
 
 			d = [doc.height(), doc.width()];
 			w = [h, wndw.width()];
