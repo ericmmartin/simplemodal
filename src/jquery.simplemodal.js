@@ -494,7 +494,7 @@
 		getDimensions: function () {
 			// fix a jQuery bug with determining the window height - use innerHeight if available
 			var s = this,
-				h = typeof window.innerHeight == 'undefined' ? wndw.height() : window.innerHeight;
+				h = typeof window.innerHeight === 'undefined' ? wndw.height() : window.innerHeight;
 
 			d = [doc.height(), doc.width()];
 			w = [h, wndw.width()];
