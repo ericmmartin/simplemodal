@@ -492,11 +492,9 @@
 			}, 10);
 		},
 		getDimensions: function () {
-			// fix a jQuery/Opera bug with determining the window height
+			// fix a jQuery bug with determining the window height - use innerHeight if available
 			var s = this,
-				h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery < '1.3'
-						|| $.browser.opera && $.browser.version < '9.5' && $.fn.jquery > '1.2.6'
-				? wndw[0].innerHeight : wndw.height();
+				h = typeof window.innerHeight === 'undefined' ? wndw.height() : window.innerHeight;
 
 			d = [doc.height(), doc.width()];
 			w = [h, wndw.width()];
