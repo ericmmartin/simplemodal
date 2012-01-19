@@ -366,7 +366,9 @@
 
 			// fix issues with IE
 			if (ie6 || ieQuirks) {
-				s.fixIE();
+				try {
+		                    s.fixIE();
+		                } catch (e) {}
 			}
 		},
 		/*
