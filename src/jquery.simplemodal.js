@@ -1,7 +1,7 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://simplemodal.com/
- * Copyright (c) 2011 Eric Martin
+ * Copyright (c) 2012 Eric Martin
  * Licensed under MIT and GPL
  * Date:
  */
