@@ -246,7 +246,7 @@
 			// determine how to handle the data based on its type
 			if (typeof data === 'object') {
 				// convert DOM object to a jQuery object
-				data = data instanceof jQuery ? data : $(data);
+				data = data instanceof $ ? data : $(data);
 				s.d.placeholder = false;
 
 				// if the object came from the DOM, keep track of its parent

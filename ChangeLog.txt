@@ -1,8 +1,9 @@
 ==== SimpleModal ChangeLog ====
 
 == 1.4.3 ==
- * Date: August 22, 2012
+ * Date: September 08, 2012
  * Changed $.boxModel to $.support.boxModel (requires jQuery 1.3+)
+ * Fixed potential noConflict bug. Thanks to Erik Westra
 
 
 == 1.4.2 ==
