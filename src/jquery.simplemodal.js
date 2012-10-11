@@ -497,7 +497,16 @@
 				h = typeof window.innerHeight === 'undefined' ? wndw.height() : window.innerHeight;
 
 			d = [doc.height(), doc.width()];
-			w = [h, wndw.width()];
+			
+			// make sure that w is recording real numbers. 
+			// In case wndw.height() or .width() is not working, use numbers from doc instead (better than nothing)
+			var heightToUse = h == 0 ? d[0] : h;
+			var widthToUse = wndw.width();
+			if (widthToUse == 0) {
+        widthToUse = d[1];
+			}
+			w = [heightToUse, widthToUse];
+			
 		},
 		getVal: function (v, d) {
 			return v ? (typeof v === 'number' ? v
