@@ -335,7 +335,7 @@
 				.attr('id', s.o.containerId)
 				.addClass('simplemodal-container')
 				.css($.extend(
-					{position: s.o.fixed ? 'fixed' : 'absolute'},
+					{position: s.o.fixed ? 'fixed' : 'absolute', 'height' : '0'},
 					s.o.containerCss,
 					{display: 'none', zIndex: s.o.zIndex + 2}
 				))
