@@ -1,5 +1,10 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.4.4 ==
+ * Date: January 20, 2013
+ * Removed $.browser calls due to deprecation and removal in jQuery 1.9
+
+
 == 1.4.3 ==
  * Date: September 08, 2012
  * Changed $.boxModel to $.support.boxModel (requires jQuery 1.3+)

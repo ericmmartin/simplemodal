@@ -1,7 +1,7 @@
 /*
  * SimpleModal @VERSION - jQuery Plugin
  * http://simplemodal.com/
- * Copyright (c) 2012 Eric Martin
+ * Copyright (c) 2013 Eric Martin
  * Licensed under MIT and GPL
  * Date:
  */
@@ -73,11 +73,17 @@
 (function ($) {
 	var d = [],
 		doc = $(document),
-		ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== 'object',
-		ie7 = $.browser.msie && parseInt($.browser.version) === 7,
-		ieQuirks = null,
+		ua = navigator.userAgent.toLowerCase(),
 		wndw = $(window),
 		w = [];
+
+	var browser = {
+		ieQuirks: null,
+		msie: /msie/.test(ua) && !/opera/.test(ua),
+		opera: /opera/.test(ua)
+	};
+	browser.ie6 = browser.msie && /msie 6./.test(ua) && typeof window['XMLHttpRequest'] !== 'object';
+	browser.ie7 = browser.msie && /msie 7.0/.test(ua);
 
 	/*
 	 * Create and display a modal dialog.
@@ -232,7 +238,7 @@
 			}
 
 			// $.support.boxModel is undefined if checked earlier
-			ieQuirks = $.browser.msie && !$.support.boxModel;
+			browser.ieQuirks = browser.msie && !$.support.boxModel;
 
 			// merge defaults and user options
 			s.o = $.extend({}, $.modal.defaults, options);
@@ -299,7 +305,7 @@
 			s.getDimensions();
 
 			// add an iframe to prevent select options from bleeding through
-			if (s.o.modal && ie6) {
+			if (s.o.modal && browser.ie6) {
 				s.d.iframe = $('<iframe src="javascript:false;"></iframe>')
 					.css($.extend(s.o.iframeCss, {
 						display: 'none',
@@ -365,7 +371,7 @@
 			s.d.data.appendTo(s.d.wrap);
 
 			// fix issues with IE
-			if (ie6 || ieQuirks) {
+			if (browser.ie6 || browser.ieQuirks) {
 				s.fixIE();
 			}
 		},
@@ -408,7 +414,7 @@
 				// reposition the dialog
 				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
 
-				if (ie6 || ieQuirks) {
+				if (browser.ie6 || browser.ieQuirks) {
 					s.fixIE();
 				}
 				else if (s.o.modal) {
@@ -536,11 +542,11 @@
 		},
 		setContainerDimensions: function () {
 			var s = this,
-				badIE = ie6 || ie7;
+				badIE = browser.ie6 || browser.ie7;
 
 			// get the dimensions for the container and data
-			var ch = s.d.origHeight ? s.d.origHeight : $.browser.opera ? s.d.container.height() : s.getVal(badIE ? s.d.container[0].currentStyle['height'] : s.d.container.css('height'), 'h'),
-				cw = s.d.origWidth ? s.d.origWidth : $.browser.opera ? s.d.container.width() : s.getVal(badIE ? s.d.container[0].currentStyle['width'] : s.d.container.css('width'), 'w'),
+			var ch = s.d.origHeight ? s.d.origHeight : browser.opera ? s.d.container.height() : s.getVal(badIE ? s.d.container[0].currentStyle['height'] : s.d.container.css('height'), 'h'),
+				cw = s.d.origWidth ? s.d.origWidth : browser.opera ? s.d.container.width() : s.getVal(badIE ? s.d.container[0].currentStyle['width'] : s.d.container.css('width'), 'w'),
 				dh = s.d.data.outerHeight(true), dw = s.d.data.outerWidth(true);
 
 			s.d.origHeight = s.d.origHeight || ch;
