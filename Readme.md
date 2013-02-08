@@ -1,8 +1,9 @@
 [SimpleModal](http://simplemodal.com/) - A modal dialog framework for jQuery
 ================================
 
-* [Documentation](http://simplemodal.com/)
+* [Documentation](http://www.ericmmartin.com/projects/simplemodal/)
 * [Demos](http://www.ericmmartin.com/projects/simplemodal-demos/)
+* [Downloads](http://code.google.com/p/simplemodal/downloads/list)
 
 Questions?
 --------
@@ -39,8 +40,3 @@ Makes: `./dist/jquery.simplemodal.VERSION.js`
 Finally, you can remove all the built files using the command:
   
     ant clean
-
-Archives
--------
-* [Downloads](http://code.google.com/p/simplemodal/downloads/list)
-* [Issues](http://code.google.com/p/simplemodal/issues/list)
