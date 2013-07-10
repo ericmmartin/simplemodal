@@ -79,12 +79,23 @@
 
 	var browser = {
 		ieQuirks: null,
+		expression: true,
 		msie: /msie/.test(ua) && !/opera/.test(ua),
 		opera: /opera/.test(ua)
 	};
 	browser.ie6 = browser.msie && /msie 6./.test(ua) && typeof window['XMLHttpRequest'] !== 'object';
 	browser.ie7 = browser.msie && /msie 7.0/.test(ua);
-	browser.ie10 = browser.msie && /msie 10.0/.test(ua);
+	browser.expression = true;
+
+	/*
+	 * Feature-Detection for Expression
+	 */
+	try {
+		document.createElement('div').style.setExpression('height');
+		document.createElement('div').style.removeExpression('height');
+	} catch (e) {
+		browser.expression = false;
+	}
 
 	/*
 	 * Create and display a modal dialog.
@@ -374,7 +385,7 @@
 
 			// fix issues with IE
 			// @todo: please remove ie hacks
-			if (browser.ie6 || browser.ieQuirks && !browser.ie10) {
+			if (browser.ie6 || browser.ieQuirks && browser.expression === true) {
 				s.fixIE();
 			}
 		},
@@ -417,7 +428,7 @@
 				// reposition the dialog
 				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
 				// @todo: please remove ie hacks
-				if (browser.ie6 || browser.ieQuirks && !browser.ie10) {
+				if (browser.ie6 || browser.ieQuirks && browser.expression === true) {
 					s.fixIE();
 				}
 				else if (s.o.modal) {
@@ -458,7 +469,7 @@
 							s.removeExpression('height');
 							s.removeExpression('width');
 							s.setExpression('height','' + bsh + ' > ' + bch + ' ? ' + bsh + ' : ' + bch + ' + "px"');
-							 s.setExpression('width','' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw + ' + "px"');
+							s.setExpression('width','' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw + ' + "px"');
 						} catch (e) {}
 					}
 					else {
@@ -637,8 +648,8 @@
 		/*
 		 * Open the modal dialog elements
 		 * - Note: If you use the onOpen callback, you must "show" the
-		 *         overlay and container elements manually
-		 *         (the iframe will be handled by SimpleModal)
+		 * overlay and container elements manually
+		 * (the iframe will be handled by SimpleModal)
 		 */
 		open: function () {
 			var s = this;
@@ -664,11 +675,11 @@
 		/*
 		 * Close the modal dialog
 		 * - Note: If you use an onClose callback, you must remove the
-		 *         overlay, container and iframe elements manually
+		 * overlay, container and iframe elements manually
 		 *
 		 * @param {boolean} external Indicates whether the call to this
-		 *     function was internal or external. If it was external, the
-		 *     onClose callback will be ignored
+		 * function was internal or external. If it was external, the
+		 * onClose callback will be ignored
 		 */
 		close: function () {
 			var s = this;
