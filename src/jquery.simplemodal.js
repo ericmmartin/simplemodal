@@ -451,10 +451,13 @@
 
 					s.position = 'absolute';
 					if (i < 2) {
-						s.removeExpression('height');
-						s.removeExpression('width');
-						s.setExpression('height','' + bsh + ' > ' + bch + ' ? ' + bsh + ' : ' + bch + ' + "px"');
-						s.setExpression('width','' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw + ' + "px"');
+						if(s.removeExpression !== undefined)
+						{					
+							s.removeExpression('height');
+							s.removeExpression('width');
+							s.setExpression('height','' + bsh + ' > ' + bch + ' ? ' + bsh + ' : ' + bch + ' + "px"');
+							s.setExpression('width','' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw + ' + "px"');
+						}
 					}
 					else {
 						var te, le;
@@ -477,10 +480,13 @@
 							te = '(' + ch + ' || ' + bch + ') / 2 - (this.offsetHeight / 2) + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"';
 							le = '(' + cw + ' || ' + bcw + ') / 2 - (this.offsetWidth / 2) + (t = ' + sl + ' ? ' + sl + ' : ' + bsl + ') + "px"';
 						}
-						s.removeExpression('top');
-						s.removeExpression('left');
-						s.setExpression('top', te);
-						s.setExpression('left', le);
+						if(s.removeExpression !== undefined)
+						{
+							s.removeExpression('top');
+							s.removeExpression('left');
+							s.setExpression('top', te);
+							s.setExpression('left', le);
+						}
 					}
 				}
 			});
