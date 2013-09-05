@@ -184,6 +184,7 @@
 	 * onOpen:			(Function:null) The callback function used in place of SimpleModal's open
 	 * onShow:			(Function:null) The callback function used after the modal dialog has opened
 	 * onClose:			(Function:null) The callback function used in place of SimpleModal's close
+	 * onBeforeClose:   (Function:null) 
 	 */
 	$.modal.defaults = {
 		appendTo: 'body',
@@ -213,7 +214,8 @@
 		modal: true,
 		onOpen: null,
 		onShow: null,
-		onClose: null
+		onClose: null,
+		onBeforeClose: null
 	};
 
 	/*
@@ -248,6 +250,7 @@
 
 			// set the onClose callback flag
 			s.occb = false;
+			s.obccb = false;
 
 			// determine how to handle the data based on its type
 			if (typeof data === 'object') {
@@ -669,6 +672,19 @@
 			// prevent close when dialog does not exist
 			if (!s.d.data) {
 				return false;
+			}
+
+			if ($.isFunction(s.o.onBeforeClose) && !s.obccb )
+			{
+				var carryOn = s.o.onBeforeClose.apply(s, [s.d]);
+				if( carryOn === false )
+				{
+					return false;
+				}
+				else
+				{
+					s.obccb = true;
+				}
 			}
 
 			// remove the default events
