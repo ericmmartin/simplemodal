@@ -1,5 +1,10 @@
 ==== SimpleModal ChangeLog ====
 
+== 1.4.5 ==
+ * Date: October 18, 2013
+ * Added internal boxModel property to deal with IE browsers
+
+
 == 1.4.4 ==
  * Date: January 20, 2013
  * Removed $.browser calls due to deprecation and removal in jQuery 1.9
