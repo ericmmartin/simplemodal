@@ -1,0 +1,26 @@
+{
+  "name": "jquery.simplemodal",
+  "version": "1.4.5",
+  "homepage": "https://github.com/ericmmartin/simplemodal",
+  "authors": [
+    "Eric Martin <eric@ericmmartin.com>"
+  ],
+  "description": "SimpleModal is a lightweight jQuery plugin that provides a simple interface to create a modal dialog",
+  "main": "./src/jquery.simplemodal.js",
+  "keywords": [
+    "modal",
+    "overlay",
+    "dialog"
+  ],
+  "license": "GPL",
+  "dependencies": {
+    "jquery": ">=1.3.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
