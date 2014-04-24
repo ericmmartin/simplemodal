@@ -139,6 +139,13 @@
 	};
 
 	/*
+	 * Transition to another modal without closing the overlay
+	 */
+	$.modal.switchModals = function ( newModalObj , options ) {
+		$.modal.impl.switchModals( newModalObj , options );
+	};	
+
+	/*
 	 * Chained function to create a modal dialog.
 	 *
 	 * @param {object} [options] An optional object containing options overrides
@@ -320,21 +327,25 @@
 					.appendTo(s.o.appendTo);
 			}
 
-			// create the overlay
-			s.d.overlay = $('<div></div>')
-				.attr('id', s.o.overlayId)
-				.addClass('simplemodal-overlay')
-				.css($.extend(s.o.overlayCss, {
-					display: 'none',
-					opacity: s.o.opacity / 100,
-					height: s.o.modal ? d[0] : 0,
-					width: s.o.modal ? d[1] : 0,
-					position: 'fixed',
-					left: 0,
-					top: 0,
-					zIndex: s.o.zIndex + 1
-				}))
-				.appendTo(s.o.appendTo);
+      s.d.overlay = $('#' + s.o.overlayId);
+
+      if(s.d.overlay.length == 0 ) {
+				// create the overlay
+				s.d.overlay = $('<div></div>')
+					.attr('id', s.o.overlayId)
+					.addClass('simplemodal-overlay')
+					.css($.extend(s.o.overlayCss, {
+						display: 'none',
+						opacity: s.o.opacity / 100,
+						height: s.o.modal ? d[0] : 0,
+						width: s.o.modal ? d[1] : 0,
+						position: 'fixed',
+						left: 0,
+						top: 0,
+						zIndex: s.o.zIndex + 1
+					}))
+					.appendTo(s.o.appendTo);
+			}
 
 			// create the container
 			s.d.container = $('<div></div>')
@@ -663,7 +674,7 @@
 		 *     function was internal or external. If it was external, the
 		 *     onClose callback will be ignored
 		 */
-		close: function () {
+		close: function ( keepOverlay ) {
 			var s = this;
 
 			// prevent close when dialog does not exist
@@ -704,13 +715,25 @@
 
 				// remove the remaining elements
 				s.d.container.hide().remove();
-				s.d.overlay.hide();
+				if(!keepOverlay)
+					s.d.overlay.hide();
 				s.d.iframe && s.d.iframe.hide().remove();
-				s.d.overlay.remove();
+				if(!keepOverlay)
+					s.d.overlay.remove();
 
 				// reset the dialog object
 				s.d = {};
 			}
-		}
+		},
+
+    /*
+     * Close the currently open modal and open a new one, keeping
+     * the overlay in place to create a warm and fuzzy transisiton between modals
+     */
+    switchModals: function( newModalObj , options )
+    {
+      this.close(true);
+      newModalObj.modal( options );
+    }		
 	};
 }));
