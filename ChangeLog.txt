@@ -1,8 +1,9 @@
 ==== SimpleModal ChangeLog ====
 
 == 1.4.5 ==
- * Date: October 18, 2013
+ * Date: January 7, 2014
  * Added internal boxModel property to deal with IE browsers
+ * Added bower support (thanks to https://github.com/rickeyvisinski-kanban)
 
 
 == 1.4.4 ==

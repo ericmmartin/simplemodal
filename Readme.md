@@ -5,6 +5,10 @@
 * [Demos](http://www.ericmmartin.com/projects/simplemodal-demos/)
 * [Downloads](http://code.google.com/p/simplemodal/downloads/list)
 
+> **NOTICE**
+ 
+> I am no longer able to actively support or maintain SimpleModal. If you would like to become a contributor, drop me a line. Otherwise, I will be removing this project in the near future.
+
 Questions?
 --------
 For questions, please post them on [stackoverflow](http://stackoverflow.com/) and tag the question with "simplemodal".
