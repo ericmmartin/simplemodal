@@ -1,13 +1,14 @@
+> **NOTICE**
+ 
+> I am no longer able to actively support or maintain SimpleModal. If you would like to become a contributor, drop me a line. Otherwise, I will be removing this project in the near future.
+
+
 [SimpleModal](http://simplemodal.com/) - A modal dialog framework for jQuery
 ================================
 
 * [Documentation](http://www.ericmmartin.com/projects/simplemodal/)
 * [Demos](http://www.ericmmartin.com/projects/simplemodal-demos/)
 * [Downloads](http://code.google.com/p/simplemodal/downloads/list)
-
-> **NOTICE**
- 
-> I am no longer able to actively support or maintain SimpleModal. If you would like to become a contributor, drop me a line. Otherwise, I will be removing this project in the near future.
 
 Questions?
 --------
