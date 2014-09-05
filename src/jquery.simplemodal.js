@@ -451,10 +451,11 @@
 
 					s.position = 'absolute';
 					if (i < 2) {
-						s.removeExpression('height');
-						s.removeExpression('width');
-						s.setExpression('height','' + bsh + ' > ' + bch + ' ? ' + bsh + ' : ' + bch + ' + "px"');
-						s.setExpression('width','' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw + ' + "px"');
+						var h = eval('' + bsh + ' > ' + bch + ' ? ' + bsh + ' : ' + bch)+'px';
+						var w = eval('' + bsw + ' > ' + bcw + ' ? ' + bsw + ' : ' + bcw)+'px';
+
+						$(s).height( h);
+						$(s).width( w);
 					}
 					else {
 						var te, le;
@@ -477,10 +478,9 @@
 							te = '(' + ch + ' || ' + bch + ') / 2 - (this.offsetHeight / 2) + (t = ' + st + ' ? ' + st + ' : ' + bst + ') + "px"';
 							le = '(' + cw + ' || ' + bcw + ') / 2 - (this.offsetWidth / 2) + (t = ' + sl + ' ? ' + sl + ' : ' + bsl + ') + "px"';
 						}
-						s.removeExpression('top');
-						s.removeExpression('left');
-						s.setExpression('top', te);
-						s.setExpression('left', le);
+
+						$(s).css('top', eval(te));
+						$(s).css('left', eval(le));
 					}
 				}
 			});
