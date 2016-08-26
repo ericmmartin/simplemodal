@@ -12,7 +12,10 @@
     "overlay",
     "dialog"
   ],
-  "license": "GPL",
+  "license": [
+    "MIT",
+    "GPL"
+  ],
   "dependencies": {
     "jquery": ">=1.3.0"
   },
