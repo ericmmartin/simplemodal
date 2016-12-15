@@ -256,7 +256,7 @@
 				s.d.placeholder = false;
 
 				// if the object came from the DOM, keep track of its parent
-				if (data.parent().parent().size() > 0) {
+				if (data.parent().parent().length > 0) {
 					data.before($('<span></span>')
 						.attr('id', 'simplemodal-placeholder')
 						.css({display: 'none'}));
