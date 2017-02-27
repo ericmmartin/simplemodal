@@ -339,6 +339,8 @@
 			// create the container
 			s.d.container = $('<div></div>')
 				.attr('id', s.o.containerId)
+				//Adding role attribute with value 'dialog' for 508 compliance.
+				.attr('role', 'dialog')
 				.addClass('simplemodal-container')
 				.css($.extend(
 					{position: s.o.fixed ? 'fixed' : 'absolute'},
