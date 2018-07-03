@@ -384,7 +384,7 @@
 			var s = this;
 
 			// bind the close event to any element with the closeClass class
-			$('.' + s.o.closeClass).bind('click.simplemodal', function (e) {
+			s.d.container.delegate('.' + s.o.closeClass, 'click.simplemodal', function (e) {
 				e.preventDefault();
 				s.close();
 			});
@@ -430,7 +430,7 @@
 		 * Unbind events
 		 */
 		unbindEvents: function () {
-			$('.' + this.o.closeClass).unbind('click.simplemodal');
+			s.d.container.undelegate('.' + s.o.closeClass, 'click.simplemodal');
 			doc.unbind('keydown.simplemodal');
 			wndw.unbind('.simplemodal');
 			this.d.overlay.unbind('click.simplemodal');
