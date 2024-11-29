@@ -571,6 +571,7 @@
 				}
 			}
 			else {
+				ch = s.o.autoResize && dh ? dh : ch;
 				ch = s.o.autoResize && ch > mh ? mh : ch < moh ? moh : ch;
 			}
 
