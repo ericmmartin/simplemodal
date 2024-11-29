@@ -200,6 +200,8 @@
 		minWidth: null,
 		maxHeight: null,
 		maxWidth: null,
+		minLeft: 0,
+		minTop: 0,
 		autoResize: false,
 		autoPosition: true,
 		zIndex: 1000,
@@ -605,6 +607,11 @@
 				top = st + hc;
 				left = vc;
 			}
+
+			// Enforce minimum position (useful for keeping dialog within window boundries)
+            left = left < s.o.minLeft ? s.o.minLeft : left;
+            top = top < s.o.minTop ? s.o.minTop : top;
+
 			s.d.container.css({left: left, top: top});
 		},
 		watchTab: function (e) {
